@@ -1,0 +1,179 @@
+[
+  {
+    "day": 1,
+    "date": "2026-03-20",
+    "sessions": [
+      {
+        "time": "08:30",
+        "end": "09:00",
+        "area": "mama",
+        "room": "Sal\u00f3n Principal",
+        "title": "Apertura y bienvenida",
+        "description": "Palabras de bienvenida y presentaci\u00f3n del formato de la convenci\u00f3n."
+      },
+      {
+        "time": "09:00",
+        "end": "10:15",
+        "area": "mama",
+        "room": "Sala A",
+        "title": "Caso 1 \u2014 Mama: Carcinoma invasivo con margen cercano",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "Discusi\u00f3n multidisciplinaria sobre manejo de m\u00e1rgenes quir\u00fargicos y decisi\u00f3n de re-excisi\u00f3n vs. radioterapia."
+      },
+      {
+        "time": "09:00",
+        "end": "10:15",
+        "area": "pulmon",
+        "room": "Sala B",
+        "title": "Caso 1 \u2014 Pulm\u00f3n: NSCLC estadio III localmente avanzado",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "Abordaje combinado: quimio-radioterapia concurrente vs. secuencial, rol de la inmunoterapia."
+      },
+      {
+        "time": "10:15",
+        "end": "10:45",
+        "area": "mama",
+        "room": "Foyer",
+        "title": "Coffee break"
+      },
+      {
+        "time": "10:45",
+        "end": "12:00",
+        "area": "prostata",
+        "room": "Sala A",
+        "title": "Caso 1 \u2014 Pr\u00f3stata: Riesgo intermedio desfavorable",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "SBRT vs. fraccionamiento convencional. Rol de la deprivaci\u00f3n androg\u00e9nica."
+      },
+      {
+        "time": "10:45",
+        "end": "12:00",
+        "area": "neuro",
+        "room": "Sala B",
+        "title": "Caso 1 \u2014 Neuro: Met\u00e1stasis cerebral \u00fanica post-cirug\u00eda",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "Radiocirug\u00eda del lecho quir\u00fargico vs. radioterapia holocraneana. Preservaci\u00f3n neurocognitiva."
+      },
+      {
+        "time": "12:00",
+        "end": "13:30",
+        "area": "mama",
+        "room": "Restaurante",
+        "title": "Almuerzo"
+      },
+      {
+        "time": "13:30",
+        "end": "14:45",
+        "area": "mama",
+        "room": "Sala A",
+        "title": "Caso 2 \u2014 Mama: Recidiva local post-mastectom\u00eda",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "Re-irradiaci\u00f3n, t\u00e9cnicas avanzadas y consideraciones de toxicidad."
+      },
+      {
+        "time": "13:30",
+        "end": "14:45",
+        "area": "neuro",
+        "room": "Sala B",
+        "title": "Caso 2 \u2014 Neuro: Glioblastoma, manejo inicial",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "Protocolo Stupp, campos de tratamiento tumoral, nuevas terapias."
+      },
+      {
+        "time": "15:00",
+        "end": "16:15",
+        "area": "pulmon",
+        "room": "Sala A",
+        "title": "Caso 2 \u2014 Pulm\u00f3n: SBRT en tumor temprano inoperable",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "Selecci\u00f3n del paciente, fraccionamiento, seguimiento y resultados."
+      },
+      {
+        "time": "15:00",
+        "end": "16:15",
+        "area": "prostata",
+        "room": "Sala B",
+        "title": "Caso 2 \u2014 Pr\u00f3stata: Recidiva bioqu\u00edmica post-prostatectom\u00eda",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "Radioterapia de rescate precoz. Rol del PET-PSMA en la decisi\u00f3n."
+      },
+      {
+        "time": "20:00",
+        "end": "23:00",
+        "area": "mama",
+        "room": "Por confirmar",
+        "title": "Cena de la Convenci\u00f3n",
+        "description": "Cena formal de networking para todos los asistentes."
+      }
+    ]
+  },
+  {
+    "day": 2,
+    "date": "2026-03-21",
+    "sessions": [
+      {
+        "time": "09:00",
+        "end": "10:15",
+        "area": "mama",
+        "room": "Sala A",
+        "title": "Caso 3 \u2014 Mama: Irradiaci\u00f3n parcial acelerada",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "Selecci\u00f3n de pacientes, t\u00e9cnica y evidencia actualizada."
+      },
+      {
+        "time": "09:00",
+        "end": "10:15",
+        "area": "neuro",
+        "room": "Sala B",
+        "title": "Caso 3 \u2014 Neuro: M\u00faltiples met\u00e1stasis cerebrales",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "SRS m\u00faltiple vs. WBRT con preservaci\u00f3n hipocampal. L\u00edmite de lesiones."
+      },
+      {
+        "time": "10:15",
+        "end": "10:45",
+        "area": "mama",
+        "room": "Foyer",
+        "title": "Coffee break"
+      },
+      {
+        "time": "10:45",
+        "end": "12:00",
+        "area": "pulmon",
+        "room": "Sala A",
+        "title": "Caso 3 \u2014 Pulm\u00f3n: Oligometast\u00e1sico sincr\u00f3nico",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "Radioterapia ablativa en enfermedad oligometast\u00e1sica. Combinaci\u00f3n con inmunoterapia."
+      },
+      {
+        "time": "10:45",
+        "end": "12:00",
+        "area": "prostata",
+        "room": "Sala B",
+        "title": "Caso 3 \u2014 Pr\u00f3stata: Alto riesgo con compromiso ganglionar",
+        "moderator": "Por confirmar",
+        "speakers": [],
+        "description": "Extensi\u00f3n de campos a pelvis. Boost a ganglios positivos. Duraci\u00f3n de hormonoterapia."
+      },
+      {
+        "time": "12:00",
+        "end": "12:30",
+        "area": "mama",
+        "room": "Sal\u00f3n Principal",
+        "title": "Cierre y conclusiones",
+        "description": "S\u00edntesis de las discusiones, conclusiones principales y pr\u00f3ximos pasos."
+      }
+    ]
+  }
+]

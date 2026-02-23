@@ -1,0 +1,29 @@
+[
+  {
+    "type": "Sede del evento",
+    "name": "RT International Institute",
+    "address": "Carrasco, Montevideo, Uruguay",
+    "details": "Centro de radioterapia de alta precisi\u00f3n. Las sesiones se llevar\u00e1n a cabo en las Salas A y B del instituto.",
+    "mapsUrl": "https://maps.google.com/?q=RT+International+Institute+Carrasco+Montevideo",
+    "mapEmbed": "",
+    "mapImage": ""
+  },
+  {
+    "type": "Cena de la Convenci\u00f3n",
+    "name": "Por confirmar",
+    "address": "Montevideo, Uruguay",
+    "details": "Cena formal de networking el viernes 20 de marzo a las 20:00 hs. Dresscode: smart casual.",
+    "mapsUrl": "",
+    "mapEmbed": "",
+    "mapImage": ""
+  },
+  {
+    "type": "Hotel recomendado",
+    "name": "Por confirmar",
+    "address": "Carrasco, Montevideo, Uruguay",
+    "details": "Hotel sugerido para los asistentes, a minutos del RT International Institute.",
+    "mapsUrl": "",
+    "mapEmbed": "",
+    "mapImage": ""
+  }
+]

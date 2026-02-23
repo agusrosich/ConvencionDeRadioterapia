@@ -1,0 +1,74 @@
+[
+  {
+    "id": "speaker-01",
+    "name": "Dr. Nombre Apellido",
+    "specialty": "Oncolog\u00eda Radioter\u00e1pica",
+    "institution": "RT International Institute",
+    "area": "mama",
+    "photo": "",
+    "bio": "Especialista en radioterapia de mama con experiencia en t\u00e9cnicas de irradiaci\u00f3n parcial acelerada y tratamientos hipofraccionados."
+  },
+  {
+    "id": "speaker-02",
+    "name": "Dr. Nombre Apellido",
+    "specialty": "Cirug\u00eda Oncol\u00f3gica",
+    "institution": "Hospital Brit\u00e1nico",
+    "area": "mama",
+    "photo": "",
+    "bio": "Cirujano onc\u00f3logo mamario con enfoque en cirug\u00eda conservadora y manejo de m\u00e1rgenes."
+  },
+  {
+    "id": "speaker-03",
+    "name": "Dr. Nombre Apellido",
+    "specialty": "Oncolog\u00eda M\u00e9dica",
+    "institution": "Swiss Medical Group",
+    "area": "pulmon",
+    "photo": "",
+    "bio": "Onc\u00f3logo m\u00e9dico especializado en tumores tor\u00e1cicos e inmunoterapia."
+  },
+  {
+    "id": "speaker-04",
+    "name": "Dr. Nombre Apellido",
+    "specialty": "Oncolog\u00eda Radioter\u00e1pica",
+    "institution": "RT International Institute",
+    "area": "pulmon",
+    "photo": "",
+    "bio": "Experto en SBRT pulmonar y radioterapia de precisi\u00f3n con VARIAN EDGE."
+  },
+  {
+    "id": "speaker-05",
+    "name": "Dr. Nombre Apellido",
+    "specialty": "Urolog\u00eda Oncol\u00f3gica",
+    "institution": "Hospital Brit\u00e1nico",
+    "area": "prostata",
+    "photo": "",
+    "bio": "Ur\u00f3logo onc\u00f3logo con experiencia en prostatectom\u00eda radical y manejo multidisciplinario."
+  },
+  {
+    "id": "speaker-06",
+    "name": "Dr. Nombre Apellido",
+    "specialty": "Oncolog\u00eda Radioter\u00e1pica",
+    "institution": "RT International Institute",
+    "area": "prostata",
+    "photo": "",
+    "bio": "Especialista en radioterapia de pr\u00f3stata, SBRT y braquiterapia."
+  },
+  {
+    "id": "speaker-07",
+    "name": "Dr. Nombre Apellido",
+    "specialty": "Neurorradiocirug\u00eda",
+    "institution": "RT International Institute",
+    "area": "neuro",
+    "photo": "",
+    "bio": "Especialista en radiocirug\u00eda estereot\u00e1ctica cerebral con sistema Brainlab."
+  },
+  {
+    "id": "speaker-08",
+    "name": "Dr. Nombre Apellido",
+    "specialty": "Neurooncolog\u00eda",
+    "institution": "Blue Cross & Blue Shield",
+    "area": "neuro",
+    "photo": "",
+    "bio": "Neurooncolog\u00eda cl\u00ednica con enfoque en gliomas de alto grado y met\u00e1stasis cerebrales."
+  }
+]

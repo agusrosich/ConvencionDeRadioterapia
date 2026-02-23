@@ -1,0 +1,23 @@
+{
+  "name": "RTCC 2026 - RT International Convention Companion",
+  "short_name": "RTCC 2026",
+  "description": "Companion app de la RT International Institute Convention 2026",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#303A7F",
+  "theme_color": "#303A7F",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "img/logo-convention-gold.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/logo-convention.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
