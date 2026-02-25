@@ -5,7 +5,9 @@
       "Bash(python:*)",
       "WebFetch(domain:www.rtinternationalinstitute.com)",
       "WebFetch(domain:rt.com.uy)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)"
     ]
   }
 }
