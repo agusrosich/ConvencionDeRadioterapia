@@ -3,7 +3,9 @@
     "allow": [
       "Bash(pip install:*)",
       "Bash(python:*)",
-      "WebFetch(domain:www.rtinternationalinstitute.com)"
+      "WebFetch(domain:www.rtinternationalinstitute.com)",
+      "WebFetch(domain:rt.com.uy)",
+      "Bash(curl:*)"
     ]
   }
 }

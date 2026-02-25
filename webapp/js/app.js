@@ -264,6 +264,7 @@ function renderSpeakers() {
       <button class="speaker-follow-btn ${isFollowed ? 'active' : ''}" onclick="toggleSpeakerFollow('${speaker.id}', '${escapedName}', event)">
         ${bellSmall} ${isFollowed ? 'Siguiendo' : 'Notificarme'}
       </button>
+      ${typeof authEditBtn === 'function' ? authEditBtn(speaker) : ''}
       ${speaker.bio ? `<div class="speaker-bio">${speaker.bio}</div>` : ''}
     </div>
   `}).join('');

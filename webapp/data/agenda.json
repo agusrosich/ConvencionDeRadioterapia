@@ -1,178 +1,232 @@
 [
   {
     "day": 1,
-    "date": "2026-03-20",
+    "date": "2026-03-13",
     "sessions": [
       {
         "time": "08:30",
         "end": "09:00",
         "area": "mama",
-        "room": "Sal\u00f3n Principal",
+        "room": "Salón Principal",
         "title": "Apertura y bienvenida",
-        "description": "Palabras de bienvenida y presentaci\u00f3n del formato de la convenci\u00f3n."
+        "speakers": [],
+        "description": "Palabras de bienvenida y presentación del formato."
       },
       {
         "time": "09:00",
         "end": "10:15",
         "area": "mama",
         "room": "Sala A",
-        "title": "Caso 1 \u2014 Mama: Carcinoma invasivo con margen cercano",
-        "moderator": "Por confirmar",
+        "title": "Caso 1 — Mama: Rt post neoadyuvancia",
         "speakers": [],
-        "description": "Discusi\u00f3n multidisciplinaria sobre manejo de m\u00e1rgenes quir\u00fargicos y decisi\u00f3n de re-excisi\u00f3n vs. radioterapia."
+        "moderator": "Federico Lorenzo"
       },
       {
         "time": "09:00",
         "end": "10:15",
-        "area": "pulmon",
+        "area": "neuro",
         "room": "Sala B",
-        "title": "Caso 1 \u2014 Pulm\u00f3n: NSCLC estadio III localmente avanzado",
-        "moderator": "Por confirmar",
+        "title": "Caso 1 — Neuro: Meningioma G2",
         "speakers": [],
-        "description": "Abordaje combinado: quimio-radioterapia concurrente vs. secuencial, rol de la inmunoterapia."
+        "moderator": "Valentina Ferreira"
       },
       {
         "time": "10:15",
         "end": "10:45",
         "area": "mama",
         "room": "Foyer",
-        "title": "Coffee break"
+        "title": "Coffee break",
+        "speakers": []
+      },
+      {
+        "time": "10:45",
+        "end": "12:00",
+        "area": "pulmon",
+        "room": "Sala A",
+        "title": "Caso 1 — Pulmón: 2 Nodulos SBRT, medio y superior derecho",
+        "speakers": [],
+        "moderator": "Emiliano Rivero"
       },
       {
         "time": "10:45",
         "end": "12:00",
         "area": "prostata",
-        "room": "Sala A",
-        "title": "Caso 1 \u2014 Pr\u00f3stata: Riesgo intermedio desfavorable",
-        "moderator": "Por confirmar",
-        "speakers": [],
-        "description": "SBRT vs. fraccionamiento convencional. Rol de la deprivaci\u00f3n androg\u00e9nica."
-      },
-      {
-        "time": "10:45",
-        "end": "12:00",
-        "area": "neuro",
         "room": "Sala B",
-        "title": "Caso 1 \u2014 Neuro: Met\u00e1stasis cerebral \u00fanica post-cirug\u00eda",
-        "moderator": "Por confirmar",
+        "title": "Caso 1 — Próstata: Recidiva bioquímica postprostatectomia. Pet negativo,RT adyuvante",
         "speakers": [],
-        "description": "Radiocirug\u00eda del lecho quir\u00fargico vs. radioterapia holocraneana. Preservaci\u00f3n neurocognitiva."
+        "moderator": "Sergio Aguiar"
       },
       {
         "time": "12:00",
         "end": "13:30",
         "area": "mama",
         "room": "Restaurante",
-        "title": "Almuerzo"
+        "title": "Almuerzo",
+        "speakers": []
       },
       {
         "time": "13:30",
         "end": "14:45",
         "area": "mama",
         "room": "Sala A",
-        "title": "Caso 2 \u2014 Mama: Recidiva local post-mastectom\u00eda",
-        "moderator": "Por confirmar",
+        "title": "Caso 2 — Mama: Avanzado N2",
         "speakers": [],
-        "description": "Re-irradiaci\u00f3n, t\u00e9cnicas avanzadas y consideraciones de toxicidad."
+        "moderator": "Federico Lorenzo"
       },
       {
         "time": "13:30",
         "end": "14:45",
         "area": "neuro",
         "room": "Sala B",
-        "title": "Caso 2 \u2014 Neuro: Glioblastoma, manejo inicial",
-        "moderator": "Por confirmar",
+        "title": "Caso 2 — Neuro: Neurinoma del acústico / Funcional",
         "speakers": [],
-        "description": "Protocolo Stupp, campos de tratamiento tumoral, nuevas terapias."
+        "moderator": "Valentina Ferreira"
       },
       {
-        "time": "15:00",
-        "end": "16:15",
+        "time": "14:45",
+        "end": "15:15",
+        "area": "mama",
+        "room": "Foyer",
+        "title": "Coffee break",
+        "speakers": []
+      },
+      {
+        "time": "15:15",
+        "end": "16:30",
         "area": "pulmon",
         "room": "Sala A",
-        "title": "Caso 2 \u2014 Pulm\u00f3n: SBRT en tumor temprano inoperable",
-        "moderator": "Por confirmar",
+        "title": "Caso 2 — Pulmón: SBRT nodulo pulmonar unico, lobulo superior derecho",
         "speakers": [],
-        "description": "Selecci\u00f3n del paciente, fraccionamiento, seguimiento y resultados."
+        "moderator": "Emiliano Rivero"
       },
       {
-        "time": "15:00",
-        "end": "16:15",
+        "time": "15:15",
+        "end": "16:30",
         "area": "prostata",
         "room": "Sala B",
-        "title": "Caso 2 \u2014 Pr\u00f3stata: Recidiva bioqu\u00edmica post-prostatectom\u00eda",
-        "moderator": "Por confirmar",
+        "title": "Caso 2 — Próstata: Localizado, intermedio, resultados de la clinica. Hidrogel, SBRT",
         "speakers": [],
-        "description": "Radioterapia de rescate precoz. Rol del PET-PSMA en la decisi\u00f3n."
+        "moderator": "Sergio Aguiar"
       },
       {
         "time": "20:00",
         "end": "23:00",
         "area": "mama",
         "room": "Por confirmar",
-        "title": "Cena de la Convenci\u00f3n",
+        "title": "Cena de la Convención",
+        "speakers": [],
         "description": "Cena formal de networking para todos los asistentes."
       }
     ]
   },
   {
     "day": 2,
-    "date": "2026-03-21",
+    "date": "2026-03-14",
     "sessions": [
       {
         "time": "09:00",
         "end": "10:15",
         "area": "mama",
         "room": "Sala A",
-        "title": "Caso 3 \u2014 Mama: Irradiaci\u00f3n parcial acelerada",
-        "moderator": "Por confirmar",
+        "title": "Caso 3 — Mama: T1-2N0 Fast foward APBI",
         "speakers": [],
-        "description": "Selecci\u00f3n de pacientes, t\u00e9cnica y evidencia actualizada."
+        "moderator": "Federico Lorenzo"
       },
       {
         "time": "09:00",
         "end": "10:15",
         "area": "neuro",
         "room": "Sala B",
-        "title": "Caso 3 \u2014 Neuro: M\u00faltiples met\u00e1stasis cerebrales",
-        "moderator": "Por confirmar",
+        "title": "Caso 3 — Neuro: Columna",
         "speakers": [],
-        "description": "SRS m\u00faltiple vs. WBRT con preservaci\u00f3n hipocampal. L\u00edmite de lesiones."
+        "moderator": "Valentina Ferreira"
       },
       {
         "time": "10:15",
         "end": "10:45",
         "area": "mama",
         "room": "Foyer",
-        "title": "Coffee break"
+        "title": "Coffee break",
+        "speakers": []
       },
       {
         "time": "10:45",
         "end": "12:00",
         "area": "pulmon",
         "room": "Sala A",
-        "title": "Caso 3 \u2014 Pulm\u00f3n: Oligometast\u00e1sico sincr\u00f3nico",
-        "moderator": "Por confirmar",
+        "title": "Caso 3 — Pulmón: Mocuepidermoide de traquea",
         "speakers": [],
-        "description": "Radioterapia ablativa en enfermedad oligometast\u00e1sica. Combinaci\u00f3n con inmunoterapia."
+        "moderator": "Emiliano Rivero"
       },
       {
         "time": "10:45",
         "end": "12:00",
         "area": "prostata",
         "room": "Sala B",
-        "title": "Caso 3 \u2014 Pr\u00f3stata: Alto riesgo con compromiso ganglionar",
-        "moderator": "Por confirmar",
+        "title": "Caso 3 — Próstata: Recidiva bioquimica Pet positivo. Recidiva local post radioterapia, SBRT, HIFU",
         "speakers": [],
-        "description": "Extensi\u00f3n de campos a pelvis. Boost a ganglios positivos. Duraci\u00f3n de hormonoterapia."
+        "moderator": "Sergio Aguiar"
       },
       {
         "time": "12:00",
-        "end": "12:30",
+        "end": "13:30",
         "area": "mama",
-        "room": "Sal\u00f3n Principal",
+        "room": "Restaurante",
+        "title": "Almuerzo",
+        "speakers": []
+      },
+      {
+        "time": "13:30",
+        "end": "14:45",
+        "area": "mama",
+        "room": "Sala A",
+        "title": "Caso 4 — Mama: Por confirmar",
+        "speakers": [],
+        "moderator": "Federico Lorenzo"
+      },
+      {
+        "time": "13:30",
+        "end": "14:45",
+        "area": "neuro",
+        "room": "Sala B",
+        "title": "Caso 4 — Neuro: MAV",
+        "speakers": [],
+        "moderator": "Valentina Ferreira"
+      },
+      {
+        "time": "14:45",
+        "end": "15:15",
+        "area": "mama",
+        "room": "Foyer",
+        "title": "Coffee break",
+        "speakers": []
+      },
+      {
+        "time": "15:15",
+        "end": "16:30",
+        "area": "pulmon",
+        "room": "Sala A",
+        "title": "Caso 4 — Pulmón: Oligometastasis",
+        "speakers": [],
+        "moderator": "Emiliano Rivero"
+      },
+      {
+        "time": "15:15",
+        "end": "16:30",
+        "area": "prostata",
+        "room": "Sala B",
+        "title": "Caso 4 — Próstata: SBRT oligometastásico metacrónico",
+        "speakers": [],
+        "moderator": "Sergio Aguiar"
+      },
+      {
+        "time": "16:30",
+        "end": "17:00",
+        "area": "mama",
+        "room": "Salón Principal",
         "title": "Cierre y conclusiones",
-        "description": "S\u00edntesis de las discusiones, conclusiones principales y pr\u00f3ximos pasos."
+        "speakers": [],
+        "description": "Síntesis de las discusiones y próximos pasos."
       }
     ]
   }

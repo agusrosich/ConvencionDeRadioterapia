@@ -1,9 +1,10 @@
-const CACHE_NAME = 'rtcc-2026-v1';
+const CACHE_NAME = 'rtcc-2026-v2';
 const ASSETS = [
   './',
   './index.html',
   './css/style.css',
   './js/app.js',
+  './js/auth.js',
   './img/logo-convention.png',
   './img/logo-convention-gold.png',
   './manifest.json'

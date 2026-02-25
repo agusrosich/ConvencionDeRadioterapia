@@ -1,74 +1,785 @@
 [
   {
-    "id": "speaker-01",
-    "name": "Dr. Nombre Apellido",
-    "specialty": "Oncolog\u00eda Radioter\u00e1pica",
-    "institution": "RT International Institute",
+    "id": "speaker-001",
+    "name": "Gustavo Febles",
+    "specialty": "Imagenologo",
+    "institution": "",
     "area": "mama",
     "photo": "",
-    "bio": "Especialista en radioterapia de mama con experiencia en t\u00e9cnicas de irradiaci\u00f3n parcial acelerada y tratamientos hipofraccionados."
+    "bio": ""
   },
   {
-    "id": "speaker-02",
-    "name": "Dr. Nombre Apellido",
-    "specialty": "Cirug\u00eda Oncol\u00f3gica",
-    "institution": "Hospital Brit\u00e1nico",
+    "id": "speaker-002",
+    "name": "Gabriela Mendez",
+    "specialty": "Imagenologo",
+    "institution": "",
     "area": "mama",
     "photo": "",
-    "bio": "Cirujano onc\u00f3logo mamario con enfoque en cirug\u00eda conservadora y manejo de m\u00e1rgenes."
+    "bio": ""
   },
   {
-    "id": "speaker-03",
-    "name": "Dr. Nombre Apellido",
-    "specialty": "Oncolog\u00eda M\u00e9dica",
-    "institution": "Swiss Medical Group",
-    "area": "pulmon",
+    "id": "speaker-003",
+    "name": "Fernando Lavista",
+    "specialty": "Imagenologo",
+    "institution": "",
+    "area": "mama",
     "photo": "",
-    "bio": "Onc\u00f3logo m\u00e9dico especializado en tumores tor\u00e1cicos e inmunoterapia."
+    "bio": ""
   },
   {
-    "id": "speaker-04",
-    "name": "Dr. Nombre Apellido",
-    "specialty": "Oncolog\u00eda Radioter\u00e1pica",
+    "id": "speaker-004",
+    "name": "Carlitos Arévalo",
+    "specialty": "Mastologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-005",
+    "name": "Juan Cossa",
+    "specialty": "Mastologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-006",
+    "name": "Praderi",
+    "specialty": "Mastologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-007",
+    "name": "Juan Moreli",
+    "specialty": "Mastologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-008",
+    "name": "Carlos Acevedo",
+    "specialty": "Mastologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-009",
+    "name": "Gustavo Veirano",
+    "specialty": "Mastologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-010",
+    "name": "Scasso",
+    "specialty": "Mastologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-011",
+    "name": "Laufer",
+    "specialty": "Mastologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-012",
+    "name": "Virginia Ortega",
+    "specialty": "Patologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-013",
+    "name": "Gualco",
+    "specialty": "Patologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-014",
+    "name": "Musto",
+    "specialty": "Patologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-015",
+    "name": "Lucia Monzon",
+    "specialty": "Patologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-016",
+    "name": "Cecilia Castillo",
+    "specialty": "Oncologo médico",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-017",
+    "name": "Lucia Delgado",
+    "specialty": "Oncologo médico",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-018",
+    "name": "Dahiana Amarillo",
+    "specialty": "Oncologo médico",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-019",
+    "name": "Virginia Rodriguez",
+    "specialty": "Oncologo médico",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-020",
+    "name": "Liber Saldombide",
+    "specialty": "Oncologo médico",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-021",
+    "name": "Estela Corrazo",
+    "specialty": "Oncologo médico",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-022",
+    "name": "Luis Ubillos",
+    "specialty": "Oncologo médico",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-023",
+    "name": "Dana Kimelman",
+    "specialty": "Genetista",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-024",
+    "name": "Maria Fernanda Diaz",
+    "specialty": "Radiooncologo",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-025",
+    "name": "Federico Lorenzo",
+    "specialty": "Radiooncologo",
     "institution": "RT International Institute",
-    "area": "pulmon",
-    "photo": "",
-    "bio": "Experto en SBRT pulmonar y radioterapia de precisi\u00f3n con VARIAN EDGE."
+    "area": "mama",
+    "photo": "img/speakers/federico-lorenzo.jpg",
+    "bio": ""
   },
   {
-    "id": "speaker-05",
-    "name": "Dr. Nombre Apellido",
-    "specialty": "Urolog\u00eda Oncol\u00f3gica",
-    "institution": "Hospital Brit\u00e1nico",
-    "area": "prostata",
-    "photo": "",
-    "bio": "Ur\u00f3logo onc\u00f3logo con experiencia en prostatectom\u00eda radical y manejo multidisciplinario."
-  },
-  {
-    "id": "speaker-06",
-    "name": "Dr. Nombre Apellido",
-    "specialty": "Oncolog\u00eda Radioter\u00e1pica",
+    "id": "speaker-026",
+    "name": "Natalia Gadea",
+    "specialty": "Fisico Médico/Tecnólogos",
     "institution": "RT International Institute",
-    "area": "prostata",
-    "photo": "",
-    "bio": "Especialista en radioterapia de pr\u00f3stata, SBRT y braquiterapia."
+    "area": "mama",
+    "photo": "img/speakers/natalia-gadea.jpg",
+    "bio": ""
   },
   {
-    "id": "speaker-07",
-    "name": "Dr. Nombre Apellido",
-    "specialty": "Neurorradiocirug\u00eda",
+    "id": "speaker-027",
+    "name": "Jesica Lell",
+    "specialty": "Fisico Médico/Tecnólogos",
+    "institution": "",
+    "area": "mama",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-028",
+    "name": "Agustin Rosich",
+    "specialty": "Inteligencia Artificial",
     "institution": "RT International Institute",
+    "area": "mama",
+    "photo": "img/speakers/agustin-rosich.jpg",
+    "bio": ""
+  },
+  {
+    "id": "speaker-029",
+    "name": "Robinson Rodriguez",
+    "specialty": "Oncologo médico",
+    "institution": "",
     "area": "neuro",
     "photo": "",
-    "bio": "Especialista en radiocirug\u00eda estereot\u00e1ctica cerebral con sistema Brainlab."
+    "bio": ""
   },
   {
-    "id": "speaker-08",
-    "name": "Dr. Nombre Apellido",
-    "specialty": "Neurooncolog\u00eda",
-    "institution": "Blue Cross & Blue Shield",
+    "id": "speaker-030",
+    "name": "Emilio Turcatti",
+    "specialty": "Imagenologo",
+    "institution": "",
     "area": "neuro",
     "photo": "",
-    "bio": "Neurooncolog\u00eda cl\u00ednica con enfoque en gliomas de alto grado y met\u00e1stasis cerebrales."
+    "bio": ""
+  },
+  {
+    "id": "speaker-031",
+    "name": "Nicolas Sgarbi",
+    "specialty": "Imagenologo",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-032",
+    "name": "Elena Otero Cudim",
+    "specialty": "Imagenologo",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-033",
+    "name": "Cecilia Purcallas",
+    "specialty": "Imagenologo",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-034",
+    "name": "Martin Rodriguez",
+    "specialty": "Imagenologo",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-035",
+    "name": "Osmar Tellis",
+    "specialty": "Imagenologo",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-036",
+    "name": "Wapkcof",
+    "specialty": "Neurocirujano",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-037",
+    "name": "Fernando Martinez",
+    "specialty": "Neurocirujano",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-038",
+    "name": "Federico Salles",
+    "specialty": "Neurocirujano",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-039",
+    "name": "Humberto Prinzo",
+    "specialty": "Neurocirujano",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-040",
+    "name": "Joao Gabriel",
+    "specialty": "Neurocirujano",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-041",
+    "name": "Alvaro Villar",
+    "specialty": "Neurocirujano",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-042",
+    "name": "Pablo Pereda",
+    "specialty": "Neurocirujano",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-043",
+    "name": "Alejandra Jaume",
+    "specialty": "Neurocirujano",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-044",
+    "name": "Valentina Ferreira",
+    "specialty": "Radioncologo",
+    "institution": "RT International Institute",
+    "area": "neuro",
+    "photo": "img/speakers/valentina-ferreira.jpg",
+    "bio": ""
+  },
+  {
+    "id": "speaker-045",
+    "name": "Aldo Quarneti",
+    "specialty": "Radioncologo",
+    "institution": "RT International Institute",
+    "area": "neuro",
+    "photo": "img/speakers/aldo-quarneti.jpg",
+    "bio": ""
+  },
+  {
+    "id": "speaker-046",
+    "name": "Pablo Castropeña",
+    "specialty": "Radioncologo",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-047",
+    "name": "Garagorri",
+    "specialty": "Psiquiatra",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-048",
+    "name": "Cesar Della Biancia",
+    "specialty": "Físico Médico",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-049",
+    "name": "Karina Ochandorena",
+    "specialty": "Físico Médico",
+    "institution": "RT International Institute",
+    "area": "neuro",
+    "photo": "img/speakers/karina-ochandorena.jpg",
+    "bio": ""
+  },
+  {
+    "id": "speaker-050",
+    "name": "Nicolas Larragueta",
+    "specialty": "Físico Médico",
+    "institution": "",
+    "area": "neuro",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-051",
+    "name": "Ana Gruss",
+    "specialty": "Neumólogo",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-052",
+    "name": "Liliana Servente",
+    "specialty": "Imagenologo",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-053",
+    "name": "Nelson De trapani",
+    "specialty": "Imagenologo",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-054",
+    "name": "Veronica Gigirey",
+    "specialty": "Imagenologo",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-055",
+    "name": "Clarita Rodriguez",
+    "specialty": "Oncólogo Médico",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-056",
+    "name": "Gianeya Santander",
+    "specialty": "Oncólogo Médico",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-057",
+    "name": "Matias Jeldres",
+    "specialty": "Oncólogo Médico",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-058",
+    "name": "Diego Touya",
+    "specialty": "Oncólogo Médico",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-059",
+    "name": "Mauricio Cuello",
+    "specialty": "Oncólogo Médico",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-060",
+    "name": "Julio Truschansky",
+    "specialty": "Cirujano de torax",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-061",
+    "name": "Gerardo Bruno",
+    "specialty": "Cirujano de torax",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-062",
+    "name": "José Magiolo",
+    "specialty": "Cirujano de torax",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-063",
+    "name": "Daniel Terra",
+    "specialty": "Cirujano de torax",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-064",
+    "name": "Gustavo Ferraris",
+    "specialty": "Radioncólogo",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-065",
+    "name": "Heloisa De Aandrade",
+    "specialty": "Radioncólogo",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-066",
+    "name": "Ricardo Ruggeri",
+    "specialty": "Físico Médico",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-067",
+    "name": "Rodolfo Alfonso",
+    "specialty": "Físico Médico",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-068",
+    "name": "Paola Alvarez",
+    "specialty": "Físico Médico",
+    "institution": "",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-069",
+    "name": "Suarez",
+    "specialty": "Urologo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-070",
+    "name": "Domenech",
+    "specialty": "Urologo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-071",
+    "name": "Levin Martinez",
+    "specialty": "Urologo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-072",
+    "name": "Topolansky",
+    "specialty": "Urologo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-073",
+    "name": "Roberto Puente",
+    "specialty": "Urologo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-074",
+    "name": "Federico Lopez",
+    "specialty": "Urologo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-075",
+    "name": "Laura Mouro",
+    "specialty": "Urologo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-076",
+    "name": "Raul Cepellini",
+    "specialty": "Urologo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-077",
+    "name": "Melissa Klubber",
+    "specialty": "Oncologo médico",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-078",
+    "name": "Noelia Silvera",
+    "specialty": "Oncologo médico",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-079",
+    "name": "Gabriel Krigger",
+    "specialty": "Oncologo médico",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-080",
+    "name": "Cono Santi",
+    "specialty": "Imagenólogo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-081",
+    "name": "Pablo Pedetti",
+    "specialty": "Imagenólogo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-082",
+    "name": "Andres Cordova",
+    "specialty": "Radiooncologo",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-083",
+    "name": "Sergio Aguiar",
+    "specialty": "Radiooncologo",
+    "institution": "RT International Institute",
+    "area": "prostata",
+    "photo": "img/speakers/sergio-aguiar.jpg",
+    "bio": ""
+  },
+  {
+    "id": "speaker-084",
+    "name": "Joaquín Wilkins",
+    "specialty": "Fisico Médico / Tecnólogos",
+    "institution": "RT International Institute",
+    "area": "prostata",
+    "photo": "img/speakers/joaquin-wilkins.jpg",
+    "bio": ""
+  },
+  {
+    "id": "speaker-085",
+    "name": "Eduardo Larrinaga",
+    "specialty": "Fisico Médico / Tecnólogos",
+    "institution": "RT International Institute",
+    "area": "prostata",
+    "photo": "img/speakers/eduardo-larrinaga.jpg",
+    "bio": ""
+  },
+  {
+    "id": "speaker-086",
+    "name": "Nadia Hernandez",
+    "specialty": "Fisico Médico / Tecnólogos",
+    "institution": "",
+    "area": "prostata",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-087",
+    "name": "Emiliano Rivero",
+    "specialty": "Moderador",
+    "institution": "RT International Institute",
+    "area": "pulmon",
+    "photo": "",
+    "bio": ""
   }
 ]

@@ -32,13 +32,21 @@
         <img src="img/logo-convention-gold.png" alt="RTCC" class="topbar-logo">
         <span class="topbar-title">RTCC <span class="topbar-year">2026</span></span>
       </div>
-      <button class="notif-btn" id="notifBtn" onclick="navigateTo('notifications')">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-        </svg>
-        <span class="notif-badge hidden" id="notifBadge">0</span>
-      </button>
+      <div class="topbar-right">
+        <button class="auth-btn" id="authBtn" onclick="openAuthModal()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+          <span id="authBtnLabel">Acceder</span>
+        </button>
+        <button class="notif-btn" id="notifBtn" onclick="navigateTo('notifications')">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <span class="notif-badge hidden" id="notifBadge">0</span>
+        </button>
+      </div>
     </header>
 
     <!-- Notification Banner -->
@@ -185,8 +193,158 @@
     <!-- Toast snackbar -->
     <div class="toast hidden" id="toast"></div>
 
+    <!-- ================================================
+         MODAL: Login / Register
+         ================================================ -->
+    <div id="modalAuth" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'modalAuth')">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-label="Acceso">
+        <button class="modal-close" onclick="closeModal('modalAuth')">&times;</button>
+        <div class="modal-logo">
+          <img src="img/logo-convention-gold.png" alt="RTCC" width="48" height="48">
+        </div>
+        <h2 class="modal-title">Acceder</h2>
+
+        <div class="modal-tabs">
+          <button class="modal-tab active" id="tabLogin" onclick="switchAuthTab('login')">Iniciar sesi&oacute;n</button>
+          <button class="modal-tab" id="tabRegister" onclick="switchAuthTab('register')">Registrarse</button>
+        </div>
+
+        <form id="formLogin" class="auth-form" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" id="loginEmail" placeholder="tu@email.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contrase&ntilde;a</label>
+            <input class="form-input" type="password" id="loginPassword" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required autocomplete="current-password">
+          </div>
+          <div class="form-error hidden" id="loginError"></div>
+          <button type="submit" class="btn-primary" id="loginSubmit">Ingresar</button>
+        </form>
+
+        <form id="formRegister" class="auth-form hidden" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" id="registerEmail" placeholder="tu@email.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Contrase&ntilde;a</label>
+            <input class="form-input" type="password" id="registerPassword" placeholder="M&iacute;nimo 6 caracteres" required minlength="6" autocomplete="new-password">
+          </div>
+          <div class="form-error hidden" id="registerError"></div>
+          <button type="submit" class="btn-primary" id="registerSubmit">Crear cuenta</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================================================
+         MODAL: Claim / Vincular perfil
+         ================================================ -->
+    <div id="modalClaim" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'modalClaim')">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-label="Vincular perfil">
+        <button class="modal-close" onclick="closeModal('modalClaim')">&times;</button>
+        <h2 class="modal-title">Vincular perfil de speaker</h2>
+        <p class="modal-subtitle">Seleccion&aacute; tu nombre de la lista para asociar tu cuenta con tu perfil de speaker.</p>
+
+        <div class="form-group">
+          <label class="form-label">Tu nombre en el programa</label>
+          <select class="form-input form-select" id="claimSelect">
+            <option value="">-- Seleccionar --</option>
+          </select>
+        </div>
+        <div class="form-error hidden" id="claimError"></div>
+        <button class="btn-primary" id="claimSubmit" onclick="handleClaim()">Vincular perfil</button>
+      </div>
+    </div>
+
+    <!-- ================================================
+         MODAL: Edit Profile
+         ================================================ -->
+    <div id="modalProfile" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'modalProfile')">
+      <div class="modal-card modal-card--tall" role="dialog" aria-modal="true" aria-label="Editar perfil">
+        <button class="modal-close" onclick="closeModal('modalProfile')">&times;</button>
+        <h2 class="modal-title">Mi perfil</h2>
+
+        <div class="profile-photo-wrap">
+          <div class="profile-photo-ring" id="profilePhotoPreview" onclick="triggerPhotoPick()">
+            <div class="profile-photo-edit-icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+            </div>
+          </div>
+          <input type="file" id="photoFileInput" accept="image/*" class="hidden" onchange="handlePhotoSelected(event)">
+        </div>
+
+        <form id="formProfile" class="auth-form" onsubmit="handleSaveProfile(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Nombre</label>
+              <input class="form-input" type="text" id="profileName" placeholder="Nombre" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Apellido</label>
+              <input class="form-input" type="text" id="profileLastname" placeholder="Apellido">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Instituci&oacute;n</label>
+            <input class="form-input" type="text" id="profileInstitution" placeholder="Hospital / Universidad">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Especialidad</label>
+            <input class="form-input" type="text" id="profileSpecialty" placeholder="Especialidad m&eacute;dica">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tel&eacute;fono</label>
+            <input class="form-input" type="tel" id="profilePhone" placeholder="+598 99 000 000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email p&uacute;blico</label>
+            <input class="form-input" type="email" id="profileEmail" placeholder="contacto@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Bio</label>
+            <textarea class="form-input form-textarea" id="profileBio" rows="4" placeholder="Breve descripci&oacute;n profesional..."></textarea>
+          </div>
+          <div class="form-error hidden" id="profileError"></div>
+          <button type="submit" class="btn-primary" id="profileSubmit">Guardar cambios</button>
+          <button type="button" class="btn-secondary" onclick="handleLogout()">Cerrar sesi&oacute;n</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================================================
+         MODAL: Photo Crop
+         ================================================ -->
+    <div id="modalCrop" class="modal-backdrop modal-backdrop--dark hidden">
+      <div class="crop-container" role="dialog" aria-modal="true" aria-label="Recortar foto">
+        <div class="crop-header">
+          <span class="crop-title">Ajust&aacute; tu foto</span>
+          <button class="crop-cancel" onclick="cancelCrop()">Cancelar</button>
+        </div>
+        <div class="crop-viewport">
+          <div class="crop-image-wrap" id="cropImageWrap">
+            <img id="cropSourceImg" src="" alt="Foto a recortar" draggable="false">
+          </div>
+          <div class="crop-circle-mask"></div>
+          <div class="crop-guide-ring"></div>
+        </div>
+        <div class="crop-controls">
+          <label class="crop-zoom-label">Zoom</label>
+          <input type="range" class="crop-zoom-slider" id="cropZoom" min="1" max="3" step="0.01" value="1">
+        </div>
+        <div class="crop-actions">
+          <button class="btn-primary" onclick="confirmCrop()">Usar esta foto</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/auth.js"></script>
 </body>
 </html>
