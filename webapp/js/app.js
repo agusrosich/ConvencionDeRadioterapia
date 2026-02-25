@@ -268,9 +268,14 @@ function renderAgenda() {
     const reminded = isReminded(session, dayData.date);
     const escapedKey = key.replace(/'/g, "\\'");
     return `
-      <div class="session-card ${isNow ? 'now' : ''}" data-area="${session.area}">
+      <div class="session-card ${isNow ? 'now' : ''}" data-area="${session.area}" onclick="typeof openRoomChat==='function'&&openRoomChat('${session.room.replace(/'/g, "\\'")}')">
         <button class="reminder-btn ${reminded ? 'active' : ''}" onclick="toggleReminder('${escapedKey}', '${session.title.replace(/'/g, "\\'")}', event)" title="Notificarme">
           ${reminded ? bellFillSvg : bellSvg}
+        </button>
+        <button class="chat-open-btn" onclick="typeof openRoomChat==='function'&&openRoomChat('${session.room.replace(/'/g, "\\'")}'); event.stopPropagation();" title="Chat de sala">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
         </button>
         <div class="session-time-block">
           <span class="session-time-text">${session.time} - ${session.end}</span>
@@ -753,6 +758,7 @@ function renderProfileEvents() {
         <div class="profile-event-info">
           <div class="profile-event-title">${ev.session.title}</div>
           <div class="profile-event-meta">${ev.dayLabel} · ${ev.session.time} · ${areaTag}</div>
+          <div class="profile-event-meta">📍 ${ev.session.room}${ev.session.moderator ? ` · 👤 ${ev.session.moderator}` : ''}</div>
         </div>
         <button class="profile-event-remove" onclick="removeProfileReminder('${escapedKey}', event)" title="Quitar recordatorio">✕</button>
       </div>`;

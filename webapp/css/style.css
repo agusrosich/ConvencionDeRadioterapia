@@ -1904,3 +1904,328 @@ body {
 .ios-steps svg {
   vertical-align: middle;
 }
+
+/* ============================================
+   ROOM CHAT
+   ============================================ */
+
+.modal-card--chat {
+  background-color: #1e2035;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* --- Header --- */
+.chat-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+
+.chat-header-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(182, 144, 90, 0.15);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chat-room-name {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+  text-align: left;
+}
+
+.chat-room-sub {
+  font-size: 11px;
+  color: #667;
+  display: block;
+  margin-top: 1px;
+}
+
+/* --- Messages --- */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-loading,
+.chat-empty {
+  text-align: center;
+  color: #667;
+  font-size: 13px;
+  padding: 32px 16px;
+  margin: auto;
+}
+
+/* --- Bubbles --- */
+.chat-bubble-wrap {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+}
+
+.chat-bubble-wrap.mine {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.chat-bubble-wrap.theirs {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.chat-bubble {
+  padding: 9px 13px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.chat-bubble-wrap.mine .chat-bubble {
+  background-color: var(--blue);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-bubble-wrap.theirs .chat-bubble {
+  background-color: #2c3060;
+  color: #dde;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-bubble-name {
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.chat-username {
+  color: var(--gold);
+  font-weight: 600;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: default;
+}
+
+.chat-username--speaker {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(182,144,90,0.4);
+  text-underline-offset: 2px;
+}
+
+.chat-bubble-body {
+  color: inherit;
+}
+
+.chat-bubble-time {
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  margin-top: 4px;
+  text-align: right;
+}
+
+.chat-mention-highlight {
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* --- Compose --- */
+.chat-compose {
+  flex-shrink: 0;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background-color: #181a30;
+  position: relative;
+}
+
+.chat-auth-wall {
+  padding: 16px;
+  text-align: center;
+  color: #889;
+  font-size: 13px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+}
+
+.chat-compose-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.chat-input {
+  flex: 1;
+  background-color: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 9px 14px;
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.4;
+  resize: none;
+  outline: none;
+  overflow: hidden;
+  min-height: 38px;
+  max-height: 100px;
+  transition: border-color 0.2s;
+}
+
+.chat-input::placeholder {
+  color: #556;
+}
+
+.chat-input:focus {
+  border-color: rgba(182,144,90,0.5);
+}
+
+.chat-send-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--gold);
+  color: var(--blue);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.chat-send-btn:active {
+  transform: scale(0.92);
+}
+
+.chat-send-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.chat-char-count {
+  font-size: 10px;
+  color: #445;
+  text-align: right;
+  margin-top: 4px;
+  padding-right: 4px;
+}
+
+.chat-char-warn {
+  color: #e59e3a;
+}
+
+/* --- @Mention Dropdown --- */
+.chat-mention-dropdown {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 12px;
+  right: 60px;
+  background-color: #252845;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 10;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.chat-mention-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: none;
+  border: none;
+  color: #dde;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: background-color 0.1s;
+}
+
+.chat-mention-item:last-child {
+  border-bottom: none;
+}
+
+.chat-mention-item--active,
+.chat-mention-item:active {
+  background-color: rgba(182,144,90,0.15);
+  color: var(--gold);
+}
+
+.chat-mention-item-sub {
+  font-size: 11px;
+  color: #667;
+  font-weight: 400;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+/* --- Session Card Chat Badge --- */
+.chat-room-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 48px;
+  background-color: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+/* Chat icon on session cards */
+.chat-open-btn {
+  position: absolute;
+  top: 12px;
+  right: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  color: var(--gray-400);
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 2;
+}
+
+.chat-open-btn:active {
+  transform: scale(0.9);
+  color: var(--blue);
+}
