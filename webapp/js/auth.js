@@ -206,7 +206,12 @@ async function handleRegister(event) {
   setButtonLoading(btn, true, 'Creando cuenta...');
   clearFormErrors();
 
-  const { error } = await supabaseClient.auth.signUp({ email, password });
+  const siteUrl = window.location.origin + window.location.pathname;
+  const { error } = await supabaseClient.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: siteUrl }
+  });
 
   setButtonLoading(btn, false, 'Crear cuenta');
   if (error) {
