@@ -85,6 +85,94 @@ function initApp() {
   if (hash && document.getElementById('page-' + hash)) {
     navigateTo(hash, false);
   }
+
+  // PWA install prompt
+  initInstallBanner();
+}
+
+// ============================================
+// PWA INSTALL
+// ============================================
+let deferredInstallPrompt = null;
+
+// Capture the beforeinstallprompt (Android/Chrome)
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+});
+
+function initInstallBanner() {
+  // Don't show if already installed as PWA
+  if (window.matchMedia('(display-mode: standalone)').matches) return;
+  if (window.navigator.standalone === true) return; // iOS standalone
+
+  // Don't show if dismissed recently (24h)
+  const dismissed = localStorage.getItem('rtcc_install_dismissed');
+  if (dismissed && Date.now() - parseInt(dismissed) < 24 * 60 * 60 * 1000) return;
+
+  // Show after 3 seconds
+  setTimeout(() => {
+    const banner = document.getElementById('installBanner');
+    if (!banner) return;
+
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const btn = document.getElementById('installBannerBtn');
+
+    if (isIOS) {
+      // iOS: show manual instructions
+      document.getElementById('iosInstructions').classList.remove('hidden');
+      btn.textContent = 'Ver pasos';
+      btn.onclick = () => {
+        document.getElementById('iosInstructions').classList.toggle('hidden');
+      };
+    } else if (deferredInstallPrompt) {
+      // Android/Chrome: use native prompt
+      btn.onclick = async () => {
+        deferredInstallPrompt.prompt();
+        const { outcome } = await deferredInstallPrompt.userChoice;
+        if (outcome === 'accepted') {
+          banner.classList.add('hidden');
+          requestAllPermissions();
+        }
+        deferredInstallPrompt = null;
+      };
+    } else {
+      // Fallback: just request permissions and hide
+      btn.textContent = 'Activar';
+      btn.onclick = () => {
+        requestAllPermissions();
+        dismissInstallBanner();
+      };
+    }
+
+    banner.classList.remove('hidden');
+  }, 3000);
+}
+
+function dismissInstallBanner() {
+  const banner = document.getElementById('installBanner');
+  if (banner) banner.classList.add('hidden');
+  localStorage.setItem('rtcc_install_dismissed', Date.now().toString());
+}
+
+function requestAllPermissions() {
+  // Notifications
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+
+  // Geolocation (triggers permission dialog)
+  if ('geolocation' in navigator) {
+    navigator.geolocation.getCurrentPosition(() => {}, () => {}, { timeout: 1 });
+  }
+
+  // Camera — can only be requested when actually needed (getUserMedia requires active use)
+  // We'll request it when the user opens photo crop instead
+}
+
+// Re-request permissions when app opens as installed PWA
+if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+  requestAllPermissions();
 }
 
 // ============================================

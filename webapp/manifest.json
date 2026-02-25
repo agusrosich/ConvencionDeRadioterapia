@@ -1,12 +1,15 @@
 {
-  "name": "RTCC 2026 - RT International Convention Companion",
+  "name": "RTCC 2026 - Convención de Radioterapia",
   "short_name": "RTCC 2026",
-  "description": "Companion app de la RT International Institute Convention 2026",
+  "description": "App oficial de la RT International Institute Convention 2026 - 13 y 14 de marzo",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#303A7F",
   "theme_color": "#303A7F",
   "orientation": "portrait",
+  "categories": ["medical", "education"],
+  "lang": "es",
   "icons": [
     {
       "src": "img/logo-convention-gold.png",
@@ -19,5 +22,7 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "screenshots": [],
+  "prefer_related_applications": false
 }

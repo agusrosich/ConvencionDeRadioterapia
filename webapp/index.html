@@ -397,6 +397,29 @@
 
   </div>
 
+  <!-- ================================================
+       INSTALL BANNER
+       ================================================ -->
+  <div id="installBanner" class="install-banner hidden">
+    <div class="install-banner-content">
+      <img src="img/logo-convention-gold.png" alt="RTCC" class="install-banner-icon">
+      <div class="install-banner-text">
+        <strong>Instal&aacute; la app RTCC 2026</strong>
+        <span>Acceso directo, notificaciones y m&aacute;s</span>
+      </div>
+      <button id="installBannerBtn" class="install-banner-btn">Instalar</button>
+      <button class="install-banner-close" onclick="dismissInstallBanner()">&times;</button>
+    </div>
+    <!-- iOS instructions (shown only on iOS) -->
+    <div id="iosInstructions" class="ios-instructions hidden">
+      <div class="ios-steps">
+        <span>1. Toc&aacute; el bot&oacute;n <strong>Compartir</strong> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> de Safari</span>
+        <span>2. Seleccion&aacute; <strong>&ldquo;Agregar a inicio&rdquo;</strong></span>
+        <span>3. Confirm&aacute; con <strong>&ldquo;Agregar&rdquo;</strong></span>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script src="js/app.js"></script>
   <script src="js/auth.js"></script>
