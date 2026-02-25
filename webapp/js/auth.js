@@ -199,12 +199,19 @@ async function handleLogin(event) {
 
 async function handleRegister(event) {
   event.preventDefault();
-  const email    = document.getElementById('registerEmail').value.trim();
-  const password = document.getElementById('registerPassword').value;
-  const btn      = document.getElementById('registerSubmit');
+  const email           = document.getElementById('registerEmail').value.trim();
+  const password        = document.getElementById('registerPassword').value;
+  const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
+  const btn             = document.getElementById('registerSubmit');
+
+  clearFormErrors();
+
+  if (password !== passwordConfirm) {
+    showFormError('registerError', 'Las contraseñas no coinciden');
+    return;
+  }
 
   setButtonLoading(btn, true, 'Creando cuenta...');
-  clearFormErrors();
 
   const siteUrl = window.location.origin + window.location.pathname;
   const { error } = await supabaseClient.auth.signUp({
@@ -217,7 +224,17 @@ async function handleRegister(event) {
   if (error) {
     showFormError('registerError', translateAuthError(error.message));
   } else {
-    showToast('Cuenta creada exitosamente');
+    document.getElementById('formRegister').innerHTML = `
+      <div style="text-align:center; padding: 1.5rem 0;">
+        <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">📧</div>
+        <h3 style="margin: 0 0 0.5rem; color: #fff;">¡Revisá tu correo!</h3>
+        <p style="color: #aab; margin: 0; line-height: 1.5;">
+          Te enviamos un email a <strong style="color: #fff;">${email}</strong> con un enlace para confirmar tu cuenta.
+        </p>
+        <p style="color: #889; margin: 0.75rem 0 0; font-size: 0.85rem;">
+          Si no lo ves, revisá la carpeta de spam.
+        </p>
+      </div>`;
   }
 }
 
