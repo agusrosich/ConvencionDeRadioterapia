@@ -17,6 +17,36 @@ let currentProfile   = null;   // Row from public.profiles
 let pendingPhotoBlob = null;   // Compressed JPEG before upload
 let claimedSpeakerIds = new Set(); // Already claimed speaker_ids
 
+// Latin American + common countries for radiotherapy convention
+const COUNTRIES = [
+  { code: 'UY', name: 'Uruguay', prefix: '+598', flag: '🇺🇾' },
+  { code: 'AR', name: 'Argentina', prefix: '+54', flag: '🇦🇷' },
+  { code: 'BR', name: 'Brasil', prefix: '+55', flag: '🇧🇷' },
+  { code: 'CL', name: 'Chile', prefix: '+56', flag: '🇨🇱' },
+  { code: 'CO', name: 'Colombia', prefix: '+57', flag: '🇨🇴' },
+  { code: 'MX', name: 'México', prefix: '+52', flag: '🇲🇽' },
+  { code: 'PY', name: 'Paraguay', prefix: '+595', flag: '🇵🇾' },
+  { code: 'PE', name: 'Perú', prefix: '+51', flag: '🇵🇪' },
+  { code: 'BO', name: 'Bolivia', prefix: '+591', flag: '🇧🇴' },
+  { code: 'EC', name: 'Ecuador', prefix: '+593', flag: '🇪🇨' },
+  { code: 'VE', name: 'Venezuela', prefix: '+58', flag: '🇻🇪' },
+  { code: 'PA', name: 'Panamá', prefix: '+507', flag: '🇵🇦' },
+  { code: 'CR', name: 'Costa Rica', prefix: '+506', flag: '🇨🇷' },
+  { code: 'CU', name: 'Cuba', prefix: '+53', flag: '🇨🇺' },
+  { code: 'DO', name: 'Rep. Dominicana', prefix: '+1', flag: '🇩🇴' },
+  { code: 'GT', name: 'Guatemala', prefix: '+502', flag: '🇬🇹' },
+  { code: 'HN', name: 'Honduras', prefix: '+504', flag: '🇭🇳' },
+  { code: 'SV', name: 'El Salvador', prefix: '+503', flag: '🇸🇻' },
+  { code: 'NI', name: 'Nicaragua', prefix: '+505', flag: '🇳🇮' },
+  { code: 'PR', name: 'Puerto Rico', prefix: '+1', flag: '🇵🇷' },
+  { code: 'ES', name: 'España', prefix: '+34', flag: '🇪🇸' },
+  { code: 'US', name: 'Estados Unidos', prefix: '+1', flag: '🇺🇸' },
+  { code: 'PT', name: 'Portugal', prefix: '+351', flag: '🇵🇹' },
+  { code: 'IT', name: 'Italia', prefix: '+39', flag: '🇮🇹' },
+  { code: 'FR', name: 'Francia', prefix: '+33', flag: '🇫🇷' },
+  { code: 'DE', name: 'Alemania', prefix: '+49', flag: '🇩🇪' },
+];
+
 // Crop state
 const cropState = {
   naturalW: 0,
@@ -85,7 +115,7 @@ async function loadAndMergeSupabaseProfiles() {
   try {
     const { data: profiles, error } = await supabaseClient
       .from('profiles')
-      .select('speaker_id, name, lastname, institution, specialty, bio, photo_url');
+      .select('speaker_id, name, lastname, country, institution, specialty, phone, email, bio, photo_url, visibility');
 
     if (error) throw error;
     if (!profiles || !profiles.length) return;
@@ -103,10 +133,14 @@ async function loadAndMergeSupabaseProfiles() {
       speakersData[idx] = {
         ...base,
         name:        fullName || base.name,
+        country:     prof.country     || base.country,
         institution: prof.institution || base.institution,
         specialty:   prof.specialty   || base.specialty,
+        phone:       prof.phone       || base.phone,
+        email:       prof.email       || base.email,
         bio:         prof.bio         || base.bio,
         photo:       prof.photo_url   || base.photo,
+        visibility:  prof.visibility  || {},
         _claimed:    true,
       };
     });
@@ -340,14 +374,28 @@ function splitName(fullName) {
 function openProfileModal() {
   if (!currentProfile) return;
 
+  populateCountrySelect();
+
   document.getElementById('profileName').value        = currentProfile.name        || '';
   document.getElementById('profileLastname').value    = currentProfile.lastname     || '';
+  document.getElementById('profileCountry').value     = currentProfile.country      || '';
   document.getElementById('profileInstitution').value = currentProfile.institution  || '';
   document.getElementById('profileSpecialty').value   = currentProfile.specialty    || '';
-  document.getElementById('profilePhone').value       = currentProfile.phone        || '';
+
+  // Strip country prefix from stored phone for display
+  let phoneDisplay = currentProfile.phone || '';
+  if (currentProfile.country) {
+    const c = COUNTRIES.find(cc => cc.code === currentProfile.country);
+    if (c && phoneDisplay.startsWith(c.prefix)) {
+      phoneDisplay = phoneDisplay.slice(c.prefix.length).trim();
+    }
+  }
+  document.getElementById('profilePhone').value       = phoneDisplay;
   document.getElementById('profileEmail').value       = currentProfile.email        || '';
   document.getElementById('profileBio').value         = currentProfile.bio          || '';
 
+  updatePhonePrefix();
+  setVisibilitySettings(currentProfile.visibility);
   renderProfilePhotoPreview(currentProfile.photo_url);
   pendingPhotoBlob = null;
   clearFormErrors();
@@ -399,15 +447,22 @@ async function handleSaveProfile(event) {
     photoUrl = uploadResult.url;
   }
 
+  const countryCode = document.getElementById('profileCountry').value;
+  const country = COUNTRIES.find(c => c.code === countryCode);
+  const phoneRaw = document.getElementById('profilePhone').value.trim();
+  const phone = country && phoneRaw ? country.prefix + ' ' + phoneRaw : phoneRaw;
+
   const updates = {
     name:        document.getElementById('profileName').value.trim(),
     lastname:    document.getElementById('profileLastname').value.trim(),
+    country:     countryCode,
     institution: document.getElementById('profileInstitution').value.trim(),
     specialty:   document.getElementById('profileSpecialty').value.trim(),
-    phone:       document.getElementById('profilePhone').value.trim(),
+    phone:       phone,
     email:       document.getElementById('profileEmail').value.trim(),
     bio:         document.getElementById('profileBio').value.trim(),
     photo_url:   photoUrl,
+    visibility:  getVisibilitySettings(),
   };
 
   const { data, error } = await supabaseClient
@@ -709,4 +764,122 @@ function showFormError(elementId, message) {
     el.textContent = message;
     el.classList.remove('hidden');
   }
+}
+
+// ============================================
+// COUNTRY SELECTOR + PHONE PREFIX
+// ============================================
+function populateCountrySelect() {
+  const sel = document.getElementById('profileCountry');
+  if (!sel || sel.options.length > 1) return;
+  COUNTRIES.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.code;
+    opt.textContent = c.flag + ' ' + c.name;
+    sel.appendChild(opt);
+  });
+}
+
+function updatePhonePrefix() {
+  const sel = document.getElementById('profileCountry');
+  const prefixEl = document.getElementById('phonePrefix');
+  if (!sel || !prefixEl) return;
+  const country = COUNTRIES.find(c => c.code === sel.value);
+  prefixEl.textContent = country ? country.prefix : '+__';
+}
+
+// ============================================
+// VISIBILITY TOGGLES
+// ============================================
+const VISIBILITY_FIELDS = ['institution', 'specialty', 'country', 'phone', 'email', 'bio'];
+const VISIBILITY_IDS = {
+  institution: 'visInstitution',
+  specialty: 'visSpecialty',
+  country: 'visCountry',
+  phone: 'visPhone',
+  email: 'visEmail',
+  bio: 'visBio',
+};
+
+function getVisibilitySettings() {
+  const result = {};
+  for (const field of VISIBILITY_FIELDS) {
+    const el = document.getElementById(VISIBILITY_IDS[field]);
+    result[field] = el ? el.checked : true;
+  }
+  return result;
+}
+
+function setVisibilitySettings(vis) {
+  if (!vis) return;
+  for (const field of VISIBILITY_FIELDS) {
+    const el = document.getElementById(VISIBILITY_IDS[field]);
+    if (el) el.checked = vis[field] !== false;
+  }
+}
+
+// ============================================
+// SPEAKER DETAIL MODAL
+// ============================================
+function openSpeakerDetail(speakerId) {
+  const speaker = speakersData.find(s => s.id === speakerId);
+  if (!speaker) return;
+
+  const vis = speaker.visibility || {};
+  const showField = (field) => vis[field] !== false;
+
+  const photoHtml = speaker.photo
+    ? `<img src="${BASE_PATH}${speaker.photo}" alt="${speaker.name}" class="speaker-detail-photo" onerror="this.outerHTML='<div class=\\'speaker-detail-initials\\'>${speakerInitials(speaker.name)}</div>'">`
+    : `<div class="speaker-detail-initials">${speakerInitials(speaker.name)}</div>`;
+
+  const areaColors = { mama: '#e91e8c', pulmon: '#00bcd4', prostata: '#4caf50', neuro: '#ff9800' };
+  const areaNames = { mama: 'Mama', pulmon: 'Pulmón', prostata: 'Próstata', neuro: 'Neuro' };
+  const areaColor = areaColors[speaker.area] || '#888';
+
+  let fields = '';
+  if (showField('institution') && speaker.institution)
+    fields += detailField('🏥', 'Institución', speaker.institution);
+  if (showField('specialty') && speaker.specialty)
+    fields += detailField('⚕️', 'Especialidad', speaker.specialty);
+  if (showField('country') && speaker.country) {
+    const c = COUNTRIES.find(cc => cc.code === speaker.country);
+    fields += detailField('📍', 'País', c ? c.flag + ' ' + c.name : speaker.country);
+  }
+  if (showField('phone') && speaker.phone)
+    fields += detailField('📞', 'Teléfono', speaker.phone);
+  if (showField('email') && speaker.email)
+    fields += detailField('✉️', 'Email', `<a href="mailto:${speaker.email}" style="color: var(--gold);">${speaker.email}</a>`);
+
+  let bioHtml = '';
+  if (showField('bio') && speaker.bio)
+    bioHtml = `<div class="speaker-detail-bio">${speaker.bio}</div>`;
+
+  document.getElementById('speakerDetailContent').innerHTML = `
+    <div class="speaker-detail-header">
+      ${photoHtml}
+      <h2 class="speaker-detail-name">${speaker.name}</h2>
+      <span class="speaker-detail-area" style="background: ${areaColor}22; color: ${areaColor};">${areaNames[speaker.area] || speaker.area}</span>
+    </div>
+    <div class="speaker-detail-fields">${fields}</div>
+    ${bioHtml}
+  `;
+
+  openModal('modalSpeakerDetail');
+}
+
+function detailField(icon, label, value) {
+  return `<div class="speaker-detail-field">
+    <span class="speaker-detail-icon">${icon}</span>
+    <div>
+      <div class="speaker-detail-label">${label}</div>
+      <div class="speaker-detail-value">${value}</div>
+    </div>
+  </div>`;
+}
+
+function speakerInitials(name) {
+  const parts = name.replace(/Dr\.\s?|Dra\.\s?/i, '').trim().split(' ');
+  return parts.length >= 2
+    ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+    : parts[0].substring(0, 2).toUpperCase();
 }

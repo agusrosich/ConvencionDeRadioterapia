@@ -250,7 +250,7 @@ function renderSpeakers() {
     const isFollowed = followed.includes(speaker.id);
     const escapedName = speaker.name.replace(/'/g, "\\'");
     return `
-    <div class="speaker-card" onclick="toggleSpeakerBio(this)">
+    <div class="speaker-card" onclick="typeof openSpeakerDetail==='function'?openSpeakerDetail('${speaker.id}'):toggleSpeakerBio(this)">
       ${speaker.photo
         ? `<img src="${BASE_PATH}${speaker.photo}" alt="${speaker.name}" class="speaker-photo" onerror="this.outerHTML=makeInitials('${escapedName}')">`
         : makeInitials(speaker.name)
