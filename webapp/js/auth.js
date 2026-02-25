@@ -351,6 +351,7 @@ function openProfileModal() {
   renderProfilePhotoPreview(currentProfile.photo_url);
   pendingPhotoBlob = null;
   clearFormErrors();
+  if (typeof renderProfileEvents === 'function') renderProfileEvents();
   openModal('modalProfile');
 }
 

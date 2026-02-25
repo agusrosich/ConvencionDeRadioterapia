@@ -314,8 +314,28 @@
           </div>
           <div class="form-error hidden" id="profileError"></div>
           <button type="submit" class="btn-primary" id="profileSubmit">Guardar cambios</button>
-          <button type="button" class="btn-secondary" onclick="handleLogout()">Cerrar sesi&oacute;n</button>
         </form>
+
+        <div class="profile-section-divider"></div>
+
+        <div class="profile-events-section">
+          <div class="profile-events-header">
+            <h3 class="profile-events-title">Mis eventos</h3>
+            <div class="notif-toggle-wrap">
+              <span class="notif-toggle-label">Notificaciones</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="notifGlobalToggle" onchange="toggleGlobalNotifications(this.checked)">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+          <div id="profileEventsList" class="profile-events-list">
+            <p class="profile-events-empty">No ten&eacute;s eventos con recordatorio activado.</p>
+          </div>
+        </div>
+
+        <button type="button" class="btn-secondary" style="margin-top: 1rem;" onclick="handleLogout()">Cerrar sesi&oacute;n</button>
+      </div>
       </div>
     </div>
 

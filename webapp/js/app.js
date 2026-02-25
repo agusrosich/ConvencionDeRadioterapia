@@ -589,6 +589,7 @@ function requestNotifPermission() {
 
 function checkReminders() {
   if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  if (localStorage.getItem('rtcc_notif_disabled') === '1') return;
 
   const now = new Date();
   const reminders = getReminders();
@@ -615,6 +616,78 @@ function checkReminders() {
         }
       } catch { /* skip */ }
     }
+  }
+}
+
+// ============================================
+// PROFILE: MY EVENTS & NOTIFICATION TOGGLE
+// ============================================
+function renderProfileEvents() {
+  const container = document.getElementById('profileEventsList');
+  const toggle = document.getElementById('notifGlobalToggle');
+  if (!container) return;
+
+  // Set toggle state
+  const notifDisabled = localStorage.getItem('rtcc_notif_disabled') === '1';
+  if (toggle) toggle.checked = !notifDisabled;
+
+  const reminders = getReminders();
+  if (!reminders.length) {
+    container.innerHTML = '<p class="profile-events-empty">No tenés eventos con recordatorio activado.</p>';
+    return;
+  }
+
+  // Match reminder keys to session data
+  const events = [];
+  for (const day of agendaData) {
+    if (!day.sessions || !day.date) continue;
+    for (const session of day.sessions) {
+      const key = sessionKey(session, day.date);
+      if (reminders.includes(key)) {
+        events.push({ key, session, date: day.date, dayLabel: day.label || day.day });
+      }
+    }
+  }
+
+  if (!events.length) {
+    container.innerHTML = '<p class="profile-events-empty">No tenés eventos con recordatorio activado.</p>';
+    return;
+  }
+
+  // Sort by date+time
+  events.sort((a, b) => (a.date + a.session.time).localeCompare(b.date + b.session.time));
+
+  container.innerHTML = events.map(ev => {
+    const escapedKey = ev.key.replace(/'/g, "\\'");
+    const areaTag = typeof areaLabel === 'function' ? areaLabel(ev.session.area) : ev.session.area;
+    return `
+      <div class="profile-event-item">
+        <div class="profile-event-info">
+          <div class="profile-event-title">${ev.session.title}</div>
+          <div class="profile-event-meta">${ev.dayLabel} · ${ev.session.time} · ${areaTag}</div>
+        </div>
+        <button class="profile-event-remove" onclick="removeProfileReminder('${escapedKey}', event)" title="Quitar recordatorio">✕</button>
+      </div>`;
+  }).join('');
+}
+
+function removeProfileReminder(key, event) {
+  if (event) event.stopPropagation();
+  const reminders = getReminders().filter(r => r !== key);
+  setReminders(reminders);
+  renderProfileEvents();
+  renderAgenda();
+  showToast('Recordatorio desactivado');
+}
+
+function toggleGlobalNotifications(enabled) {
+  if (enabled) {
+    localStorage.removeItem('rtcc_notif_disabled');
+    requestNotifPermission();
+    showToast('Notificaciones activadas');
+  } else {
+    localStorage.setItem('rtcc_notif_disabled', '1');
+    showToast('Notificaciones desactivadas');
   }
 }
 
