@@ -223,8 +223,48 @@
       </button>
     </nav>
 
+    <!-- Registro de arribo (floating button) -->
+    <button
+      class="arrival-fab"
+      id="arrivalFab"
+      type="button"
+      onclick="openArrivalModal()"
+      aria-label="Registro de arribo al congreso"
+      title="Registro de arribo"
+    >
+      <span class="arrival-fab-ring" aria-hidden="true"></span>
+      <span class="arrival-fab-letter">R</span>
+    </button>
+
     <!-- Toast snackbar -->
     <div class="toast hidden" id="toast"></div>
+
+    <!-- ================================================
+         MODAL: Registro de Arribo
+         ================================================ -->
+    <div id="modalArrival" class="modal-backdrop hidden" onclick="closeArrivalModalOnBackdrop(event)">
+      <div class="modal-card modal-card--arrival" role="dialog" aria-modal="true" aria-label="Registro de arribo al congreso">
+        <button class="modal-close" onclick="closeArrivalModal()">&times;</button>
+        <h2 class="modal-title">Registro de arribo</h2>
+        <p class="modal-subtitle">
+          Registr&aacute; tu perfil una vez que llegues al congreso. Este registro abre la c&aacute;mara para escanear un QR &uacute;nico y realizar un handshake que valida tu arribo real al congreso.
+        </p>
+        <p class="arrival-cert-note">
+          Al validar tu arribo, qued&aacute;s habilitado para descargar tu certificado de asistencia al finalizar el congreso.
+        </p>
+        <div class="arrival-status" id="arrivalStatus">Estado: pendiente de validaci&oacute;n.</div>
+
+        <div class="arrival-scanner hidden" id="arrivalScannerWrap">
+          <video id="arrivalScannerVideo" class="arrival-scanner-video" playsinline muted></video>
+          <div class="arrival-scanner-frame" aria-hidden="true"></div>
+        </div>
+
+        <div class="arrival-actions">
+          <button type="button" class="btn-primary" id="arrivalScanBtn" onclick="startArrivalScanner()">Escanear QR de arribo</button>
+          <button type="button" class="btn-secondary hidden" id="arrivalStopBtn" onclick="stopArrivalScanner(true)">Detener c&aacute;mara</button>
+        </div>
+      </div>
+    </div>
 
     <!-- ================================================
          MODAL: Login / Register

@@ -25,6 +25,14 @@ const BASE_PATH = (() => {
 
 const BELL_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
 const BELL_FILL_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0" fill="none" stroke-width="2"/></svg>`;
+const ARRIVAL_QR_EXPECTED = 'RTCC2026|ARRIBO|HANDSHAKE|R-9F2A-7C61-58D4';
+const ARRIVAL_HANDSHAKE_KEY = 'rtcc_arrival_handshake';
+
+let arrivalScannerStream = null;
+let arrivalScanLoopId = null;
+let arrivalDetector = null;
+let arrivalScanActive = false;
+let arrivalLastInvalidAt = 0;
 
 // ============================================
 // INITIALIZATION
@@ -82,6 +90,7 @@ function initApp() {
   updateNotifBadge();
   showLatestNotifBanner();
   startCountdown();
+  updateArrivalFabState();
   checkReminders();
   setInterval(checkReminders, 60000);
 
@@ -477,6 +486,12 @@ function filterSpeakersSearch(term) {
   renderSpeakers();
 }
 
+function isSpeakerArrivalValidated(speakerId) {
+  if (!isArrivalValidated()) return false;
+  if (typeof currentProfile === 'undefined' || !currentProfile) return false;
+  return currentProfile.speaker_id === speakerId;
+}
+
 function renderSpeakers() {
   const container = document.getElementById('speakersList');
   let speakers = speakersData;
@@ -508,12 +523,15 @@ function renderSpeakers() {
   container.innerHTML = speakers.map(speaker => {
     const isFollowed = followed.includes(speaker.id);
     const escapedName = speaker.name.replace(/'/g, "\\'");
+    const hasArrivalValidation = isSpeakerArrivalValidated(speaker.id);
+    const photoWrapClass = hasArrivalValidation ? 'speaker-photo-wrap speaker-photo-wrap--arrival' : 'speaker-photo-wrap';
+    const photoClass = hasArrivalValidation ? 'speaker-photo speaker-photo--arrival' : 'speaker-photo';
     return `
     <div class="speaker-card" onclick="typeof openSpeakerDetail==='function'?openSpeakerDetail('${speaker.id}'):toggleSpeakerBio(this)">
-      <div class="speaker-photo-wrap">
+      <div class="${photoWrapClass}">
         ${speaker.photo
-          ? `<img src="${BASE_PATH}${speaker.photo}" alt="${speaker.name}" class="speaker-photo" onerror="this.outerHTML=makeInitials('${escapedName}')">`
-          : makeInitials(speaker.name)
+          ? `<img src="${BASE_PATH}${speaker.photo}" alt="${speaker.name}" class="${photoClass}" onerror="this.outerHTML=makeInitials('${escapedName}', ${hasArrivalValidation})">`
+          : makeInitials(speaker.name, hasArrivalValidation)
         }
         ${speaker.country && typeof COUNTRIES !== 'undefined' ? (() => { const c = COUNTRIES.find(cc => cc.code === speaker.country); return c ? `<span class="speaker-flag-badge">${c.flag}</span>` : ''; })() : ''}
       </div>
@@ -532,12 +550,13 @@ function renderSpeakers() {
   `}).join('');
 }
 
-function makeInitials(name) {
+function makeInitials(name, hasArrivalValidation = false) {
   const parts = name.replace(/Dr\.\s?|Dra\.\s?/i, '').trim().split(' ');
   const initials = parts.length >= 2
     ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
     : parts[0].substring(0, 2).toUpperCase();
-  return `<div class="speaker-initials">${initials}</div>`;
+  const cls = hasArrivalValidation ? 'speaker-initials speaker-initials--arrival' : 'speaker-initials';
+  return `<div class="${cls}">${initials}</div>`;
 }
 
 function toggleSpeakerBio(card) {
@@ -1032,6 +1051,263 @@ function toggleGlobalNotifications(enabled) {
     showToast('Notificaciones desactivadas');
   }
 }
+
+// ============================================
+// ARRIVAL REGISTRATION (QR HANDSHAKE)
+// ============================================
+function getArrivalHandshake() {
+  try {
+    return JSON.parse(localStorage.getItem(ARRIVAL_HANDSHAKE_KEY) || 'null');
+  } catch {
+    return null;
+  }
+}
+
+function isArrivalValidated() {
+  const handshake = getArrivalHandshake();
+  return !!(handshake && handshake.code === ARRIVAL_QR_EXPECTED);
+}
+
+function formatArrivalTimestamp(value) {
+  try {
+    const d = new Date(value);
+    if (Number.isNaN(d.getTime())) return value;
+    return d.toLocaleDateString('es-UY', { day: 'numeric', month: 'short', year: 'numeric' }) +
+      ' ' +
+      d.toLocaleTimeString('es-UY', { hour: '2-digit', minute: '2-digit' });
+  } catch {
+    return value || '';
+  }
+}
+
+function setArrivalStatus(message, tone = 'info') {
+  const status = document.getElementById('arrivalStatus');
+  if (!status) return;
+  status.textContent = message;
+  status.classList.remove('info', 'success', 'error');
+  status.classList.add(tone);
+}
+
+function updateArrivalFabState() {
+  const fab = document.getElementById('arrivalFab');
+  if (!fab) return;
+
+  const validated = isArrivalValidated();
+  fab.classList.toggle('hidden', validated);
+  fab.classList.toggle('verified', validated);
+  fab.title = validated ? 'Arribo validado' : 'Registro de arribo';
+  fab.setAttribute(
+    'aria-label',
+    validated
+      ? 'Arribo validado. Certificado habilitado para descarga al finalizar el congreso.'
+      : 'Registro de arribo al congreso'
+  );
+}
+
+function updateArrivalStatusUI() {
+  const handshake = getArrivalHandshake();
+  if (handshake && handshake.code === ARRIVAL_QR_EXPECTED) {
+    const when = formatArrivalTimestamp(handshake.verifiedAt);
+    const suffix = when ? ` (${when})` : '';
+    setArrivalStatus(
+      `Arribo validado${suffix}. Tu certificado quedara habilitado para descarga al finalizar el congreso.`,
+      'success'
+    );
+    return;
+  }
+  setArrivalStatus('Estado: pendiente de validacion. Escanea el QR unico de arribo para habilitar tu certificado.', 'info');
+}
+
+function setArrivalScanControls(isScanning) {
+  const scanBtn = document.getElementById('arrivalScanBtn');
+  const stopBtn = document.getElementById('arrivalStopBtn');
+
+  if (scanBtn) {
+    scanBtn.disabled = isScanning;
+    scanBtn.textContent = isScanning ? 'Escaneando...' : 'Escanear QR de arribo';
+  }
+  if (stopBtn) stopBtn.classList.toggle('hidden', !isScanning);
+}
+
+function openArrivalModal() {
+  updateArrivalStatusUI();
+  setArrivalScanControls(false);
+
+  if (typeof openModal === 'function') {
+    openModal('modalArrival');
+  } else {
+    document.getElementById('modalArrival')?.classList.remove('hidden');
+  }
+}
+
+function closeArrivalModal() {
+  stopArrivalScanner(false);
+  if (typeof closeModal === 'function') {
+    closeModal('modalArrival');
+  } else {
+    document.getElementById('modalArrival')?.classList.add('hidden');
+  }
+}
+
+function closeArrivalModalOnBackdrop(event) {
+  if (event.target === event.currentTarget) closeArrivalModal();
+}
+
+function registerArrivalHandshake(code, method = 'qr_scan') {
+  const payload = {
+    code,
+    method,
+    verifiedAt: new Date().toISOString(),
+    certificateEnabled: true
+  };
+
+  localStorage.setItem(ARRIVAL_HANDSHAKE_KEY, JSON.stringify(payload));
+  updateArrivalFabState();
+  updateArrivalStatusUI();
+  renderSpeakers();
+  showToast('Arribo validado. Certificado habilitado al finalizar el congreso.');
+}
+
+function handleArrivalScanResult(scannedValue) {
+  const value = String(scannedValue || '').trim();
+  if (!value) {
+    arrivalScanLoopId = requestAnimationFrame(() => scanArrivalLoop());
+    return;
+  }
+
+  if (value === ARRIVAL_QR_EXPECTED) {
+    registerArrivalHandshake(value, 'qr_scan');
+    stopArrivalScanner(false);
+    return;
+  }
+
+  const now = Date.now();
+  if (now - arrivalLastInvalidAt > 1500) {
+    setArrivalStatus('QR invalido. Escanea el codigo unico oficial de arribo.', 'error');
+    arrivalLastInvalidAt = now;
+  }
+
+  arrivalScanLoopId = requestAnimationFrame(() => scanArrivalLoop());
+}
+
+async function scanArrivalLoop() {
+  if (!arrivalScanActive) return;
+
+  const video = document.getElementById('arrivalScannerVideo');
+  if (!video || !arrivalDetector) {
+    stopArrivalScanner(false);
+    return;
+  }
+
+  try {
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      const codes = await arrivalDetector.detect(video);
+      if (codes && codes.length) {
+        handleArrivalScanResult(codes[0].rawValue);
+        return;
+      }
+    }
+  } catch {
+    // Ignore transient detector errors and continue scanning.
+  }
+
+  arrivalScanLoopId = requestAnimationFrame(() => scanArrivalLoop());
+}
+
+async function startArrivalScanner() {
+  if (arrivalScanActive) return;
+
+  if (isArrivalValidated()) {
+    updateArrivalStatusUI();
+    return;
+  }
+
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    setArrivalStatus('Tu dispositivo no permite abrir la camara desde el navegador.', 'error');
+    return;
+  }
+
+  if (!('BarcodeDetector' in window)) {
+    setArrivalStatus('Tu navegador no soporta lectura QR en tiempo real. Usa Chrome o Edge actualizado.', 'error');
+    return;
+  }
+
+  try {
+    const supportedFormats = await BarcodeDetector.getSupportedFormats();
+    if (Array.isArray(supportedFormats) && !supportedFormats.includes('qr_code')) {
+      setArrivalStatus('Este navegador no tiene soporte para QR. Usa otro navegador actualizado.', 'error');
+      return;
+    }
+  } catch {
+    // If the format check fails, proceed and rely on detector runtime.
+  }
+
+  const video = document.getElementById('arrivalScannerVideo');
+  const wrap = document.getElementById('arrivalScannerWrap');
+  if (!video || !wrap) return;
+
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        facingMode: { ideal: 'environment' }
+      },
+      audio: false
+    });
+
+    arrivalScannerStream = stream;
+    video.srcObject = stream;
+    await video.play();
+
+    arrivalDetector = new BarcodeDetector({ formats: ['qr_code'] });
+    arrivalScanActive = true;
+    arrivalLastInvalidAt = 0;
+
+    wrap.classList.remove('hidden');
+    setArrivalScanControls(true);
+    setArrivalStatus('Escaneando QR de arribo. Enfoca el codigo dentro del recuadro.', 'info');
+
+    scanArrivalLoop();
+  } catch (error) {
+    stopArrivalScanner(false);
+    const denied = String(error && error.name || '').toLowerCase().includes('notallowed');
+    setArrivalStatus(
+      denied
+        ? 'No se otorgo permiso para la camara. Habilitalo para validar tu arribo.'
+        : 'No se pudo iniciar la camara. Intenta nuevamente.',
+      'error'
+    );
+  }
+}
+
+function stopArrivalScanner(stoppedByUser = false) {
+  arrivalScanActive = false;
+
+  if (arrivalScanLoopId) {
+    cancelAnimationFrame(arrivalScanLoopId);
+    arrivalScanLoopId = null;
+  }
+
+  if (arrivalScannerStream) {
+    arrivalScannerStream.getTracks().forEach(track => track.stop());
+    arrivalScannerStream = null;
+  }
+
+  const video = document.getElementById('arrivalScannerVideo');
+  if (video) {
+    try { video.pause(); } catch {}
+    video.srcObject = null;
+  }
+
+  const wrap = document.getElementById('arrivalScannerWrap');
+  if (wrap) wrap.classList.add('hidden');
+
+  setArrivalScanControls(false);
+  if (stoppedByUser && !isArrivalValidated()) {
+    setArrivalStatus('Camara detenida. Cuando quieras, escanea el QR de arribo.', 'info');
+  }
+}
+
+window.addEventListener('pagehide', () => stopArrivalScanner(false));
 
 // TOAST
 function showToast(message) {
