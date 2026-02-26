@@ -1435,7 +1435,8 @@ function formatShortDate(dateStr) {
 // ============================================
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register(BASE_PATH + 'sw.js').catch(() => {});
+    const SW_VERSION = '2026-02-26-v13';
+    navigator.serviceWorker.register(BASE_PATH + 'sw.js?v=' + SW_VERSION).catch(() => {});
   });
 }
 
