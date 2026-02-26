@@ -11,6 +11,7 @@ let currentPage = 'home';
 let currentDay = 1;
 let currentAreaFilter = 'all';
 let currentSpeakerFilter = 'all';
+let currentSpeakerSearch = '';
 
 // Base path for data files (adjust for GitHub Pages subdirectory)
 const BASE_PATH = (() => {
@@ -472,6 +473,11 @@ function filterSpeakers(area) {
   renderSpeakers();
 }
 
+function filterSpeakersSearch(term) {
+  currentSpeakerSearch = (term || '').trim();
+  renderSpeakers();
+}
+
 function renderSpeakers() {
   const container = document.getElementById('speakersList');
   let speakers = speakersData;
@@ -480,8 +486,20 @@ function renderSpeakers() {
     speakers = speakers.filter(s => s.area === currentSpeakerFilter);
   }
 
+  if (currentSpeakerSearch) {
+    const term = normalizeText(currentSpeakerSearch);
+    speakers = speakers.filter(speaker => {
+      const name = normalizeText(speaker.name);
+      const specialty = normalizeText(speaker.specialty);
+      const institution = normalizeText(speaker.institution);
+      return name.includes(term) || specialty.includes(term) || institution.includes(term);
+    });
+  }
+
   if (!speakers.length) {
-    container.innerHTML = '<div class="session-empty">No hay speakers en esta &aacute;rea.</div>';
+    container.innerHTML = currentSpeakerSearch
+      ? '<div class="session-empty">No se encontraron speakers con ese criterio.</div>'
+      : '<div class="session-empty">No hay speakers en esta &aacute;rea.</div>';
     return;
   }
 
@@ -1042,52 +1060,101 @@ if ('serviceWorker' in navigator) {
 (function() {
   let startY = 0;
   let pulling = false;
-  const threshold = 80;
+  let currentPull = 0;
+  const threshold = 90;
+  const maxPull = 120;
+  const defaultText = '\u21bb Solt\u00e1 para actualizar';
+  const prePullText = '\u21bb Desliz\u00e1 para actualizar';
+  const triggerText = '\u21bb Solt\u00e1 para actualizar';
+  const refreshingText = 'Actualizando...';
   let indicator = null;
 
   function getIndicator() {
     if (!indicator) {
       indicator = document.getElementById('pullToRefreshIndicator');
+      if (indicator) indicator.textContent = defaultText;
     }
     return indicator;
   }
 
-  document.addEventListener('touchstart', (e) => {
-    if (window.scrollY === 0) {
-      startY = e.touches[0].clientY;
-      pulling = true;
+  function isAtTop() {
+    const scrollTop = Math.max(
+      window.scrollY || 0,
+      document.documentElement.scrollTop || 0,
+      document.body.scrollTop || 0
+    );
+    return scrollTop <= 2;
+  }
+
+  function hasOpenModal() {
+    return !!document.querySelector('.modal-backdrop:not(.hidden)');
+  }
+
+  function hideIndicator(delay = 200) {
+    const el = getIndicator();
+    if (!el) return;
+    el.style.transform = 'translateY(0)';
+    el.style.opacity = '0';
+    el.textContent = defaultText;
+    setTimeout(() => el.classList.add('hidden'), delay);
+  }
+
+  function showIndicator(pullDistance) {
+    const el = getIndicator();
+    if (!el) return;
+    const progress = Math.min(pullDistance / threshold, 1);
+    el.style.transform = `translateY(${Math.min(pullDistance * 0.45, 56)}px)`;
+    el.style.opacity = String(Math.max(0.12, progress));
+    el.textContent = pullDistance >= threshold ? triggerText : prePullText;
+    el.classList.remove('hidden');
+  }
+
+  function triggerRefresh() {
+    const el = getIndicator();
+    if (!el) {
+      window.location.reload();
+      return;
     }
+    el.textContent = refreshingText;
+    el.style.transform = 'translateY(40px)';
+    el.style.opacity = '1';
+    setTimeout(() => window.location.reload(), 250);
+  }
+
+  function endPull() {
+    if (!pulling) return;
+    const shouldRefresh = currentPull >= threshold;
+    pulling = false;
+    if (shouldRefresh) {
+      triggerRefresh();
+    } else {
+      hideIndicator();
+    }
+    currentPull = 0;
+  }
+
+  document.addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1) return;
+    if (!isAtTop() || hasOpenModal()) return;
+    startY = e.touches[0].clientY;
+    currentPull = 0;
+    pulling = true;
   }, { passive: true });
 
   document.addEventListener('touchmove', (e) => {
     if (!pulling) return;
     const dy = e.touches[0].clientY - startY;
-    if (dy > 0 && window.scrollY === 0) {
-      const el = getIndicator();
-      if (el) {
-        const progress = Math.min(dy / threshold, 1);
-        el.style.transform = `translateY(${Math.min(dy * 0.4, 50)}px)`;
-        el.style.opacity = progress;
-        el.classList.remove('hidden');
-      }
+    if (dy <= 0 || !isAtTop()) {
+      pulling = false;
+      hideIndicator(0);
+      currentPull = 0;
+      return;
     }
-  }, { passive: true });
+    currentPull = Math.min(dy, maxPull);
+    e.preventDefault();
+    showIndicator(currentPull);
+  }, { passive: false });
 
-  document.addEventListener('touchend', () => {
-    if (!pulling) return;
-    pulling = false;
-    const el = getIndicator();
-    if (el) {
-      const currentY = parseFloat(el.style.transform.replace(/[^0-9.]/g, '') || 0);
-      if (currentY >= 30) {
-        el.style.transform = 'translateY(40px)';
-        el.textContent = 'Actualizando...';
-        setTimeout(() => window.location.reload(), 300);
-      } else {
-        el.style.transform = 'translateY(0)';
-        el.style.opacity = '0';
-        setTimeout(() => el.classList.add('hidden'), 200);
-      }
-    }
-  });
+  document.addEventListener('touchend', endPull, { passive: true });
+  document.addEventListener('touchcancel', endPull, { passive: true });
 })();

@@ -750,6 +750,14 @@ body {
 /* ============================================
    SPEAKERS PAGE
    ============================================ */
+.speakers-search-wrap {
+  padding: 0 0 0.9rem;
+}
+
+.speakers-search {
+  width: 100%;
+}
+
 .speakers-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

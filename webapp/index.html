@@ -157,6 +157,16 @@
           <button class="filter-chip" data-area="neuro" onclick="filterSpeakers('neuro')">Neuro</button>
         </div>
 
+        <div class="speakers-search-wrap">
+          <input
+            class="form-input speakers-search"
+            type="text"
+            id="speakersSearch"
+            placeholder="Buscar speaker..."
+            oninput="filterSpeakersSearch(this.value)"
+          >
+        </div>
+
         <div id="speakersList" class="speakers-grid"></div>
       </section>
 
