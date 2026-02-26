@@ -74,6 +74,7 @@ function initApp() {
   renderLocations();
   renderNotifications();
   renderNextSession();
+  renderMySessions();
   updateNotifBadge();
   showLatestNotifBanner();
   startCountdown();
@@ -339,10 +340,13 @@ function renderSpeakers() {
     const escapedName = speaker.name.replace(/'/g, "\\'");
     return `
     <div class="speaker-card" onclick="typeof openSpeakerDetail==='function'?openSpeakerDetail('${speaker.id}'):toggleSpeakerBio(this)">
-      ${speaker.photo
-        ? `<img src="${BASE_PATH}${speaker.photo}" alt="${speaker.name}" class="speaker-photo" onerror="this.outerHTML=makeInitials('${escapedName}')">`
-        : makeInitials(speaker.name)
-      }
+      <div class="speaker-photo-wrap">
+        ${speaker.photo
+          ? `<img src="${BASE_PATH}${speaker.photo}" alt="${speaker.name}" class="speaker-photo" onerror="this.outerHTML=makeInitials('${escapedName}')">`
+          : makeInitials(speaker.name)
+        }
+        ${speaker.country && typeof COUNTRIES !== 'undefined' ? (() => { const c = COUNTRIES.find(cc => cc.code === speaker.country); return c ? `<span class="speaker-flag-badge">${c.flag}</span>` : ''; })() : ''}
+      </div>
       <div class="speaker-name">${speaker.name}</div>
       <div class="speaker-specialty">
         <span class="speaker-area-dot" data-area="${speaker.area}"></span>
@@ -538,6 +542,59 @@ function renderNextSession() {
 }
 
 // ============================================
+// MY SESSIONS (Home)
+// ============================================
+function renderMySessions() {
+  const container = document.getElementById('mySessionsContent');
+  if (!container) return;
+
+  const reminders = getReminders();
+  const mySpeakerId = (typeof currentProfile !== 'undefined' && currentProfile) ? currentProfile.speaker_id : null;
+
+  // Collect sessions where user has reminder OR is a speaker/moderator
+  const mySessions = [];
+  for (const day of agendaData) {
+    if (!day.sessions || !day.date) continue;
+    for (const session of day.sessions) {
+      const key = sessionKey(session, day.date);
+      const hasReminder = reminders.includes(key);
+      const isSpeaker = mySpeakerId && session.speakers && session.speakers.includes(mySpeakerId);
+      if (hasReminder || isSpeaker) {
+        mySessions.push({ session, date: day.date, dayLabel: day.label || ('Día ' + day.day), hasReminder, isSpeaker });
+      }
+    }
+  }
+
+  if (!mySessions.length) {
+    container.innerHTML = '<p class="muted">Activá la campana en las sesiones que te interesen para verlas acá.</p>';
+    return;
+  }
+
+  // Sort by date+time
+  mySessions.sort((a, b) => (a.date + a.session.time).localeCompare(b.date + b.session.time));
+
+  const now = new Date();
+  container.innerHTML = mySessions.map(ev => {
+    const isNow = isSessionNow(ev.session, ev.date, now);
+    const areaTag = areaLabel(ev.session.area);
+    const badges = [];
+    if (isNow) badges.push('<span class="now-badge small"><span class="now-dot"></span> EN VIVO</span>');
+    if (ev.isSpeaker) badges.push('<span class="my-session-badge speaker">Expositor</span>');
+    if (ev.hasReminder) badges.push('<span class="my-session-badge reminder">🔔</span>');
+
+    return `
+      <div class="my-session-item${isNow ? ' now' : ''}">
+        <div class="my-session-time">${ev.session.time} - ${ev.session.end}</div>
+        <div class="my-session-info">
+          <div class="my-session-title">${ev.session.title}</div>
+          <div class="my-session-meta">${ev.dayLabel} · <span class="session-area-tag" data-area="${ev.session.area}" style="font-size:11px;">${areaTag}</span> · 📍 ${ev.session.room}</div>
+        </div>
+        <div class="my-session-badges">${badges.join('')}</div>
+      </div>`;
+  }).join('');
+}
+
+// ============================================
 // COUNTDOWN
 // ============================================
 function startCountdown() {
@@ -618,6 +675,7 @@ function toggleReminder(key, sessionTitle, event) {
   }
   setReminders(reminders);
   renderAgenda();
+  renderMySessions();
 }
 
 function toggleSpeakerFollow(speakerId, speakerName, event) {
@@ -766,6 +824,7 @@ function removeProfileReminder(key, event) {
   setReminders(reminders);
   renderProfileEvents();
   renderAgenda();
+  renderMySessions();
   showToast('Recordatorio desactivado');
 }
 

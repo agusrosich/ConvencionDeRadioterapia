@@ -854,9 +854,11 @@ function openSpeakerDetail(speakerId) {
   if (showField('bio') && speaker.bio)
     bioHtml = `<div class="speaker-detail-bio">${speaker.bio}</div>`;
 
+  const flagBadge = speaker.country ? (() => { const c = COUNTRIES.find(cc => cc.code === speaker.country); return c ? `<span class="speaker-flag-badge detail">${c.flag}</span>` : ''; })() : '';
+
   document.getElementById('speakerDetailContent').innerHTML = `
     <div class="speaker-detail-header">
-      ${photoHtml}
+      <div class="speaker-photo-wrap detail">${photoHtml}${flagBadge}</div>
       <h2 class="speaker-detail-name">${speaker.name}</h2>
       <span class="speaker-detail-area" style="background: ${areaColor}22; color: ${areaColor};">${areaNames[speaker.area] || speaker.area}</span>
     </div>
