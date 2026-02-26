@@ -1,28 +1,28 @@
 [
   {
     "type": "Sede del evento",
-    "name": "RT International Institute",
-    "address": "Carrasco, Montevideo, Uruguay",
-    "details": "Centro de radioterapia de alta precisi\u00f3n. Las sesiones se llevar\u00e1n a cabo en las Salas A y B del instituto.",
-    "mapsUrl": "https://maps.google.com/?q=RT+International+Institute+Carrasco+Montevideo",
-    "mapEmbed": "",
+    "name": "Gran Hotel Punta del Este",
+    "address": "Parada 10, Playa Brava, Punta del Este, Uruguay",
+    "details": "Las sesiones acad\u00e9micas se llevar\u00e1n a cabo en las Salas A y B del hotel. Charlas simult\u00e1neas en ambas salas.",
+    "mapsUrl": "https://maps.google.com/?q=Gran+Hotel+Punta+del+Este+Parada+10+Playa+Brava",
+    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3271.5!2d-54.945!3d-34.955!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sGran+Hotel+Punta+del+Este!5e0!3m2!1ses!2suy!4v1700000000000!5m2!1ses!2suy",
     "mapImage": ""
   },
   {
     "type": "Cena de la Convenci\u00f3n",
-    "name": "Por confirmar",
-    "address": "Montevideo, Uruguay",
-    "details": "Cena formal de networking el viernes 20 de marzo a las 20:00 hs. Dresscode: smart casual.",
-    "mapsUrl": "",
-    "mapEmbed": "",
+    "name": "I'marangat\u00fa Restaurant & Beach Club",
+    "address": "Rambla Claudio Williman, Parada 7, Playa Mansa, Punta del Este, Uruguay",
+    "details": "Cena formal de networking el viernes 13 de marzo a las 20:30 hs. Traslado incluido desde el Gran Hotel. Dresscode: smart casual.",
+    "mapsUrl": "https://maps.google.com/?q=Imarangatu+Restaurant+Beach+Club+Punta+del+Este",
+    "mapEmbed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3271.5!2d-54.95!3d-34.95!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sImarangatu+Restaurant!5e0!3m2!1ses!2suy!4v1700000000000!5m2!1ses!2suy",
     "mapImage": ""
   },
   {
-    "type": "Hotel recomendado",
-    "name": "Por confirmar",
-    "address": "Carrasco, Montevideo, Uruguay",
-    "details": "Hotel sugerido para los asistentes, a minutos del RT International Institute.",
-    "mapsUrl": "",
+    "type": "Hospedaje",
+    "name": "Gran Hotel Punta del Este",
+    "address": "Parada 10, Playa Brava, Punta del Este, Uruguay",
+    "details": "El hospedaje en el Gran Hotel forma parte de la invitaci\u00f3n. Los invitados que deseen pernoctar pueden hacerlo sin costo adicional.",
+    "mapsUrl": "https://maps.google.com/?q=Gran+Hotel+Punta+del+Este+Parada+10+Playa+Brava",
     "mapEmbed": "",
     "mapImage": ""
   }

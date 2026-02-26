@@ -1,7 +1,7 @@
 {
-  "name": "RTCC 2026 - Convención de Radioterapia",
-  "short_name": "RTCC 2026",
-  "description": "App oficial de la RT International Institute Convention 2026 - 13 y 14 de marzo",
+  "name": "RTII Convention 2026 Companion",
+  "short_name": "RTII 2026",
+  "description": "App companion oficial de la RT International Institute Convention 2026",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

@@ -450,25 +450,31 @@
   </div>
 
   <!-- ================================================
-       INSTALL BANNER
+       iOS INSTALL MODAL (fullscreen, clear instructions)
        ================================================ -->
-  <div id="installBanner" class="install-banner hidden">
-    <div class="install-banner-content">
-      <img src="img/logo-convention-gold.png" alt="RTCC" class="install-banner-icon">
-      <div class="install-banner-text">
-        <strong>Instal&aacute; la app RTCC 2026</strong>
-        <span>Acceso directo, notificaciones y m&aacute;s</span>
+  <div id="iosInstallModal" class="ios-install-modal hidden">
+    <div class="ios-install-modal-card">
+      <img src="img/logo-convention-gold.png" alt="RTCC 2026" class="ios-install-modal-logo">
+      <h2>Instal&aacute; la app en tu iPhone</h2>
+      <p class="ios-install-modal-sub">Solo 2 pasos para tener acceso directo desde tu pantalla de inicio</p>
+      <div class="ios-install-steps">
+        <div class="ios-install-step">
+          <div class="ios-install-step-num">1</div>
+          <div class="ios-install-step-text">
+            Toc&aacute; el bot&oacute;n <strong>Compartir</strong>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2.5" style="vertical-align:middle;margin-left:4px"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            <br><span class="ios-install-hint">Est&aacute; abajo en Safari</span>
+          </div>
+        </div>
+        <div class="ios-install-step">
+          <div class="ios-install-step-num">2</div>
+          <div class="ios-install-step-text">
+            Toc&aacute; <strong>&ldquo;Agregar a inicio&rdquo;</strong>
+            <br><span class="ios-install-hint">y confirm&aacute; con &ldquo;Agregar&rdquo;</span>
+          </div>
+        </div>
       </div>
-      <button id="installBannerBtn" class="install-banner-btn">Instalar</button>
-      <button class="install-banner-close" onclick="dismissInstallBanner()">&times;</button>
-    </div>
-    <!-- iOS instructions (shown only on iOS) -->
-    <div id="iosInstructions" class="ios-instructions hidden">
-      <div class="ios-steps">
-        <span>1. Toc&aacute; el bot&oacute;n <strong>Compartir</strong> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg> de Safari</span>
-        <span>2. Seleccion&aacute; <strong>&ldquo;Agregar a inicio&rdquo;</strong></span>
-        <span>3. Confirm&aacute; con <strong>&ldquo;Agregar&rdquo;</strong></span>
-      </div>
+      <button class="ios-install-modal-btn" onclick="dismissInstallBanner()">Entendido, lo hago despu&eacute;s</button>
     </div>
   </div>
 

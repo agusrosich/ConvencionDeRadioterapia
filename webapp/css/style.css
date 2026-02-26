@@ -1794,115 +1794,113 @@ body {
 }
 
 /* --- Install Banner --- */
-.install-banner {
+/* iOS fullscreen install modal */
+.ios-install-modal {
   position: fixed;
-  bottom: 70px;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  padding: 0 12px;
-  animation: slideUpBanner 0.4s ease-out;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeInModal 0.3s ease-out;
 }
 
-@keyframes slideUpBanner {
-  from { transform: translateY(100%); opacity: 0; }
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.ios-install-modal-card {
+  background: linear-gradient(160deg, #1a1f4e, #2a3070);
+  border: 2px solid var(--gold);
+  border-radius: 24px;
+  padding: 32px 24px;
+  max-width: 380px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+  animation: slideUpModal 0.4s ease-out;
+}
+
+@keyframes slideUpModal {
+  from { transform: translateY(40px); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
 }
 
-.install-banner-content {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, #1a1f4e, #2a3070);
-  border: 1px solid var(--gold);
+.ios-install-modal-logo {
+  width: 72px;
+  height: 72px;
   border-radius: 16px;
-  padding: 12px 14px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  max-width: 480px;
-  margin: 0 auto;
+  margin-bottom: 16px;
 }
 
-.install-banner-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
-  flex-shrink: 0;
+.ios-install-modal-card h2 {
+  color: #fff;
+  font-size: 1.3rem;
+  margin: 0 0 8px;
 }
 
-.install-banner-text {
-  flex: 1;
+.ios-install-modal-sub {
+  color: #aab;
+  font-size: 0.9rem;
+  margin: 0 0 24px;
+  line-height: 1.4;
+}
+
+.ios-install-steps {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  min-width: 0;
+  gap: 16px;
+  margin-bottom: 28px;
 }
 
-.install-banner-text strong {
-  color: #fff;
-  font-size: 0.9rem;
+.ios-install-step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
 }
 
-.install-banner-text span {
-  color: #aab;
-  font-size: 0.75rem;
-}
-
-.install-banner-btn {
+.ios-install-step-num {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   background: var(--gold);
   color: var(--blue);
-  border: none;
-  border-radius: 10px;
-  padding: 8px 16px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.install-banner-btn:active {
-  transform: scale(0.95);
-}
-
-.install-banner-close {
-  background: none;
-  border: none;
-  color: #667;
-  font-size: 1.3rem;
-  cursor: pointer;
-  padding: 4px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.ios-instructions {
-  background: rgba(255,255,255,0.05);
-  border-radius: 0 0 16px 16px;
-  margin-top: -8px;
-  padding: 16px 14px 12px;
-  max-width: 480px;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-top: none;
-}
-
-.ios-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.ios-steps span {
-  color: #ccd;
-  font-size: 0.85rem;
+  font-weight: 800;
+  font-size: 1.2rem;
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.ios-steps svg {
-  vertical-align: middle;
+.ios-install-step-text {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ios-install-hint {
+  color: #8899bb;
+  font-size: 0.8rem;
+}
+
+.ios-install-modal-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #8899bb;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  width: 100%;
+}
+
+.ios-install-modal-btn:active {
+  background: rgba(255, 255, 255, 0.05);
 }
 
 /* ============================================

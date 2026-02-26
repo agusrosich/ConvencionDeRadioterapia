@@ -95,63 +95,58 @@ function initApp() {
 // ============================================
 let deferredInstallPrompt = null;
 
-// Capture the beforeinstallprompt (Android/Chrome)
+// Android/Chrome: capture and immediately trigger native install prompt
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredInstallPrompt = e;
+  // Trigger install prompt automatically after a brief delay
+  setTimeout(() => triggerAutoInstall(), 1500);
 });
+
+async function triggerAutoInstall() {
+  if (!deferredInstallPrompt) return;
+  // Don't prompt if already installed
+  if (window.matchMedia('(display-mode: standalone)').matches) return;
+  // Don't prompt if user declined recently (12h)
+  const declined = localStorage.getItem('rtcc_install_declined');
+  if (declined && Date.now() - parseInt(declined) < 12 * 60 * 60 * 1000) return;
+
+  try {
+    deferredInstallPrompt.prompt();
+    const { outcome } = await deferredInstallPrompt.userChoice;
+    if (outcome === 'accepted') {
+      requestAllPermissions();
+    } else {
+      localStorage.setItem('rtcc_install_declined', Date.now().toString());
+    }
+  } catch (_) {}
+  deferredInstallPrompt = null;
+}
 
 function initInstallBanner() {
   // Don't show if already installed as PWA
   if (window.matchMedia('(display-mode: standalone)').matches) return;
   if (window.navigator.standalone === true) return; // iOS standalone
 
-  // Don't show if dismissed recently (24h)
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  // On Android/Chrome the native prompt fires automatically, no banner needed
+  if (!isIOS) return;
+
+  // iOS: show fullscreen modal with clear instructions
+  // Don't show if dismissed recently (12h)
   const dismissed = localStorage.getItem('rtcc_install_dismissed');
-  if (dismissed && Date.now() - parseInt(dismissed) < 24 * 60 * 60 * 1000) return;
+  if (dismissed && Date.now() - parseInt(dismissed) < 12 * 60 * 60 * 1000) return;
 
-  // Show after 3 seconds
   setTimeout(() => {
-    const banner = document.getElementById('installBanner');
-    if (!banner) return;
-
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const btn = document.getElementById('installBannerBtn');
-
-    if (isIOS) {
-      // iOS: show manual instructions
-      document.getElementById('iosInstructions').classList.remove('hidden');
-      btn.textContent = 'Ver pasos';
-      btn.onclick = () => {
-        document.getElementById('iosInstructions').classList.toggle('hidden');
-      };
-    } else if (deferredInstallPrompt) {
-      // Android/Chrome: use native prompt
-      btn.onclick = async () => {
-        deferredInstallPrompt.prompt();
-        const { outcome } = await deferredInstallPrompt.userChoice;
-        if (outcome === 'accepted') {
-          banner.classList.add('hidden');
-          requestAllPermissions();
-        }
-        deferredInstallPrompt = null;
-      };
-    } else {
-      // Fallback: just request permissions and hide
-      btn.textContent = 'Activar';
-      btn.onclick = () => {
-        requestAllPermissions();
-        dismissInstallBanner();
-      };
-    }
-
-    banner.classList.remove('hidden');
-  }, 3000);
+    const modal = document.getElementById('iosInstallModal');
+    if (modal) modal.classList.remove('hidden');
+  }, 1500);
 }
 
 function dismissInstallBanner() {
-  const banner = document.getElementById('installBanner');
-  if (banner) banner.classList.add('hidden');
+  const modal = document.getElementById('iosInstallModal');
+  if (modal) modal.classList.add('hidden');
   localStorage.setItem('rtcc_install_dismissed', Date.now().toString());
 }
 
