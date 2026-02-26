@@ -822,3 +822,59 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register(BASE_PATH + 'sw.js').catch(() => {});
   });
 }
+
+// ============================================
+// PULL TO REFRESH
+// ============================================
+(function() {
+  let startY = 0;
+  let pulling = false;
+  const threshold = 80;
+  let indicator = null;
+
+  function getIndicator() {
+    if (!indicator) {
+      indicator = document.getElementById('pullToRefreshIndicator');
+    }
+    return indicator;
+  }
+
+  document.addEventListener('touchstart', (e) => {
+    if (window.scrollY === 0) {
+      startY = e.touches[0].clientY;
+      pulling = true;
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!pulling) return;
+    const dy = e.touches[0].clientY - startY;
+    if (dy > 0 && window.scrollY === 0) {
+      const el = getIndicator();
+      if (el) {
+        const progress = Math.min(dy / threshold, 1);
+        el.style.transform = `translateY(${Math.min(dy * 0.4, 50)}px)`;
+        el.style.opacity = progress;
+        el.classList.remove('hidden');
+      }
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => {
+    if (!pulling) return;
+    pulling = false;
+    const el = getIndicator();
+    if (el) {
+      const currentY = parseFloat(el.style.transform.replace(/[^0-9.]/g, '') || 0);
+      if (currentY >= 30) {
+        el.style.transform = 'translateY(40px)';
+        el.textContent = 'Actualizando...';
+        setTimeout(() => window.location.reload(), 300);
+      } else {
+        el.style.transform = 'translateY(0)';
+        el.style.opacity = '0';
+        setTimeout(() => el.classList.add('hidden'), 200);
+      }
+    }
+  });
+})();

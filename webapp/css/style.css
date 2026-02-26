@@ -3,6 +3,24 @@
    Mobile-first responsive design
    ============================================ */
 
+/* Pull to refresh */
+.pull-to-refresh {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 10px;
+  color: var(--gold);
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 99999;
+  opacity: 0;
+  transform: translateY(0);
+  transition: transform 0.2s, opacity 0.2s;
+  pointer-events: none;
+}
+
 :root {
   --blue: #303A7F;
   --blue-light: #3d4a9e;
