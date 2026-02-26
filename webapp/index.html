@@ -90,13 +90,13 @@
             </div>
             <span>Speakers</span>
           </button>
-          <button class="quick-link" onclick="navigateTo('locations')">
+          <button class="quick-link" onclick="navigateTo('attendees')">
             <div class="quick-link-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
             </div>
-            <span>Ubicaciones</span>
+            <span>Asistentes</span>
           </button>
           <button class="quick-link" onclick="navigateTo('notifications')">
             <div class="quick-link-icon">
@@ -166,6 +166,17 @@
         <div id="locationsList" class="locations-list"></div>
       </section>
 
+      <!-- ATTENDEES -->
+      <section id="page-attendees" class="page">
+        <h2 class="page-title">Asistentes</h2>
+        <div class="attendees-search-wrap">
+          <input class="form-input attendees-search" type="text" id="attendeesSearch" placeholder="Buscar por nombre..." oninput="filterAttendees(this.value)">
+        </div>
+        <div id="attendeesList" class="attendees-grid">
+          <p class="muted">Cargando asistentes...</p>
+        </div>
+      </section>
+
       <!-- NOTIFICATIONS -->
       <section id="page-notifications" class="page">
         <h2 class="page-title">Notificaciones</h2>
@@ -194,11 +205,11 @@
         </svg>
         <span>Speakers</span>
       </button>
-      <button class="nav-item" data-page="locations" onclick="navigateTo('locations')">
+      <button class="nav-item" data-page="attendees" onclick="navigateTo('attendees')">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
         </svg>
-        <span>Mapa</span>
+        <span>Asistentes</span>
       </button>
     </nav>
 
@@ -232,6 +243,7 @@
           </div>
           <div class="form-error hidden" id="loginError"></div>
           <button type="submit" class="btn-primary" id="loginSubmit">Ingresar</button>
+          <button type="button" class="btn-link" onclick="handleForgotPassword()" id="forgotPasswordBtn">&iquest;Olvidaste tu contrase&ntilde;a?</button>
         </form>
 
         <form id="formRegister" class="auth-form hidden" onsubmit="handleRegister(event)">
@@ -335,6 +347,21 @@
           </div>
 
           <div class="profile-section-divider"></div>
+          <h3 class="profile-section-subtitle">Alojamiento</h3>
+          <div class="form-group">
+            <label class="form-label">&iquest;Te hosped&aacute;s en el hotel de la convenci&oacute;n?</label>
+            <div class="hotel-toggle-wrap">
+              <button type="button" class="hotel-toggle-btn active" id="hotelYes" onclick="setHotelStay(true)">S&iacute;</button>
+              <button type="button" class="hotel-toggle-btn" id="hotelNo" onclick="setHotelStay(false)">No</button>
+            </div>
+          </div>
+          <div class="form-group" id="roomNumberGroup" style="display:none;">
+            <label class="form-label">N&uacute;mero de habitaci&oacute;n</label>
+            <input class="form-input" type="text" id="profileRoomNumber" placeholder="Ej: 305" maxlength="10">
+            <span class="form-hint">Se te otorgar&aacute; al realizar el check-in en el hotel.</span>
+          </div>
+
+          <div class="profile-section-divider"></div>
           <h3 class="profile-visibility-title">Informaci&oacute;n visible para otros</h3>
           <div class="visibility-toggles">
             <label class="visibility-toggle"><input type="checkbox" id="visInstitution" checked> Instituci&oacute;n</label>
@@ -378,6 +405,16 @@
       <div class="modal-card" role="dialog" aria-modal="true" aria-label="Detalle del speaker">
         <button class="modal-close" onclick="closeModal('modalSpeakerDetail')">&times;</button>
         <div id="speakerDetailContent"></div>
+      </div>
+    </div>
+
+    <!-- ================================================
+         MODAL: Public Profile (Attendee)
+         ================================================ -->
+    <div id="modalPublicProfile" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'modalPublicProfile')">
+      <div class="modal-card modal-card--tall" role="dialog" aria-modal="true" aria-label="Perfil del asistente">
+        <button class="modal-close" onclick="closeModal('modalPublicProfile')">&times;</button>
+        <div id="publicProfileContent"></div>
       </div>
     </div>
 

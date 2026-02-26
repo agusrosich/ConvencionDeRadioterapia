@@ -1411,6 +1411,25 @@ body {
   transform: none;
 }
 
+.btn-link {
+  background: none;
+  border: none;
+  color: #889;
+  font-size: 13px;
+  cursor: pointer;
+  padding: 8px 0 0;
+  width: 100%;
+  text-align: center;
+  transition: color 0.2s;
+}
+.btn-link:hover {
+  color: var(--gold);
+}
+.btn-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .btn-secondary {
   width: 100%;
   padding: 11px;
@@ -2351,4 +2370,184 @@ body {
 .chat-open-btn:active {
   transform: scale(0.9);
   color: var(--blue);
+}
+
+/* ============================================
+   HOTEL STAY TOGGLE
+   ============================================ */
+.profile-section-subtitle {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.6rem;
+}
+
+.hotel-toggle-wrap {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hotel-toggle-btn {
+  flex: 1;
+  padding: 0.55rem 1rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  color: #889;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hotel-toggle-btn.active {
+  background: var(--gold);
+  color: var(--blue);
+  border-color: var(--gold);
+}
+
+.form-hint {
+  display: block;
+  color: #889;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* ============================================
+   ATTENDEES PAGE
+   ============================================ */
+.attendees-search-wrap {
+  padding: 0 0 1rem;
+}
+
+.attendees-search {
+  width: 100%;
+}
+
+.attendees-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.attendee-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.2rem 0.75rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.attendee-card:active {
+  transform: scale(0.97);
+}
+
+.attendee-photo-wrap {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 0.6rem;
+  position: relative;
+}
+
+.attendee-photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+}
+
+.attendee-initials {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--blue);
+  color: var(--gold);
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.attendee-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.attendee-specialty {
+  font-size: 0.72rem;
+  color: var(--gray-600);
+}
+
+.attendee-institution {
+  font-size: 0.7rem;
+  color: var(--gray-400);
+  margin-top: 2px;
+}
+
+/* ============================================
+   PUBLIC PROFILE (Attendee detail)
+   ============================================ */
+.public-profile-hotel {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.public-profile-hotel-badge {
+  background: rgba(182,144,90,0.15);
+  color: var(--gold);
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.public-profile-hotel-room {
+  color: #ccd;
+  font-size: 0.85rem;
+  margin-top: 0.4rem;
+  padding-left: 0.25rem;
+}
+
+.public-profile-events {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.public-profile-events-title {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.6rem;
+}
+
+.public-profile-event-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.public-profile-event-title {
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.public-profile-event-meta {
+  color: #889;
+  font-size: 0.75rem;
+  margin-top: 2px;
 }

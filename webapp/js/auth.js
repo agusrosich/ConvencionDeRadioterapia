@@ -256,7 +256,12 @@ async function handleRegister(event) {
 
   setButtonLoading(btn, false, 'Crear cuenta');
   if (error) {
-    showFormError('registerError', translateAuthError(error.message));
+    const translated = translateAuthError(error.message);
+    if (translated === 'already_registered') {
+      showAlreadyRegisteredError(email);
+    } else {
+      showFormError('registerError', translated);
+    }
   } else {
     document.getElementById('formRegister').innerHTML = `
       <div style="text-align:center; padding: 1.5rem 0;">
@@ -285,10 +290,62 @@ async function handleLogout() {
 function translateAuthError(msg) {
   if (msg.includes('Invalid login'))      return 'Email o contrase\u00f1a incorrectos.';
   if (msg.includes('Email not confirmed'))return 'Confirm\u00e1 tu email antes de ingresar.';
-  if (msg.includes('already registered')) return 'Ya existe una cuenta con ese email.';
+  if (msg.includes('already registered')) return 'already_registered';
   if (msg.includes('Password should be')) return 'La contrase\u00f1a debe tener al menos 6 caracteres.';
   if (msg.includes('rate limit'))         return 'Demasiados intentos. Esper\u00e1 un momento.';
   return msg;
+}
+
+async function handleForgotPassword() {
+  const email = document.getElementById('loginEmail').value.trim();
+  if (!email) {
+    showFormError('loginError', 'Ingres\u00e1 tu email primero para recuperar la contrase\u00f1a.');
+    return;
+  }
+
+  const btn = document.getElementById('forgotPasswordBtn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  clearFormErrors();
+
+  const siteUrl = window.location.origin + window.location.pathname;
+  const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+    redirectTo: siteUrl,
+  });
+
+  btn.disabled = false;
+  btn.textContent = '\u00bfOlvidaste tu contrase\u00f1a?';
+
+  if (error) {
+    showFormError('loginError', error.message.includes('rate limit')
+      ? 'Demasiados intentos. Esper\u00e1 un momento.'
+      : 'Error al enviar el email. Intent\u00e1 de nuevo.');
+    return;
+  }
+
+  document.getElementById('formLogin').innerHTML = `
+    <div style="text-align:center; padding: 1.5rem 0;">
+      <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🔑</div>
+      <h3 style="margin: 0 0 0.5rem; color: #fff;">Revis\u00e1 tu correo</h3>
+      <p style="color: #aab; margin: 0; line-height: 1.5;">
+        Te enviamos un enlace a <strong style="color: #fff;">${email}</strong> para restablecer tu contrase\u00f1a.
+      </p>
+      <p style="color: #889; margin: 0.75rem 0 0; font-size: 0.85rem;">
+        Si no lo ves, revis\u00e1 la carpeta de spam.
+      </p>
+    </div>`;
+}
+
+function showAlreadyRegisteredError(email) {
+  const errorEl = document.getElementById('registerError');
+  if (!errorEl) return;
+  errorEl.innerHTML = `
+    Ya existe una cuenta con <strong>${email}</strong>.<br>
+    <a href="#" onclick="switchAuthTab('login'); document.getElementById('loginEmail').value='${email}'; return false;" style="color: var(--gold); text-decoration: underline;">Inici\u00e1 sesi\u00f3n</a>
+    o
+    <a href="#" onclick="switchAuthTab('login'); document.getElementById('loginEmail').value='${email}'; handleForgotPassword(); return false;" style="color: var(--gold); text-decoration: underline;">recuper\u00e1 tu contrase\u00f1a</a>.
+  `;
+  errorEl.classList.remove('hidden');
 }
 
 // ============================================
@@ -394,6 +451,11 @@ function openProfileModal() {
   document.getElementById('profileEmail').value       = currentProfile.email        || '';
   document.getElementById('profileBio').value         = currentProfile.bio          || '';
 
+  // Hotel fields
+  const hotelStay = currentProfile.hotel_stay !== false && currentProfile.hotel_stay !== null;
+  setHotelStay(currentProfile.hotel_stay === true);
+  document.getElementById('profileRoomNumber').value = currentProfile.room_number || '';
+
   updatePhonePrefix();
   setVisibilitySettings(currentProfile.visibility);
   renderProfilePhotoPreview(currentProfile.photo_url);
@@ -452,6 +514,9 @@ async function handleSaveProfile(event) {
   const phoneRaw = document.getElementById('profilePhone').value.trim();
   const phone = country && phoneRaw ? country.prefix + ' ' + phoneRaw : phoneRaw;
 
+  const hotelStay = document.getElementById('hotelYes').classList.contains('active');
+  const roomNumber = hotelStay ? document.getElementById('profileRoomNumber').value.trim() : '';
+
   const updates = {
     name:        document.getElementById('profileName').value.trim(),
     lastname:    document.getElementById('profileLastname').value.trim(),
@@ -463,6 +528,8 @@ async function handleSaveProfile(event) {
     bio:         document.getElementById('profileBio').value.trim(),
     photo_url:   photoUrl,
     visibility:  getVisibilitySettings(),
+    hotel_stay:  hotelStay,
+    room_number: roomNumber,
   };
 
   const { data, error } = await supabaseClient
@@ -816,6 +883,194 @@ function setVisibilitySettings(vis) {
     const el = document.getElementById(VISIBILITY_IDS[field]);
     if (el) el.checked = vis[field] !== false;
   }
+}
+
+// ============================================
+// HOTEL STAY TOGGLE
+// ============================================
+function setHotelStay(yes) {
+  const btnYes = document.getElementById('hotelYes');
+  const btnNo = document.getElementById('hotelNo');
+  const roomGroup = document.getElementById('roomNumberGroup');
+  if (yes) {
+    btnYes.classList.add('active');
+    btnNo.classList.remove('active');
+    roomGroup.style.display = '';
+  } else {
+    btnYes.classList.remove('active');
+    btnNo.classList.add('active');
+    roomGroup.style.display = 'none';
+    document.getElementById('profileRoomNumber').value = '';
+  }
+}
+
+// ============================================
+// ATTENDEES LIST
+// ============================================
+let allAttendees = [];
+let attendeesSearchTerm = '';
+
+async function loadAttendees() {
+  if (!supabaseClient) return;
+  try {
+    const { data, error } = await supabaseClient
+      .from('profiles')
+      .select('user_id, speaker_id, name, lastname, country, institution, specialty, phone, email, bio, photo_url, visibility, hotel_stay, room_number');
+    if (error) throw error;
+    allAttendees = data || [];
+    renderAttendees();
+  } catch (e) {
+    console.warn('Could not load attendees:', e.message);
+  }
+}
+
+function renderAttendees() {
+  const container = document.getElementById('attendeesList');
+  if (!container) return;
+
+  let list = allAttendees;
+  if (attendeesSearchTerm) {
+    const term = attendeesSearchTerm.toLowerCase();
+    list = list.filter(a => {
+      const full = (a.name || '') + ' ' + (a.lastname || '');
+      return full.toLowerCase().includes(term);
+    });
+  }
+
+  if (!list.length) {
+    container.innerHTML = attendeesSearchTerm
+      ? '<p class="muted">No se encontraron asistentes.</p>'
+      : '<p class="muted">No hay asistentes registrados a\u00fan.</p>';
+    return;
+  }
+
+  list.sort((a, b) => {
+    const nameA = ((a.name || '') + ' ' + (a.lastname || '')).trim();
+    const nameB = ((b.name || '') + ' ' + (b.lastname || '')).trim();
+    return nameA.localeCompare(nameB, 'es');
+  });
+
+  container.innerHTML = list.map(att => {
+    const fullName = buildFullName(att.name, att.lastname);
+    const initials = getInitials(fullName);
+    const countryObj = COUNTRIES.find(c => c.code === att.country);
+    const flag = countryObj ? countryObj.flag : '';
+    const photoHtml = att.photo_url
+      ? `<img src="${att.photo_url}" alt="${fullName}" class="attendee-photo" onerror="this.outerHTML='<div class=\\'attendee-initials\\'>${initials}</div>'">`
+      : `<div class="attendee-initials">${initials}</div>`;
+
+    return `
+      <div class="attendee-card" onclick="openPublicProfile('${att.user_id}')">
+        <div class="attendee-photo-wrap">
+          ${photoHtml}
+          ${flag ? `<span class="speaker-flag-badge">${flag}</span>` : ''}
+        </div>
+        <div class="attendee-name">${fullName}</div>
+        ${att.specialty ? `<div class="attendee-specialty">${att.specialty}</div>` : ''}
+        ${att.institution ? `<div class="attendee-institution">${att.institution}</div>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function filterAttendees(term) {
+  attendeesSearchTerm = term;
+  renderAttendees();
+}
+
+function getInitials(name) {
+  const parts = name.replace(/Dr\.\s?|Dra\.\s?/i, '').trim().split(' ');
+  if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  return parts[0] ? parts[0].substring(0, 2).toUpperCase() : '?';
+}
+
+// ============================================
+// PUBLIC PROFILE MODAL
+// ============================================
+function openPublicProfile(userId) {
+  const att = allAttendees.find(a => a.user_id === userId);
+  if (!att) return;
+
+  const vis = att.visibility || {};
+  const showField = (field) => vis[field] !== false;
+  const fullName = buildFullName(att.name, att.lastname);
+  const initials = getInitials(fullName);
+
+  const photoHtml = att.photo_url
+    ? `<img src="${att.photo_url}" alt="${fullName}" class="speaker-detail-photo" onerror="this.outerHTML='<div class=\\'speaker-detail-initials\\'>${initials}</div>'">`
+    : `<div class="speaker-detail-initials">${initials}</div>`;
+
+  const countryObj = att.country ? COUNTRIES.find(c => c.code === att.country) : null;
+  const flagBadge = countryObj ? `<span class="speaker-flag-badge detail">${countryObj.flag}</span>` : '';
+
+  let fields = '';
+  if (showField('institution') && att.institution)
+    fields += detailField('\u{1F3E5}', 'Instituci\u00f3n', att.institution);
+  if (showField('specialty') && att.specialty)
+    fields += detailField('\u2695\uFE0F', 'Especialidad', att.specialty);
+  if (showField('country') && countryObj)
+    fields += detailField('\u{1F4CD}', 'Pa\u00eds', countryObj.flag + ' ' + countryObj.name);
+  if (showField('phone') && att.phone)
+    fields += detailField('\u{1F4DE}', 'Tel\u00e9fono', att.phone);
+  if (showField('email') && att.email)
+    fields += detailField('\u2709\uFE0F', 'Email', `<a href="mailto:${att.email}" style="color: var(--gold);">${att.email}</a>`);
+
+  let bioHtml = '';
+  if (showField('bio') && att.bio)
+    bioHtml = `<div class="speaker-detail-bio">${att.bio}</div>`;
+
+  // Hotel info
+  let hotelHtml = '';
+  if (att.hotel_stay) {
+    hotelHtml = `<div class="public-profile-hotel">
+      <div class="public-profile-hotel-badge">\u{1F3E8} Se hospeda en el hotel</div>
+      ${att.room_number ? `<div class="public-profile-hotel-room">Habitaci\u00f3n: <strong>${att.room_number}</strong></div>` : ''}
+    </div>`;
+  }
+
+  // Events this person attends (match by speaker_id in agenda)
+  let eventsHtml = '';
+  if (att.speaker_id) {
+    const personEvents = [];
+    for (const day of agendaData) {
+      if (!day.sessions || !day.date) continue;
+      for (const session of day.sessions) {
+        const isSpeaker = session.speakers && session.speakers.includes(att.speaker_id);
+        const isModerator = session.moderator && speakersData.find(s => s.id === att.speaker_id && session.moderator.includes(s.name));
+        if (isSpeaker || isModerator) {
+          personEvents.push({ session, dayLabel: 'D\u00eda ' + day.day, date: day.date });
+        }
+      }
+    }
+
+    if (personEvents.length) {
+      personEvents.sort((a, b) => (a.date + a.session.time).localeCompare(b.date + b.session.time));
+      const evItems = personEvents.map(ev => {
+        const areaTag = typeof areaLabel === 'function' ? areaLabel(ev.session.area) : ev.session.area;
+        return `<div class="public-profile-event-item">
+          <div class="public-profile-event-title">${ev.session.title}</div>
+          <div class="public-profile-event-meta">${ev.dayLabel} \u00b7 ${ev.session.time} - ${ev.session.end} \u00b7 <span class="session-area-tag" data-area="${ev.session.area}" style="font-size:11px;">${areaTag}</span></div>
+          <div class="public-profile-event-meta">\u{1F4CD} ${ev.session.room}</div>
+        </div>`;
+      }).join('');
+      eventsHtml = `<div class="public-profile-events">
+        <h3 class="public-profile-events-title">Eventos en los que participa</h3>
+        ${evItems}
+      </div>`;
+    }
+  }
+
+  document.getElementById('publicProfileContent').innerHTML = `
+    <div class="speaker-detail-header">
+      <div class="speaker-photo-wrap detail">${photoHtml}${flagBadge}</div>
+      <h2 class="speaker-detail-name">${fullName}</h2>
+    </div>
+    <div class="speaker-detail-fields">${fields}</div>
+    ${bioHtml}
+    ${hotelHtml}
+    ${eventsHtml}
+  `;
+
+  openModal('modalPublicProfile');
 }
 
 // ============================================

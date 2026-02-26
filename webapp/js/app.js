@@ -193,9 +193,20 @@ function navigateTo(page, updateHash = true) {
     item.classList.toggle('active', item.dataset.page === page);
   });
 
+  // Re-render dynamic home sections
+  if (page === 'home') {
+    renderMySessions();
+    renderNextSession();
+  }
+
   // Mark notifications as read
   if (page === 'notifications') {
     markNotificationsRead();
+  }
+
+  // Load attendees
+  if (page === 'attendees' && typeof loadAttendees === 'function') {
+    loadAttendees();
   }
 
   currentPage = page;
@@ -676,6 +687,7 @@ function toggleReminder(key, sessionTitle, event) {
   setReminders(reminders);
   renderAgenda();
   renderMySessions();
+  if (typeof renderProfileEvents === 'function') renderProfileEvents();
 }
 
 function toggleSpeakerFollow(speakerId, speakerName, event) {
