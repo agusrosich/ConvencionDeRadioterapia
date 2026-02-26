@@ -88,7 +88,7 @@
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
               </svg>
             </div>
-            <span>Speakers</span>
+            <span>Asistentes</span>
           </button>
           <button class="quick-link" onclick="navigateTo('locations')">
             <div class="quick-link-icon">
@@ -147,27 +147,19 @@
 
       <!-- SPEAKERS -->
       <section id="page-speakers" class="page">
-        <h2 class="page-title">Speakers</h2>
-
-        <div class="filters" id="speakerFilters">
-          <button class="filter-chip active" data-area="all" onclick="filterSpeakers('all')">Todos</button>
-          <button class="filter-chip" data-area="mama" onclick="filterSpeakers('mama')">Mama</button>
-          <button class="filter-chip" data-area="pulmon" onclick="filterSpeakers('pulmon')">Pulm&oacute;n</button>
-          <button class="filter-chip" data-area="prostata" onclick="filterSpeakers('prostata')">Pr&oacute;stata</button>
-          <button class="filter-chip" data-area="neuro" onclick="filterSpeakers('neuro')">Neuro</button>
-        </div>
+        <h2 class="page-title">Asistentes</h2>
 
         <div class="speakers-search-wrap">
           <input
             class="form-input speakers-search"
             type="text"
             id="speakersSearch"
-            placeholder="Buscar speaker..."
+            placeholder="Buscar asistente..."
             oninput="filterSpeakersSearch(this.value)"
           >
         </div>
 
-        <div id="speakersList" class="speakers-grid"></div>
+        <div id="speakersList" class="speakers-grid attendees-grid"></div>
       </section>
 
       <!-- LOCATIONS -->
@@ -213,7 +205,7 @@
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
         </svg>
-        <span>Speakers</span>
+        <span>Asistentes</span>
       </button>
       <button class="nav-item" data-page="locations" onclick="navigateTo('locations')">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

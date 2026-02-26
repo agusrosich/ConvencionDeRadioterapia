@@ -188,8 +188,8 @@ if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.
 // NAVIGATION
 // ============================================
 function navigateTo(page, updateHash = true) {
-  // "Asistentes" no se muestra en navegacion; redirigir enlaces viejos.
-  if (page === 'attendees') page = 'locations';
+  // Compatibilidad con enlaces viejos.
+  if (page === 'attendees') page = 'speakers';
 
   // Hide all pages
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -220,8 +220,8 @@ function navigateTo(page, updateHash = true) {
     markNotificationsRead();
   }
 
-  // Load attendees
-  if (page === 'attendees' && typeof loadAttendees === 'function') {
+  // Cargar registrados cuando se abre "Asistentes".
+  if (page === 'speakers' && typeof loadAttendees === 'function') {
     loadAttendees();
   }
 
@@ -475,9 +475,6 @@ function areaLabel(area) {
 // ============================================
 function filterSpeakers(area) {
   currentSpeakerFilter = area;
-  document.querySelectorAll('#speakerFilters .filter-chip').forEach(c => {
-    c.classList.toggle('active', c.dataset.area === area);
-  });
   renderSpeakers();
 }
 
@@ -492,45 +489,129 @@ function isSpeakerArrivalValidated(speakerId) {
   return currentProfile.speaker_id === speakerId;
 }
 
+function resolvePhotoSrc(value) {
+  const photo = String(value || '').trim();
+  if (!photo) return '';
+  if (/^(?:https?:)?\/\//i.test(photo) || photo.startsWith('data:') || photo.startsWith('blob:')) {
+    return photo;
+  }
+  return BASE_PATH + photo.replace(/^\.\//, '');
+}
+
+function getSpeakerListWithRegisteredAttendees() {
+  const merged = [];
+  const speakerIds = new Set();
+  const attendeeKeys = new Set();
+  const attendeeList = typeof getAllAttendees === 'function' ? getAllAttendees() : [];
+  const registered = Array.isArray(attendeeList) ? attendeeList : [];
+
+  speakersData.forEach(speaker => {
+    if (!speaker || !speaker.id) return;
+    speakerIds.add(speaker.id);
+    merged.push({
+      type: 'speaker',
+      name: speaker.name || '',
+      specialty: speaker.specialty || '',
+      institution: speaker.institution || '',
+      speaker
+    });
+  });
+
+  registered.forEach(att => {
+    if (!att) return;
+    const speakerId = String(att.speaker_id || '').trim();
+    if (speakerId && speakerIds.has(speakerId)) return;
+
+    const fullName = [att.name, att.lastname].filter(Boolean).join(' ').trim();
+    if (!fullName) return;
+
+    const key = String(att.user_id || '').trim() || normalizeText(fullName);
+    if (attendeeKeys.has(key)) return;
+    attendeeKeys.add(key);
+
+    merged.push({
+      type: 'attendee',
+      name: fullName,
+      specialty: att.specialty || '',
+      institution: att.institution || '',
+      attendee: att
+    });
+  });
+
+  return merged.sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
+}
+
+function renderRegisteredAttendeeCard(att) {
+  const fullName = [att.name, att.lastname].filter(Boolean).join(' ').trim();
+  const initials = getPersonInitials(fullName);
+  const photoSrc = resolvePhotoSrc(att.photo_url);
+  const safeUserId = String(att.user_id || '').replace(/'/g, "\\'");
+  const countryBadge = att.country && typeof COUNTRIES !== 'undefined'
+    ? (() => {
+      const country = COUNTRIES.find(c => c.code === att.country);
+      return country ? `<span class="speaker-flag-badge">${country.flag}</span>` : '';
+    })()
+    : '';
+  const specialty = att.specialty || 'Asistente registrado';
+
+  return `
+    <div class="attendee-card" onclick="${safeUserId && typeof openPublicProfile === 'function' ? `openPublicProfile('${safeUserId}')` : 'void(0)'}">
+      <div class="attendee-photo-wrap">
+        ${photoSrc
+          ? `<img src="${photoSrc}" alt="${fullName}" class="attendee-photo" onerror="this.outerHTML='<div class=\\'attendee-initials\\'>${initials}</div>'">`
+          : `<div class="attendee-initials">${initials}</div>`
+        }
+        ${countryBadge}
+      </div>
+      <div class="attendee-name">${fullName}</div>
+      <div class="attendee-specialty">${specialty}</div>
+      ${att.institution ? `<div class="attendee-institution">${att.institution}</div>` : ''}
+    </div>
+  `;
+}
+
 function renderSpeakers() {
   const container = document.getElementById('speakersList');
-  let speakers = speakersData;
-
-  if (currentSpeakerFilter !== 'all') {
-    speakers = speakers.filter(s => s.area === currentSpeakerFilter);
-  }
+  if (!container) return;
+  let people = getSpeakerListWithRegisteredAttendees();
 
   if (currentSpeakerSearch) {
     const term = normalizeText(currentSpeakerSearch);
-    speakers = speakers.filter(speaker => {
-      const name = normalizeText(speaker.name);
-      const specialty = normalizeText(speaker.specialty);
-      const institution = normalizeText(speaker.institution);
+    people = people.filter(person => {
+      const name = normalizeText(person.name);
+      const specialty = normalizeText(person.specialty);
+      const institution = normalizeText(person.institution);
       return name.includes(term) || specialty.includes(term) || institution.includes(term);
     });
   }
 
-  if (!speakers.length) {
+  if (!people.length) {
     container.innerHTML = currentSpeakerSearch
-      ? '<div class="session-empty">No se encontraron speakers con ese criterio.</div>'
-      : '<div class="session-empty">No hay speakers en esta &aacute;rea.</div>';
+      ? '<div class="session-empty">No se encontraron asistentes con ese criterio.</div>'
+      : '<div class="session-empty">No hay asistentes cargados a&uacute;n.</div>';
     return;
   }
 
   const followed = getFollowedSpeakers();
   const bellSmall = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
 
-  container.innerHTML = speakers.map(speaker => {
+  container.innerHTML = people.map(person => {
+    if (person.type === 'attendee') {
+      return renderRegisteredAttendeeCard(person.attendee);
+    }
+
+    const speaker = person.speaker;
     const isFollowed = followed.includes(speaker.id);
     const escapedName = speaker.name.replace(/'/g, "\\'");
     const hasArrivalValidation = isSpeakerArrivalValidated(speaker.id);
     const photoWrapClass = hasArrivalValidation ? 'speaker-photo-wrap speaker-photo-wrap--arrival' : 'speaker-photo-wrap';
     const photoClass = hasArrivalValidation ? 'speaker-photo speaker-photo--arrival' : 'speaker-photo';
+    const photoSrc = resolvePhotoSrc(speaker.photo);
     return `
     <div class="speaker-card" onclick="typeof openSpeakerDetail==='function'?openSpeakerDetail('${speaker.id}'):toggleSpeakerBio(this)">
       <div class="${photoWrapClass}">
-        ${speaker.photo
-          ? `<img src="${BASE_PATH}${speaker.photo}" alt="${speaker.name}" class="${photoClass}" onerror="this.outerHTML=makeInitials('${escapedName}', ${hasArrivalValidation})">`
+        ${photoSrc
+          ? `<img src="${photoSrc}" alt="${speaker.name}" class="${photoClass}" onerror="this.outerHTML=makeInitials('${escapedName}', ${hasArrivalValidation})">`
           : makeInitials(speaker.name, hasArrivalValidation)
         }
         ${speaker.country && typeof COUNTRIES !== 'undefined' ? (() => { const c = COUNTRIES.find(cc => cc.code === speaker.country); return c ? `<span class="speaker-flag-badge">${c.flag}</span>` : ''; })() : ''}
@@ -551,12 +632,18 @@ function renderSpeakers() {
 }
 
 function makeInitials(name, hasArrivalValidation = false) {
-  const parts = name.replace(/Dr\.\s?|Dra\.\s?/i, '').trim().split(' ');
-  const initials = parts.length >= 2
-    ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
-    : parts[0].substring(0, 2).toUpperCase();
+  const initials = getPersonInitials(name);
   const cls = hasArrivalValidation ? 'speaker-initials speaker-initials--arrival' : 'speaker-initials';
   return `<div class="${cls}">${initials}</div>`;
+}
+
+function getPersonInitials(name) {
+  const cleaned = String(name || '').replace(/Dr\.\s?|Dra\.\s?/i, '').trim();
+  if (!cleaned) return '?';
+  const parts = cleaned.split(' ');
+  return parts.length >= 2
+    ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+    : parts[0].substring(0, 2).toUpperCase();
 }
 
 function toggleSpeakerBio(card) {

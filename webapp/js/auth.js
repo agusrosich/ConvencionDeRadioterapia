@@ -104,6 +104,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Load all Supabase profiles and merge over JSON data
   await loadAndMergeSupabaseProfiles();
+  await loadAttendees();
 });
 
 // ============================================
@@ -584,6 +585,7 @@ async function handleSaveProfile(event) {
   pendingPhotoBlob = null;
   closeModal('modalProfile');
   await loadAndMergeSupabaseProfiles();
+  await loadAttendees();
   updateAuthButton();
   showToast('Perfil actualizado');
 }
@@ -971,6 +973,10 @@ function setHotelStay(yes) {
 let allAttendees = [];
 let attendeesSearchTerm = '';
 
+function getAllAttendees() {
+  return allAttendees;
+}
+
 async function loadAttendees() {
   if (!supabaseClient) return;
   try {
@@ -980,6 +986,7 @@ async function loadAttendees() {
     if (error) throw error;
     allAttendees = data || [];
     renderAttendees();
+    if (typeof renderSpeakers === 'function') renderSpeakers();
   } catch (e) {
     console.warn('Could not load attendees:', e.message);
   }
