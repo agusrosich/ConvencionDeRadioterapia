@@ -269,13 +269,14 @@ function renderAgenda() {
   const bellSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
   const bellFillSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0" fill="none" stroke-width="2"/></svg>`;
 
-  container.innerHTML = sessions.map(session => {
+  container.innerHTML = sessions.map((session) => {
     const isNow = isSessionNow(session, dayData.date, now);
     const key = sessionKey(session, dayData.date);
     const reminded = isReminded(session, dayData.date);
     const escapedKey = key.replace(/'/g, "\\'");
+    const sessionIndex = dayData.sessions.indexOf(session);
     return `
-      <div class="session-card ${isNow ? 'now' : ''}" data-area="${session.area}" onclick="typeof openRoomChat==='function'&&openRoomChat('${session.room.replace(/'/g, "\\'")}')">
+      <div class="session-card ${isNow ? 'now' : ''}" data-area="${session.area}" onclick="openSessionDetail(${dayData.day}, ${sessionIndex})">
         <button class="reminder-btn ${reminded ? 'active' : ''}" onclick="toggleReminder('${escapedKey}', '${session.title.replace(/'/g, "\\'")}', event)" title="Notificarme">
           ${reminded ? bellFillSvg : bellSvg}
         </button>
@@ -296,6 +297,147 @@ function renderAgenda() {
       </div>
     `;
   }).join('');
+}
+
+function openSessionDetail(day, sessionIndex) {
+  const dayData = agendaData.find(d => d.day === day);
+  const session = dayData && dayData.sessions ? dayData.sessions[sessionIndex] : null;
+  const container = document.getElementById('sessionDetailContent');
+  if (!dayData || !session || !container) return;
+
+  const moderator = session.moderator ? escapeHTML(session.moderator) : 'Sin moderador asignado';
+  const speakerEntries = getSessionSpeakerEntries(session);
+  const participantEntries = getSessionParticipantEntries(session, speakerEntries);
+  const areaTag = areaLabel(session.area);
+
+  container.innerHTML = `
+    <div class="session-detail-header">
+      <h2 class="session-detail-title">${escapeHTML(session.title)}</h2>
+      <div class="session-detail-meta">${formatDate(dayData.date)} · ${escapeHTML(session.time)} - ${escapeHTML(session.end)}</div>
+      <div class="session-detail-meta">📍 ${escapeHTML(session.room)} · <span class="session-area-tag" data-area="${escapeHTML(session.area)}">${escapeHTML(areaTag)}</span></div>
+      ${session.description ? `<p class="session-detail-description">${escapeHTML(session.description)}</p>` : ''}
+    </div>
+
+    <div class="session-detail-section">
+      <h3 class="session-detail-section-title">Moderador</h3>
+      <div class="session-detail-list">
+        <span class="session-person-chip moderator">${moderator}</span>
+      </div>
+    </div>
+
+    <div class="session-detail-section">
+      <h3 class="session-detail-section-title">Speakers</h3>
+      <div class="session-detail-list">
+        ${speakerEntries.length ? speakerEntries.map(renderSessionPersonChip).join('') : '<p class="session-detail-empty">No hay speakers asignados para esta sesi&oacute;n.</p>'}
+      </div>
+    </div>
+
+    <div class="session-detail-section">
+      <h3 class="session-detail-section-title">Participantes</h3>
+      <div class="session-detail-list">
+        ${participantEntries.length ? participantEntries.map(renderSessionPersonChip).join('') : '<p class="session-detail-empty">No hay participantes cargados para esta sesi&oacute;n.</p>'}
+      </div>
+    </div>
+  `;
+
+  if (typeof openModal === 'function') {
+    openModal('modalSessionDetail');
+  } else {
+    document.getElementById('modalSessionDetail')?.classList.remove('hidden');
+  }
+}
+
+function getSessionSpeakerEntries(session) {
+  if (!Array.isArray(session.speakers) || !session.speakers.length) {
+    if (!session.area || session.area === 'evento') return [];
+
+    const moderatorName = normalizeText(session.moderator || '');
+    const inferred = speakersData
+      .filter(s => s.area === session.area)
+      .filter(s => (s.institution || '').toLowerCase().includes('rt international institute') || /moderador/i.test(s.specialty || ''))
+      .map(s => ({ id: s.id, name: s.name }))
+      .filter(p => normalizeText(p.name) !== moderatorName);
+
+    return dedupePersonEntries(inferred);
+  }
+
+  const items = session.speakers.map(value => {
+    const raw = String(value || '').trim();
+    if (!raw) return null;
+
+    const byId = speakersData.find(s => s.id === raw);
+    if (byId) return { id: byId.id, name: byId.name };
+
+    const byName = speakersData.find(s => normalizeText(s.name) === normalizeText(raw));
+    if (byName) return { id: byName.id, name: byName.name };
+
+    return { id: '', name: raw };
+  }).filter(Boolean);
+
+  return dedupePersonEntries(items);
+}
+
+function getSessionParticipantEntries(session, speakerEntries) {
+  if (Array.isArray(session.participants) && session.participants.length) {
+    const manual = session.participants
+      .map(name => String(name || '').trim())
+      .filter(Boolean)
+      .map(name => {
+        const match = speakersData.find(s => normalizeText(s.name) === normalizeText(name));
+        return match ? { id: match.id, name: match.name } : { id: '', name };
+      });
+    return dedupePersonEntries(manual);
+  }
+
+  if (!session.area || session.area === 'evento') return [];
+
+  const speakerNameSet = new Set(speakerEntries.map(p => normalizeText(p.name)));
+  const moderatorName = normalizeText(session.moderator || '');
+
+  const areaPeople = speakersData
+    .filter(s => s.area === session.area)
+    .map(s => ({ id: s.id, name: s.name }))
+    .filter(p => normalizeText(p.name) !== moderatorName)
+    .filter(p => !speakerNameSet.has(normalizeText(p.name)));
+
+  return dedupePersonEntries(areaPeople);
+}
+
+function renderSessionPersonChip(person) {
+  const safeName = escapeHTML(person.name);
+  if (person.id && typeof openSpeakerDetail === 'function') {
+    return `<button class="session-person-chip speaker" onclick="openSpeakerDetail('${person.id}'); event.stopPropagation();">${safeName}</button>`;
+  }
+  return `<span class="session-person-chip">${safeName}</span>`;
+}
+
+function dedupePersonEntries(items) {
+  const seen = new Set();
+  const result = [];
+  for (const item of items) {
+    const key = normalizeText(item.name);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+    result.push(item);
+  }
+  return result;
+}
+
+function normalizeText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
+
+function escapeHTML(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 function isSessionNow(session, dateStr, now) {

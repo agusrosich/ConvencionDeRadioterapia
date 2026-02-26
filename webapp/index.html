@@ -409,6 +409,16 @@
     </div>
 
     <!-- ================================================
+         MODAL: Session Detail
+         ================================================ -->
+    <div id="modalSessionDetail" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'modalSessionDetail')">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-label="Detalle del evento">
+        <button class="modal-close" onclick="closeModal('modalSessionDetail')">&times;</button>
+        <div id="sessionDetailContent"></div>
+      </div>
+    </div>
+
+    <!-- ================================================
          MODAL: Public Profile (Attendee)
          ================================================ -->
     <div id="modalPublicProfile" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'modalPublicProfile')">
