@@ -123,6 +123,7 @@ async function loadAndMergeSupabaseProfiles() {
     claimedSpeakerIds.clear();
 
     profiles.forEach(prof => {
+      if (!prof.speaker_id) return;
       claimedSpeakerIds.add(prof.speaker_id);
 
       const idx = speakersData.findIndex(s => s.id === prof.speaker_id);
@@ -353,7 +354,11 @@ function showAlreadyRegisteredError(email) {
 // ============================================
 function openClaimModal() {
   const select = document.getElementById('claimSelect');
+  const claimBtn = document.getElementById('claimSubmit');
+  const createBtn = document.getElementById('claimCreateSubmit');
   select.innerHTML = '<option value="">-- Seleccionar --</option>';
+  if (claimBtn) setButtonLoading(claimBtn, false, 'Vincular perfil');
+  if (createBtn) setButtonLoading(createBtn, false, 'No encuentro mi perfil');
 
   const unclaimed = speakersData
     .filter(s => !claimedSpeakerIds.has(s.id))
@@ -377,36 +382,65 @@ async function handleClaim() {
     return;
   }
 
-  const btn = document.getElementById('claimSubmit');
-  setButtonLoading(btn, true, 'Vinculando...');
+  await createProfileFromClaimChoice(speakerId);
+}
+
+async function handleCreateOwnProfile() {
+  await createProfileFromClaimChoice('');
+}
+
+async function createProfileFromClaimChoice(speakerId) {
+  if (!supabaseClient || !currentUser) {
+    showFormError('claimError', 'No se pudo crear el perfil. Inici\u00e1 sesi\u00f3n de nuevo.');
+    return;
+  }
+
+  const claimBtn = document.getElementById('claimSubmit');
+  const createBtn = document.getElementById('claimCreateSubmit');
+  const isClaiming = !!speakerId;
+  const activeBtn = isClaiming ? claimBtn : createBtn;
+  const idleLabel = isClaiming ? 'Vincular perfil' : 'No encuentro mi perfil';
+  const loadingLabel = isClaiming ? 'Vinculando...' : 'Creando...';
+
+  if (activeBtn) setButtonLoading(activeBtn, true, loadingLabel);
+  if (isClaiming && createBtn) createBtn.disabled = true;
+  if (!isClaiming && claimBtn) claimBtn.disabled = true;
   clearFormErrors();
 
-  const baseSpeaker = speakersData.find(s => s.id === speakerId);
-  const nameParts   = splitName(baseSpeaker?.name || '');
+  const baseSpeaker = speakerId ? speakersData.find(s => s.id === speakerId) : null;
+  const fallbackName = (currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || '').trim();
+  const fallbackFromEmail = (currentUser.email || '').split('@')[0].replace(/[._-]+/g, ' ').trim();
+  const nameParts = splitName(baseSpeaker?.name || fallbackName || fallbackFromEmail || 'Participante');
+
+  const payload = {
+    user_id: currentUser.id,
+    speaker_id: speakerId || null,
+    name: nameParts.name || 'Participante',
+    lastname: nameParts.lastname,
+    institution: baseSpeaker?.institution || '',
+    specialty: baseSpeaker?.specialty || '',
+    email: currentUser.email,
+    bio: baseSpeaker?.bio || '',
+    photo_url: baseSpeaker?.photo || '',
+  };
 
   const { data, error } = await supabaseClient
     .from('profiles')
-    .insert({
-      user_id:     currentUser.id,
-      speaker_id:  speakerId,
-      name:        nameParts.name,
-      lastname:    nameParts.lastname,
-      institution: baseSpeaker?.institution || '',
-      specialty:   baseSpeaker?.specialty   || '',
-      email:       currentUser.email,
-      bio:         baseSpeaker?.bio         || '',
-      photo_url:   baseSpeaker?.photo       || '',
-    })
+    .insert(payload)
     .select()
     .single();
 
-  setButtonLoading(btn, false, 'Vincular perfil');
+  if (activeBtn) setButtonLoading(activeBtn, false, idleLabel);
+  if (claimBtn) claimBtn.disabled = false;
+  if (createBtn) createBtn.disabled = false;
 
   if (error) {
     if (error.code === '23505') {
-      showFormError('claimError', 'Este perfil ya fue vinculado por otra cuenta.');
+      showFormError('claimError', isClaiming
+        ? 'Este perfil ya fue vinculado por otra cuenta.'
+        : 'Tu cuenta ya tiene un perfil creado.');
     } else {
-      showFormError('claimError', 'Error al vincular: ' + error.message);
+      showFormError('claimError', 'Error al crear el perfil: ' + error.message);
     }
     return;
   }
@@ -415,7 +449,7 @@ async function handleClaim() {
   closeModal('modalClaim');
   await loadAndMergeSupabaseProfiles();
   updateAuthButton();
-  showToast('Perfil vinculado. Ya pod\u00e9s editarlo.');
+  showToast(isClaiming ? 'Perfil vinculado. Ya pod\u00e9s editarlo.' : 'Perfil creado. Complet\u00e1 tus datos.');
   openProfileModal();
 }
 
@@ -558,7 +592,8 @@ async function handleSaveProfile(event) {
 // PHOTO UPLOAD TO SUPABASE STORAGE
 // ============================================
 async function uploadPhoto(blob) {
-  const filePath = currentUser.id + '/' + currentProfile.speaker_id + '.jpg';
+  const photoKey = currentProfile.speaker_id || 'profile';
+  const filePath = currentUser.id + '/' + photoKey + '.jpg';
 
   const { error } = await supabaseClient.storage
     .from('speaker-photos')
@@ -801,15 +836,41 @@ function authEditBtn(speaker) {
 // MODAL UTILITIES
 // ============================================
 function openModal(id) {
-  document.getElementById(id).classList.remove('hidden');
+  const modal = document.getElementById(id);
+  if (!modal) return;
+
+  // Keep a deterministic stack so nested sheets open above the current one.
+  const baseZ = 500;
+  const openModals = Array.from(document.querySelectorAll('.modal-backdrop:not(.hidden)'))
+    .filter(el => el.id !== id)
+    .sort((a, b) => (parseInt(a.style.zIndex || baseZ, 10) || baseZ) - (parseInt(b.style.zIndex || baseZ, 10) || baseZ));
+
+  openModals.forEach((el, idx) => {
+    el.style.zIndex = String(baseZ + idx + 1);
+  });
+
+  modal.style.zIndex = String(baseZ + openModals.length + 1);
+  modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal(id) {
-  document.getElementById(id).classList.add('hidden');
+  const modal = document.getElementById(id);
+  if (!modal) return;
+
+  modal.classList.add('hidden');
+  modal.style.removeProperty('z-index');
+
+  // Re-pack remaining modals so z-index keeps increasing from base.
+  const baseZ = 500;
+  const openModals = Array.from(document.querySelectorAll('.modal-backdrop:not(.hidden)'))
+    .sort((a, b) => (parseInt(a.style.zIndex || baseZ, 10) || baseZ) - (parseInt(b.style.zIndex || baseZ, 10) || baseZ));
+  openModals.forEach((el, idx) => {
+    el.style.zIndex = String(baseZ + idx + 1);
+  });
+
   // Only restore scroll if no other modal is open
-  const anyOpen = document.querySelector('.modal-backdrop:not(.hidden)');
-  if (!anyOpen) document.body.style.overflow = '';
+  if (!openModals.length) document.body.style.overflow = '';
 }
 
 function closeModalOnBackdrop(event, id) {

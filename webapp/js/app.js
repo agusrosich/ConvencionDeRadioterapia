@@ -23,6 +23,9 @@ const BASE_PATH = (() => {
   return path.substring(0, path.lastIndexOf('/') + 1);
 })();
 
+const BELL_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
+const BELL_FILL_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0" fill="none" stroke-width="2"/></svg>`;
+
 // ============================================
 // INITIALIZATION
 // ============================================
@@ -176,6 +179,9 @@ if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.
 // NAVIGATION
 // ============================================
 function navigateTo(page, updateHash = true) {
+  // "Asistentes" no se muestra en navegacion; redirigir enlaces viejos.
+  if (page === 'attendees') page = 'locations';
+
   // Hide all pages
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
 
@@ -267,8 +273,6 @@ function renderAgenda() {
   }
 
   const now = new Date();
-  const bellSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
-  const bellFillSvg = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0" fill="none" stroke-width="2"/></svg>`;
 
   container.innerHTML = sessions.map((session) => {
     const isNow = isSessionNow(session, dayData.date, now);
@@ -279,12 +283,7 @@ function renderAgenda() {
     return `
       <div class="session-card ${isNow ? 'now' : ''}" data-area="${session.area}" onclick="openSessionDetail(${dayData.day}, ${sessionIndex})">
         <button class="reminder-btn ${reminded ? 'active' : ''}" onclick="toggleReminder('${escapedKey}', '${session.title.replace(/'/g, "\\'")}', event)" title="Notificarme">
-          ${reminded ? bellFillSvg : bellSvg}
-        </button>
-        <button class="chat-open-btn" onclick="typeof openRoomChat==='function'&&openRoomChat('${session.room.replace(/'/g, "\\'")}'); event.stopPropagation();" title="Chat de sala">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
+          ${reminded ? BELL_FILL_SVG : BELL_SVG}
         </button>
         <div class="session-time-block">
           <span class="session-time-text">${session.time} - ${session.end}</span>
@@ -327,14 +326,14 @@ function openSessionDetail(day, sessionIndex) {
     </div>
 
     <div class="session-detail-section">
-      <h3 class="session-detail-section-title">Speakers</h3>
+      <h3 class="session-detail-section-title">Expositores</h3>
       <div class="session-detail-list">
-        ${speakerEntries.length ? speakerEntries.map(renderSessionPersonChip).join('') : '<p class="session-detail-empty">No hay speakers asignados para esta sesi&oacute;n.</p>'}
+        ${speakerEntries.length ? speakerEntries.map(renderSessionPersonChip).join('') : '<p class="session-detail-empty">No hay expositores asignados para esta sesi&oacute;n.</p>'}
       </div>
     </div>
 
     <div class="session-detail-section">
-      <h3 class="session-detail-section-title">Participantes</h3>
+      <h3 class="session-detail-section-title">Anotados</h3>
       <div class="session-detail-list">
         ${participantEntries.length ? participantEntries.map(renderSessionPersonChip).join('') : '<p class="session-detail-empty">No hay participantes cargados para esta sesi&oacute;n.</p>'}
       </div>
@@ -749,9 +748,13 @@ function renderMySessions() {
     const isNow = isSessionNow(ev.session, ev.date, now);
     const areaTag = areaLabel(ev.session.area);
     const badges = [];
+    const escapedKey = sessionKey(ev.session, ev.date).replace(/'/g, "\\'");
+    const escapedTitle = String(ev.session.title || '').replace(/'/g, "\\'");
     if (isNow) badges.push('<span class="now-badge small"><span class="now-dot"></span> EN VIVO</span>');
     if (ev.isSpeaker) badges.push('<span class="my-session-badge speaker">Expositor</span>');
-    if (ev.hasReminder) badges.push('<span class="my-session-badge reminder">🔔</span>');
+    if (ev.hasReminder) {
+      badges.push(`<button class="my-session-reminder-btn" onclick="confirmRemoveMySessionReminder('${escapedKey}', '${escapedTitle}', event)" title="Quitar recordatorio">${BELL_FILL_SVG}</button>`);
+    }
 
     return `
       <div class="my-session-item${isNow ? ' now' : ''}">
@@ -848,6 +851,25 @@ function toggleReminder(key, sessionTitle, event) {
   renderAgenda();
   renderMySessions();
   if (typeof renderProfileEvents === 'function') renderProfileEvents();
+}
+
+function confirmRemoveMySessionReminder(key, sessionTitle, event) {
+  if (event) { event.stopPropagation(); event.preventDefault(); }
+
+  const title = String(sessionTitle || '').trim();
+  const message = title
+    ? `¿Querés borrarte de este evento?\n\n${title}`
+    : '¿Querés borrarte de este evento?';
+  if (!window.confirm(message)) return;
+
+  const reminders = getReminders();
+  if (!reminders.includes(key)) return;
+
+  setReminders(reminders.filter(r => r !== key));
+  renderAgenda();
+  renderMySessions();
+  if (typeof renderProfileEvents === 'function') renderProfileEvents();
+  showToast('Recordatorio desactivado');
 }
 
 function toggleSpeakerFollow(speakerId, speakerName, event) {

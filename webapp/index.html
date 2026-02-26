@@ -90,13 +90,13 @@
             </div>
             <span>Speakers</span>
           </button>
-          <button class="quick-link" onclick="navigateTo('attendees')">
+          <button class="quick-link" onclick="navigateTo('locations')">
             <div class="quick-link-icon">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
               </svg>
             </div>
-            <span>Asistentes</span>
+            <span>Ubicaciones</span>
           </button>
           <button class="quick-link" onclick="navigateTo('notifications')">
             <div class="quick-link-icon">
@@ -215,11 +215,11 @@
         </svg>
         <span>Speakers</span>
       </button>
-      <button class="nav-item" data-page="attendees" onclick="navigateTo('attendees')">
+      <button class="nav-item" data-page="locations" onclick="navigateTo('locations')">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
         </svg>
-        <span>Asistentes</span>
+        <span>Ubicaciones</span>
       </button>
     </nav>
 
@@ -290,8 +290,10 @@
             <option value="">-- Seleccionar --</option>
           </select>
         </div>
+        <p class="muted" style="margin-top: -2px; margin-bottom: 10px;">Si no aparecés en la lista, podés crear un perfil nuevo.</p>
         <div class="form-error hidden" id="claimError"></div>
         <button class="btn-primary" id="claimSubmit" onclick="handleClaim()">Vincular perfil</button>
+        <button class="btn-secondary" id="claimCreateSubmit" onclick="handleCreateOwnProfile()">No encuentro mi perfil</button>
       </div>
     </div>
 

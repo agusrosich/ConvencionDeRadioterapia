@@ -572,6 +572,24 @@ body {
   font-size: 0.8rem;
 }
 
+.my-session-reminder-btn {
+  background: rgba(182, 144, 90, 0.12);
+  border: none;
+  border-radius: 999px;
+  color: var(--gold);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  line-height: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.my-session-reminder-btn:active {
+  transform: scale(0.9);
+}
+
 .now-badge.small {
   font-size: 0.65rem;
   padding: 2px 6px;
