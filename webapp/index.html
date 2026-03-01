@@ -108,6 +108,24 @@
           </button>
         </div>
 
+        <!-- Arrival registration card -->
+        <div class="arrival-card" id="arrivalCard" onclick="openArrivalModal()">
+          <div class="arrival-card-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+            </svg>
+          </div>
+          <div class="arrival-card-content">
+            <h3 class="arrival-card-title">Registr&aacute; tu arribo</h3>
+            <p class="arrival-card-text">Escane&aacute; el QR del congreso para validar tu asistencia y habilitar tu certificado.</p>
+          </div>
+          <div class="arrival-card-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </div>
+        </div>
+
         <!-- Next session preview -->
         <div class="section-card" id="nextSession">
           <h3 class="section-card-title">Pr&oacute;xima sesi&oacute;n</h3>
@@ -214,19 +232,6 @@
         <span>Ubicaciones</span>
       </button>
     </nav>
-
-    <!-- Registro de arribo (floating button) -->
-    <button
-      class="arrival-fab"
-      id="arrivalFab"
-      type="button"
-      onclick="openArrivalModal()"
-      aria-label="Registro de arribo al congreso"
-      title="Registro de arribo"
-    >
-      <span class="arrival-fab-ring" aria-hidden="true"></span>
-      <span class="arrival-fab-letter">R</span>
-    </button>
 
     <!-- Toast snackbar -->
     <div class="toast hidden" id="toast"></div>

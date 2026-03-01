@@ -1176,19 +1176,11 @@ function setArrivalStatus(message, tone = 'info') {
 }
 
 function updateArrivalFabState() {
-  const fab = document.getElementById('arrivalFab');
-  if (!fab) return;
+  const card = document.getElementById('arrivalCard');
+  if (!card) return;
 
   const validated = isArrivalValidated();
-  fab.classList.toggle('hidden', validated);
-  fab.classList.toggle('verified', validated);
-  fab.title = validated ? 'Arribo validado' : 'Registro de arribo';
-  fab.setAttribute(
-    'aria-label',
-    validated
-      ? 'Arribo validado. Certificado habilitado para descarga al finalizar el congreso.'
-      : 'Registro de arribo al congreso'
-  );
+  card.classList.toggle('hidden', validated);
 }
 
 function updateArrivalStatusUI() {

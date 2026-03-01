@@ -1135,78 +1135,67 @@ body {
   transform: translateX(-50%) translateY(0);
 }
 
-/* ARRIVAL FAB + QR HANDSHAKE */
-.arrival-fab {
-  position: fixed;
-  left: 12px;
-  bottom: calc(var(--nav-height) + 24px + var(--safe-bottom));
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  border: 2px solid #d6b477;
-  background: linear-gradient(135deg, #f7d897 0%, var(--gold) 48%, #8d6a34 100%);
-  box-shadow: 0 8px 22px rgba(48, 58, 127, 0.28);
-  color: var(--blue);
+/* ARRIVAL CARD + QR HANDSHAKE */
+.arrival-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, rgba(182,144,90,0.12) 0%, rgba(48,58,127,0.08) 100%);
+  border: 1.5px solid var(--gold);
+  border-radius: 14px;
+  padding: 16px 14px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.12s ease, box-shadow 0.2s ease;
+  animation: arrivalCardGlow 2.5s ease-in-out infinite;
+}
+
+.arrival-card:active {
+  transform: scale(0.98);
+}
+
+.arrival-card-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--gold) 0%, #8d6a34 100%);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  z-index: 220;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
-  overflow: visible;
 }
 
-.arrival-fab:active {
-  transform: scale(0.92);
+.arrival-card-content {
+  flex: 1;
+  min-width: 0;
 }
 
-.arrival-fab:focus-visible {
-  outline: 3px solid rgba(182, 144, 90, 0.45);
-  outline-offset: 3px;
-}
-
-.arrival-fab-ring {
-  position: absolute;
-  inset: -2px;
-  border-radius: 50%;
-  border: 1px solid rgba(182, 144, 90, 0.65);
-  animation: arrivalFabPulse 2.1s ease-out infinite;
-  pointer-events: none;
-}
-
-.arrival-fab-letter {
-  position: relative;
+.arrival-card-title {
   font-family: var(--font-heading);
-  font-size: 30px;
-  font-weight: 800;
-  line-height: 1;
-  text-shadow: 0 2px 6px rgba(255, 255, 255, 0.35);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0 0 4px 0;
 }
 
-.arrival-fab.verified {
-  box-shadow: 0 8px 24px rgba(33, 125, 75, 0.35);
-  border-color: #d8bf90;
+.arrival-card-text {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+  line-height: 1.4;
 }
 
-.arrival-fab.verified .arrival-fab-ring {
-  opacity: 0;
-  animation: none;
+.arrival-card-arrow {
+  flex-shrink: 0;
+  color: var(--gold);
+  opacity: 0.7;
 }
 
-@keyframes arrivalFabPulse {
-  0% {
-    transform: scale(0.95);
-    opacity: 0.85;
-  }
-  75% {
-    transform: scale(1.22);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1.22);
-    opacity: 0;
-  }
+@keyframes arrivalCardGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(182,144,90,0); }
+  50% { box-shadow: 0 0 12px 2px rgba(182,144,90,0.2); }
 }
 
 .modal-card--arrival {
@@ -1289,11 +1278,6 @@ body {
   gap: 8px;
 }
 
-@media (min-width: 1024px) {
-  .arrival-fab {
-    left: max(16px, calc(50% - 520px));
-  }
-}
 
 /* ============================================
    DESKTOP (tablets and up)
