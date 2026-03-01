@@ -691,10 +691,19 @@ function renderLocations() {
 // ============================================
 // NOTIFICATIONS
 // ============================================
+function activeNotifications() {
+  const now = new Date();
+  return notificationsData.filter(n => {
+    const scheduled = new Date((n.date || '2026-01-01') + 'T' + (n.time || '00:00') + ':00');
+    return scheduled <= now;
+  });
+}
+
 function renderNotifications() {
   const container = document.getElementById('notificationsList');
+  const active = activeNotifications();
 
-  if (!notificationsData.length) {
+  if (!active.length) {
     container.innerHTML = `
       <div class="notifications-empty">
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -707,7 +716,7 @@ function renderNotifications() {
   }
 
   // Sort by date/time descending
-  const sorted = [...notificationsData].sort((a, b) => {
+  const sorted = [...active].sort((a, b) => {
     const dateA = new Date((a.date || '2026-01-01') + 'T' + (a.time || '00:00'));
     const dateB = new Date((b.date || '2026-01-01') + 'T' + (b.time || '00:00'));
     return dateB - dateA;
@@ -727,7 +736,7 @@ function renderNotifications() {
 function updateNotifBadge() {
   const badge = document.getElementById('notifBadge');
   const lastRead = parseInt(localStorage.getItem('rtcc_notif_read') || '0');
-  const unread = notificationsData.filter(n => n.id > lastRead).length;
+  const unread = activeNotifications().filter(n => n.id > lastRead).length;
 
   if (unread > 0) {
     badge.textContent = unread > 9 ? '9+' : unread;
@@ -749,7 +758,7 @@ function showLatestNotifBanner() {
   if (!notificationsData.length) return;
 
   const lastDismissed = parseInt(localStorage.getItem('rtcc_banner_dismissed') || '0');
-  const highPriority = notificationsData
+  const highPriority = activeNotifications()
     .filter(n => n.priority === 'high' && n.id > lastDismissed)
     .sort((a, b) => b.id - a.id);
 
