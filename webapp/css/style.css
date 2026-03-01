@@ -162,11 +162,12 @@ body {
 }
 
 .auth-wall-logo {
-  width: 260px;
+  width: 286px;
   height: auto;
   object-fit: contain;
   margin-bottom: 1.2rem;
-  border-radius: 12px;
+  border-radius: 0;
+  mix-blend-mode: lighten;
 }
 
 .auth-wall-title {
@@ -413,7 +414,7 @@ body {
 
 .hero-logo {
   width: 100%;
-  max-width: 320px;
+  max-width: 352px;
   height: auto;
   object-fit: contain;
   margin-bottom: 16px;
