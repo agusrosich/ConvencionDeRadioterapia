@@ -30,7 +30,7 @@
   <!-- Auth Wall (shown when not logged in) -->
   <div id="authWall" class="auth-wall hidden">
     <div class="auth-wall-content">
-      <img src="img/logo-app.png" alt="RTCC 2026" class="auth-wall-logo">
+      <img src="img/logo-convention-gold.png" alt="RTCC 2026" class="auth-wall-logo">
       <h1 class="auth-wall-title">Convenci&oacute;n 2026</h1>
       <p class="auth-wall-subtitle">Inici&aacute; sesi&oacute;n o registrate para acceder al contenido de la app.</p>
       <button class="btn-primary auth-wall-btn" onclick="openAuthModal()">Acceder</button>
@@ -282,54 +282,7 @@
       </div>
     </div>
 
-    <!-- ================================================
-         MODAL: Login / Register
-         ================================================ -->
-    <div id="modalAuth" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'modalAuth')">
-      <div class="modal-card" role="dialog" aria-modal="true" aria-label="Acceso">
-        <button class="modal-close" onclick="closeModal('modalAuth')">&times;</button>
-        <div class="modal-logo">
-          <img src="img/logo-app.png" alt="RTCC" width="48" height="48">
-        </div>
-        <h2 class="modal-title">Acceder</h2>
-
-        <div class="modal-tabs">
-          <button class="modal-tab active" id="tabLogin" onclick="switchAuthTab('login')">Iniciar sesi&oacute;n</button>
-          <button class="modal-tab" id="tabRegister" onclick="switchAuthTab('register')">Registrarse</button>
-        </div>
-
-        <form id="formLogin" class="auth-form" onsubmit="handleLogin(event)">
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input class="form-input" type="email" id="loginEmail" placeholder="tu@email.com" required autocomplete="email">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Contrase&ntilde;a</label>
-            <input class="form-input" type="password" id="loginPassword" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required autocomplete="current-password">
-          </div>
-          <div class="form-error hidden" id="loginError"></div>
-          <button type="submit" class="btn-primary" id="loginSubmit">Ingresar</button>
-          <button type="button" class="btn-link" onclick="handleForgotPassword()" id="forgotPasswordBtn">&iquest;Olvidaste tu contrase&ntilde;a?</button>
-        </form>
-
-        <form id="formRegister" class="auth-form hidden" onsubmit="handleRegister(event)">
-          <div class="form-group">
-            <label class="form-label">Email</label>
-            <input class="form-input" type="email" id="registerEmail" placeholder="tu@email.com" required autocomplete="email">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Contrase&ntilde;a</label>
-            <input class="form-input" type="password" id="registerPassword" placeholder="M&iacute;nimo 6 caracteres" required minlength="6" autocomplete="new-password">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Confirmar contrase&ntilde;a</label>
-            <input class="form-input" type="password" id="registerPasswordConfirm" placeholder="Repet&iacute; tu contrase&ntilde;a" required minlength="6" autocomplete="new-password">
-          </div>
-          <div class="form-error hidden" id="registerError"></div>
-          <button type="submit" class="btn-primary" id="registerSubmit">Crear cuenta</button>
-        </form>
-      </div>
-    </div>
+    <!-- MODAL: Login / Register MOVED outside #app (see below) -->
 
     <!-- ================================================
          MODAL: Claim / Vincular perfil
@@ -573,6 +526,55 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- ================================================
+       MODAL: Login / Register (outside #app so it works from auth wall)
+       ================================================ -->
+  <div id="modalAuth" class="modal-backdrop hidden" onclick="closeModalOnBackdrop(event, 'modalAuth')">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-label="Acceso">
+      <button class="modal-close" onclick="closeModal('modalAuth')">&times;</button>
+      <div class="modal-logo">
+        <img src="img/logo-app.png" alt="RTCC" width="48" height="48">
+      </div>
+      <h2 class="modal-title">Acceder</h2>
+
+      <div class="modal-tabs">
+        <button class="modal-tab active" id="tabLogin" onclick="switchAuthTab('login')">Iniciar sesi&oacute;n</button>
+        <button class="modal-tab" id="tabRegister" onclick="switchAuthTab('register')">Registrarse</button>
+      </div>
+
+      <form id="formLogin" class="auth-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" id="loginEmail" placeholder="tu@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contrase&ntilde;a</label>
+          <input class="form-input" type="password" id="loginPassword" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required autocomplete="current-password">
+        </div>
+        <div class="form-error hidden" id="loginError"></div>
+        <button type="submit" class="btn-primary" id="loginSubmit">Ingresar</button>
+        <button type="button" class="btn-link" onclick="handleForgotPassword()" id="forgotPasswordBtn">&iquest;Olvidaste tu contrase&ntilde;a?</button>
+      </form>
+
+      <form id="formRegister" class="auth-form hidden" onsubmit="handleRegister(event)">
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input class="form-input" type="email" id="registerEmail" placeholder="tu@email.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Contrase&ntilde;a</label>
+          <input class="form-input" type="password" id="registerPassword" placeholder="M&iacute;nimo 6 caracteres" required minlength="6" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Confirmar contrase&ntilde;a</label>
+          <input class="form-input" type="password" id="registerPasswordConfirm" placeholder="Repet&iacute; tu contrase&ntilde;a" required minlength="6" autocomplete="new-password">
+        </div>
+        <div class="form-error hidden" id="registerError"></div>
+        <button type="submit" class="btn-primary" id="registerSubmit">Crear cuenta</button>
+      </form>
+    </div>
   </div>
 
   <!-- ================================================
