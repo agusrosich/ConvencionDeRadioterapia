@@ -93,6 +93,7 @@ function initApp() {
   updateArrivalFabState();
   checkReminders();
   setInterval(checkReminders, 60000);
+  setInterval(renderNextSession, 60000);
 
   // Check for hash navigation
   const hash = window.location.hash.replace('#', '');

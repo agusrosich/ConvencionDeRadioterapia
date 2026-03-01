@@ -8,7 +8,8 @@
       "Bash(curl:*)",
       "Bash(git remote add:*)",
       "Bash(git push:*)",
-      "WebFetch(domain:imarangatu.com.uy)"
+      "WebFetch(domain:imarangatu.com.uy)",
+      "Bash(du -sh */)"
     ]
   }
 }

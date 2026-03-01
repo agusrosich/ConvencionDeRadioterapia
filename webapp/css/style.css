@@ -1176,13 +1176,13 @@ body {
   font-family: var(--font-heading);
   font-size: 15px;
   font-weight: 700;
-  color: var(--white);
+  color: var(--dark);
   margin: 0 0 4px 0;
 }
 
 .arrival-card-text {
   font-size: 12px;
-  color: rgba(255,255,255,0.65);
+  color: rgba(0,0,0,0.55);
   margin: 0;
   line-height: 1.4;
 }
