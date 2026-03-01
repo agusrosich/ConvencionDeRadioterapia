@@ -136,6 +136,65 @@ body {
 }
 
 /* ============================================
+   AUTH WALL
+   ============================================ */
+.auth-wall {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: linear-gradient(160deg, var(--blue) 0%, #1e2560 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.auth-wall.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.auth-wall-content {
+  text-align: center;
+  padding: 2rem;
+  max-width: 340px;
+  width: 100%;
+}
+
+.auth-wall-logo {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  margin-bottom: 1.2rem;
+}
+
+.auth-wall-title {
+  color: var(--white);
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.auth-wall-subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin-bottom: 1.8rem;
+}
+
+.auth-wall-btn {
+  width: 100%;
+  margin-bottom: 0.7rem;
+}
+
+.auth-wall .btn-secondary {
+  background: transparent;
+  color: var(--gold);
+  border: 1.5px solid var(--gold);
+}
+
+/* ============================================
    APP SHELL
    ============================================ */
 .app {
@@ -812,7 +871,8 @@ body {
   border: 3px solid var(--beige);
 }
 
-.speaker-photo-wrap--arrival::after {
+/* Gold halo — registered in the app (has profile) */
+.speaker-photo-wrap--registered::after {
   content: '';
   position: absolute;
   inset: -3px;
@@ -821,9 +881,24 @@ body {
   pointer-events: none;
 }
 
-.speaker-photo--arrival {
+.speaker-photo--registered {
   border-color: var(--gold);
   box-shadow: 0 0 0 1px rgba(182, 144, 90, 0.22);
+}
+
+/* Green halo — registered AND checked in at venue via QR */
+.speaker-photo-wrap--arrival::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 1px solid rgba(34, 139, 34, 0.75);
+  pointer-events: none;
+}
+
+.speaker-photo--arrival {
+  border-color: #22883a;
+  box-shadow: 0 0 0 1px rgba(34, 136, 58, 0.22);
 }
 
 .speaker-flag-badge {
@@ -856,9 +931,16 @@ body {
   font-weight: 700;
 }
 
-.speaker-initials--arrival {
+/* Gold initials — registered in app */
+.speaker-initials--registered {
   border: 3px solid var(--gold);
   box-shadow: 0 0 0 1px rgba(182, 144, 90, 0.22);
+}
+
+/* Green initials — checked in at venue */
+.speaker-initials--arrival {
+  border: 3px solid #22883a;
+  box-shadow: 0 0 0 1px rgba(34, 136, 58, 0.22);
 }
 
 .speaker-name {
@@ -1196,6 +1278,23 @@ body {
 @keyframes arrivalCardGlow {
   0%, 100% { box-shadow: 0 0 0 0 rgba(182,144,90,0); }
   50% { box-shadow: 0 0 12px 2px rgba(182,144,90,0.2); }
+}
+
+.arrival-confirmed-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  background: rgba(34, 136, 58, 0.08);
+  border: 1.5px solid rgba(34, 136, 58, 0.35);
+  color: #176f47;
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .modal-card--arrival {
@@ -1650,6 +1749,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.profile-photo-ring.profile-ring--arrival {
+  border-color: #22883a;
 }
 
 .profile-photo-ring img {

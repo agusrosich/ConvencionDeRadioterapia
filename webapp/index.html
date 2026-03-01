@@ -27,6 +27,17 @@
     <div class="splash-loader"></div>
   </div>
 
+  <!-- Auth Wall (shown when not logged in) -->
+  <div id="authWall" class="auth-wall hidden">
+    <div class="auth-wall-content">
+      <img src="img/logo-app.png" alt="RTCC 2026" class="auth-wall-logo">
+      <h1 class="auth-wall-title">Convenci&oacute;n 2026</h1>
+      <p class="auth-wall-subtitle">Inici&aacute; sesi&oacute;n o registrate para acceder al contenido de la app.</p>
+      <button class="btn-primary auth-wall-btn" onclick="openAuthModal()">Acceder</button>
+      <button class="btn-secondary auth-wall-btn" onclick="switchAuthTab('register'); openAuthModal()">Crear cuenta</button>
+    </div>
+  </div>
+
   <!-- App Shell -->
   <div id="app" class="app hidden">
 
@@ -124,6 +135,14 @@
               <polyline points="9 18 15 12 9 6"/>
             </svg>
           </div>
+        </div>
+
+        <!-- Arrival confirmed badge (shown after QR scan) -->
+        <div class="arrival-confirmed-badge hidden" id="arrivalConfirmedBadge" onclick="openArrivalModal()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <span>Usuario registrado</span>
         </div>
 
         <!-- Next session preview -->

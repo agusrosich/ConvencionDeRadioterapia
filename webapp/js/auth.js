@@ -65,10 +65,27 @@ const cropState = {
 // ============================================
 // BOOT
 // ============================================
+// Show auth wall or app depending on auth state, coordinating with splash
+function authRevealAfterSplash(isLoggedIn) {
+  const doReveal = () => {
+    if (isLoggedIn) {
+      revealApp();
+    } else {
+      showAuthWall();
+    }
+  };
+  if (window.splashDone) {
+    doReveal();
+  } else {
+    window._pendingAuthReveal = doReveal;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   // Guard: if Supabase SDK didn't load, skip gracefully
   if (typeof supabase === 'undefined') {
     console.warn('Auth: Supabase SDK not loaded. Auth features disabled.');
+    authRevealAfterSplash(false);
     return;
   }
 
@@ -82,12 +99,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   updateAuthButton();
 
+  // Reveal app or auth wall based on session
+  authRevealAfterSplash(!!session);
+
   // Listen for future auth changes
   supabaseClient.auth.onAuthStateChange(async (event, session) => {
     currentUser = session?.user ?? null;
     if (event === 'SIGNED_IN') {
       await loadCurrentProfile();
       updateAuthButton();
+      // Reveal app on login
+      revealApp();
       if (!currentProfile) {
         closeModal('modalAuth');
         openClaimModal();
@@ -99,6 +121,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       currentProfile = null;
       updateAuthButton();
       if (typeof renderSpeakers === 'function') renderSpeakers();
+      // Show auth wall on logout
+      const wall = document.getElementById('authWall');
+      wall.classList.remove('hidden', 'fade-out');
+      document.getElementById('app').classList.add('hidden');
     }
   });
 
@@ -503,6 +529,10 @@ function openProfileModal() {
 function renderProfilePhotoPreview(photoUrl) {
   const wrap = document.getElementById('profilePhotoPreview');
   const editIcon = wrap.querySelector('.profile-photo-edit-icon');
+
+  // Update ring color based on arrival state
+  const arrivalValidated = typeof isArrivalValidated === 'function' && isArrivalValidated();
+  wrap.classList.toggle('profile-ring--arrival', arrivalValidated);
 
   // Remove existing content (img or initials)
   const existingImg = wrap.querySelector('img');
@@ -1127,9 +1157,12 @@ function openPublicProfile(userId) {
     }
   }
 
+  const pubHalo = att.speaker_id && typeof getSpeakerHaloState === 'function' ? getSpeakerHaloState(att.speaker_id) : null;
+  const pubWrapClass = pubHalo ? `speaker-photo-wrap detail speaker-photo-wrap--${pubHalo}` : 'speaker-photo-wrap detail';
+
   document.getElementById('publicProfileContent').innerHTML = `
     <div class="speaker-detail-header">
-      <div class="speaker-photo-wrap detail">${photoHtml}${flagBadge}</div>
+      <div class="${pubWrapClass}">${photoHtml}${flagBadge}</div>
       <h2 class="speaker-detail-name">${fullName}</h2>
     </div>
     <div class="speaker-detail-fields">${fields}</div>
@@ -1179,9 +1212,12 @@ function openSpeakerDetail(speakerId) {
 
   const flagBadge = speaker.country ? (() => { const c = COUNTRIES.find(cc => cc.code === speaker.country); return c ? `<span class="speaker-flag-badge detail">${c.flag}</span>` : ''; })() : '';
 
+  const detailHalo = typeof getSpeakerHaloState === 'function' ? getSpeakerHaloState(speakerId) : null;
+  const detailWrapClass = detailHalo ? `speaker-photo-wrap detail speaker-photo-wrap--${detailHalo}` : 'speaker-photo-wrap detail';
+
   document.getElementById('speakerDetailContent').innerHTML = `
     <div class="speaker-detail-header">
-      <div class="speaker-photo-wrap detail">${photoHtml}${flagBadge}</div>
+      <div class="${detailWrapClass}">${photoHtml}${flagBadge}</div>
       <h2 class="speaker-detail-name">${speaker.name}</h2>
       <span class="speaker-detail-area" style="background: ${areaColor}22; color: ${areaColor};">${areaNames[speaker.area] || speaker.area}</span>
     </div>

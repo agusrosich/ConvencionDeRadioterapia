@@ -71,15 +71,17 @@ async function fetchJSON(path) {
 }
 
 function initApp() {
-  // Hide splash
+  // Hide splash after brief delay — app waits for auth check
   setTimeout(() => {
     const splash = document.getElementById('splash');
     splash.classList.add('fade-out');
-    document.getElementById('app').classList.remove('hidden');
     setTimeout(() => splash.remove(), 500);
+    // Signal that splash is done; auth.js decides what to show
+    window.splashDone = true;
+    if (window._pendingAuthReveal) window._pendingAuthReveal();
   }, 1200);
 
-  // Render
+  // Render (data is ready, but UI stays hidden until auth)
   renderDayTabs();
   renderAgenda();
   renderSpeakers();
@@ -103,6 +105,21 @@ function initApp() {
 
   // PWA install prompt
   initInstallBanner();
+}
+
+// Called by auth.js after confirming session
+function revealApp() {
+  const wall = document.getElementById('authWall');
+  if (wall) {
+    wall.classList.add('fade-out');
+    setTimeout(() => wall.classList.add('hidden'), 400);
+  }
+  document.getElementById('app').classList.remove('hidden');
+}
+
+// Called by auth.js when no session found
+function showAuthWall() {
+  document.getElementById('authWall').classList.remove('hidden');
 }
 
 // ============================================
@@ -484,10 +501,23 @@ function filterSpeakersSearch(term) {
   renderSpeakers();
 }
 
-function isSpeakerArrivalValidated(speakerId) {
-  if (!isArrivalValidated()) return false;
+function isSpeakerRegistered(speakerId) {
   if (typeof currentProfile === 'undefined' || !currentProfile) return false;
   return currentProfile.speaker_id === speakerId;
+}
+
+function isSpeakerArrivalValidated(speakerId) {
+  if (!isArrivalValidated()) return false;
+  return isSpeakerRegistered(speakerId);
+}
+
+/**
+ * Returns halo state: 'arrival' (green), 'registered' (gold), or null (none).
+ */
+function getSpeakerHaloState(speakerId) {
+  if (isSpeakerArrivalValidated(speakerId)) return 'arrival';
+  if (isSpeakerRegistered(speakerId)) return 'registered';
+  return null;
 }
 
 function resolvePhotoSrc(value) {
@@ -604,16 +634,16 @@ function renderSpeakers() {
     const speaker = person.speaker;
     const isFollowed = followed.includes(speaker.id);
     const escapedName = speaker.name.replace(/'/g, "\\'");
-    const hasArrivalValidation = isSpeakerArrivalValidated(speaker.id);
-    const photoWrapClass = hasArrivalValidation ? 'speaker-photo-wrap speaker-photo-wrap--arrival' : 'speaker-photo-wrap';
-    const photoClass = hasArrivalValidation ? 'speaker-photo speaker-photo--arrival' : 'speaker-photo';
+    const haloState = getSpeakerHaloState(speaker.id);
+    const photoWrapClass = haloState ? `speaker-photo-wrap speaker-photo-wrap--${haloState}` : 'speaker-photo-wrap';
+    const photoClass = haloState ? `speaker-photo speaker-photo--${haloState}` : 'speaker-photo';
     const photoSrc = resolvePhotoSrc(speaker.photo);
     return `
     <div class="speaker-card" onclick="typeof openSpeakerDetail==='function'?openSpeakerDetail('${speaker.id}'):toggleSpeakerBio(this)">
       <div class="${photoWrapClass}">
         ${photoSrc
-          ? `<img src="${photoSrc}" alt="${speaker.name}" class="${photoClass}" onerror="this.outerHTML=makeInitials('${escapedName}', ${hasArrivalValidation})">`
-          : makeInitials(speaker.name, hasArrivalValidation)
+          ? `<img src="${photoSrc}" alt="${speaker.name}" class="${photoClass}" onerror="this.outerHTML=makeInitials('${escapedName}', '${haloState || ''}')">`
+          : makeInitials(speaker.name, haloState)
         }
         ${speaker.country && typeof COUNTRIES !== 'undefined' ? (() => { const c = COUNTRIES.find(cc => cc.code === speaker.country); return c ? `<span class="speaker-flag-badge">${c.flag}</span>` : ''; })() : ''}
       </div>
@@ -632,9 +662,9 @@ function renderSpeakers() {
   `}).join('');
 }
 
-function makeInitials(name, hasArrivalValidation = false) {
+function makeInitials(name, haloState) {
   const initials = getPersonInitials(name);
-  const cls = hasArrivalValidation ? 'speaker-initials speaker-initials--arrival' : 'speaker-initials';
+  const cls = haloState ? `speaker-initials speaker-initials--${haloState}` : 'speaker-initials';
   return `<div class="${cls}">${initials}</div>`;
 }
 
@@ -1187,10 +1217,11 @@ function setArrivalStatus(message, tone = 'info') {
 
 function updateArrivalFabState() {
   const card = document.getElementById('arrivalCard');
-  if (!card) return;
-
+  const badge = document.getElementById('arrivalConfirmedBadge');
   const validated = isArrivalValidated();
-  card.classList.toggle('hidden', validated);
+
+  if (card) card.classList.toggle('hidden', validated);
+  if (badge) badge.classList.toggle('hidden', !validated);
 }
 
 function updateArrivalStatusUI() {
