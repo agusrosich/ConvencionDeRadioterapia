@@ -872,7 +872,8 @@ function openModal(id) {
   if (!modal) return;
 
   // Keep a deterministic stack so nested sheets open above the current one.
-  const baseZ = 500;
+  // Must be above auth-wall (z-index: 999) so modals open on top.
+  const baseZ = 1000;
   const openModals = Array.from(document.querySelectorAll('.modal-backdrop:not(.hidden)'))
     .filter(el => el.id !== id)
     .sort((a, b) => (parseInt(a.style.zIndex || baseZ, 10) || baseZ) - (parseInt(b.style.zIndex || baseZ, 10) || baseZ));
@@ -894,7 +895,7 @@ function closeModal(id) {
   modal.style.removeProperty('z-index');
 
   // Re-pack remaining modals so z-index keeps increasing from base.
-  const baseZ = 500;
+  const baseZ = 1000;
   const openModals = Array.from(document.querySelectorAll('.modal-backdrop:not(.hidden)'))
     .sort((a, b) => (parseInt(a.style.zIndex || baseZ, 10) || baseZ) - (parseInt(b.style.zIndex || baseZ, 10) || baseZ));
   openModals.forEach((el, idx) => {

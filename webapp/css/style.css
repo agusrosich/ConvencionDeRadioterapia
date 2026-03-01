@@ -162,10 +162,11 @@ body {
 }
 
 .auth-wall-logo {
-  width: 110px;
-  height: 110px;
+  width: 260px;
+  height: auto;
   object-fit: contain;
   margin-bottom: 1.2rem;
+  border-radius: 12px;
 }
 
 .auth-wall-title {
