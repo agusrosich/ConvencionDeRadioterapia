@@ -1054,7 +1054,7 @@ function checkReminders() {
         if (diff > 0 && diff <= 10 * 60 * 1000 && diff > 9 * 60 * 1000) {
           new Notification('RTCC 2026 - Pr\u00f3xima sesi\u00f3n', {
             body: session.title + '\n' + session.time + ' - ' + session.room,
-            icon: BASE_PATH + 'img/logo-convention-gold.png',
+            icon: BASE_PATH + 'img/logo-app.png',
             tag: key
           });
           notified.push(key);

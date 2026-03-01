@@ -363,10 +363,12 @@ body {
 }
 
 .hero-logo {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
   object-fit: contain;
   margin-bottom: 16px;
+  border-radius: 12px;
 }
 
 .hero-title {

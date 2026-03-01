@@ -5,6 +5,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -14,6 +15,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -23,6 +25,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -32,6 +35,7 @@
     "specialty": "Mastologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -41,6 +45,7 @@
     "specialty": "Mastologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -50,6 +55,7 @@
     "specialty": "Mastologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -59,6 +65,7 @@
     "specialty": "Mastologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -68,6 +75,7 @@
     "specialty": "Mastologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -77,6 +85,7 @@
     "specialty": "Mastologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -86,6 +95,7 @@
     "specialty": "Mastologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -95,6 +105,7 @@
     "specialty": "Mastologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -104,6 +115,7 @@
     "specialty": "Patologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -113,6 +125,7 @@
     "specialty": "Patologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -122,6 +135,7 @@
     "specialty": "Patologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -131,6 +145,7 @@
     "specialty": "Patologo",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -140,6 +155,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -149,6 +165,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -158,6 +175,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -167,6 +185,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -176,6 +195,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -185,6 +205,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -194,6 +215,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -203,17 +225,19 @@
     "specialty": "Genetista",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
   {
     "id": "speaker-024",
-    "name": "Maria Fernanda Diaz",
+    "name": "María Fernanda Díaz",
     "specialty": "Radiooncologo",
-    "institution": "",
+    "institution": "Centro Médico Dean Funes, Córdoba",
     "area": "mama",
+    "nationality": "Argentina",
     "photo": "",
-    "bio": ""
+    "bio": "Especialista en Radioterapia y Oncología Clínica. Directora Médica del Centro Médico Dean Funes (Córdoba). Docente Titular de la Carrera de Especialización en Radioterapia Oncológica, Universidad Católica de Córdoba. Conferencista nacional e internacional en cáncer de mama. Participación continua en congresos ASTRO y ESTRO. Amplia experiencia en radioterapia mamaria, post-neoadyuvancia e hipofraccionamiento."
   },
   {
     "id": "speaker-025",
@@ -221,6 +245,7 @@
     "specialty": "Radiooncologo",
     "institution": "RT International Institute",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "img/speakers/federico-lorenzo.jpg",
     "bio": ""
   },
@@ -230,6 +255,7 @@
     "specialty": "Fisico Médico/Tecnólogos",
     "institution": "RT International Institute",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "img/speakers/natalia-gadea.jpg",
     "bio": ""
   },
@@ -239,6 +265,7 @@
     "specialty": "Fisico Médico/Tecnólogos",
     "institution": "",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -248,6 +275,7 @@
     "specialty": "Inteligencia Artificial",
     "institution": "RT International Institute",
     "area": "mama",
+    "nationality": "Uruguay",
     "photo": "img/speakers/agustin-rosich.jpg",
     "bio": ""
   },
@@ -257,6 +285,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -266,6 +295,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -275,6 +305,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -284,6 +315,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -293,6 +325,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -302,6 +335,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -311,6 +345,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -320,6 +355,7 @@
     "specialty": "Neurocirujano",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -329,6 +365,7 @@
     "specialty": "Neurocirujano",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -338,6 +375,7 @@
     "specialty": "Neurocirujano",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -347,17 +385,19 @@
     "specialty": "Neurocirujano",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
   {
     "id": "speaker-040",
-    "name": "Joao Gabriel",
+    "name": "João Gabriel Ribeiro Gomes",
     "specialty": "Neurocirujano",
-    "institution": "",
+    "institution": "Hospital Esperança / Real Hospital Portugues, Brasil",
     "area": "neuro",
+    "nationality": "Brasil",
     "photo": "",
-    "bio": ""
+    "bio": "Neurosurgeon. Coordinator of Radiosurgery Department at Brazilian Society of Neurosurgery. President of Brazilian Society of Radiosurgery 2021-2022. Chief of Neurosurgery Department at Hospital Esperança, Olinda-Pernambuco, Brazil. Director of López & Gomes, Adult and Pediatric Neurocenter, Recife-Pernambuco, Brazil."
   },
   {
     "id": "speaker-041",
@@ -365,6 +405,7 @@
     "specialty": "Neurocirujano",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -374,6 +415,7 @@
     "specialty": "Neurocirujano",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -383,6 +425,7 @@
     "specialty": "Neurocirujano",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -392,6 +435,7 @@
     "specialty": "Radioncologo",
     "institution": "RT International Institute",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "img/speakers/valentina-ferreira.jpg",
     "bio": ""
   },
@@ -401,17 +445,19 @@
     "specialty": "Radioncologo",
     "institution": "RT International Institute",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "img/speakers/aldo-quarneti.jpg",
-    "bio": ""
+    "bio": "Presidente de la Primera Convención RT Internacional. Doctor en Radioterapia. Profesor de la Cátedra de Oncología de Radioterápica. Experto en Radiocirugía y Radioterapia Estereotáctica. Ex-Director del Centro de Radioterapia del Hospital Pereira Rossell. Ex-Residente del Instituto Gustave-Roussy, Villejuif, Paris. Especialista en Gestión de Calidad de Servicios de Salud Normas ISO. Misiones de experto del OIEA."
   },
   {
     "id": "speaker-046",
-    "name": "Pablo Castropeña",
+    "name": "Pablo Castro Peña",
     "specialty": "Radioncologo",
-    "institution": "",
+    "institution": "CETAC-Juncal / Varian Medical Systems",
     "area": "neuro",
+    "nationality": "Argentina",
     "photo": "",
-    "bio": ""
+    "bio": "Médico Especialista en Radioterapia Oncológica. Consultor Servicio de Radioterapia CETAC-Juncal. Consultor Medical Affairs - Varian Medical Systems (Latam). Master en Gestión Clínica, Dirección Médica y Asistencial. Docente Universitario (UNC). Vocal del Consejo Asesor de la Autoridad Regulatoria Nuclear (CAAR). Secretario de la Asociación Argentina de Radiocirugía (AAR). Vice-Presidente de la ALAIR."
   },
   {
     "id": "speaker-047",
@@ -419,17 +465,19 @@
     "specialty": "Psiquiatra",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
   {
     "id": "speaker-048",
-    "name": "Cesar Della Biancia",
+    "name": "César Della Biancia",
     "specialty": "Físico Médico",
-    "institution": "",
+    "institution": "Memorial Sloan Kettering Cancer Center",
     "area": "neuro",
+    "nationality": "Argentina",
     "photo": "",
-    "bio": ""
+    "bio": "Físico médico argentino con doctorado en Física por la Universidad Nacional de Córdoba y formación especializada en Física Médica en la CNEA. Certificado en Física Médica (Oncología Radioterápica) por la American Board of Medical Physics. Associate Attending Physicist en el Memorial Sloan Kettering Cancer Center desde 2000, con roles de liderazgo en mejora de calidad y planificación de tratamientos."
   },
   {
     "id": "speaker-049",
@@ -437,6 +485,7 @@
     "specialty": "Físico Médico",
     "institution": "RT International Institute",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "img/speakers/karina-ochandorena.jpg",
     "bio": ""
   },
@@ -446,6 +495,7 @@
     "specialty": "Físico Médico",
     "institution": "",
     "area": "neuro",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -455,6 +505,7 @@
     "specialty": "Neumólogo",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -464,6 +515,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -473,6 +525,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -482,6 +535,7 @@
     "specialty": "Imagenologo",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -491,6 +545,7 @@
     "specialty": "Oncólogo Médico",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -500,6 +555,7 @@
     "specialty": "Oncólogo Médico",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -509,6 +565,7 @@
     "specialty": "Oncólogo Médico",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -518,6 +575,7 @@
     "specialty": "Oncólogo Médico",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -527,6 +585,7 @@
     "specialty": "Oncólogo Médico",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -536,6 +595,7 @@
     "specialty": "Cirujano de torax",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -545,6 +605,7 @@
     "specialty": "Cirujano de torax",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -554,6 +615,7 @@
     "specialty": "Cirujano de torax",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -563,6 +625,7 @@
     "specialty": "Cirujano de torax",
     "institution": "",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -570,46 +633,51 @@
     "id": "speaker-064",
     "name": "Gustavo Ferraris",
     "specialty": "Radioncólogo",
-    "institution": "",
+    "institution": "Centro Médico Dean Funes, Córdoba",
     "area": "pulmon",
+    "nationality": "Argentina",
     "photo": "",
-    "bio": ""
+    "bio": "Especialista Universitario Radioterapia y Oncología Clínica. Doctor en Medicina y Magíster en Biología Molecular (CNIO). Director de la Carrera de Especialización en Radioterapia Oncológica, Universidad Católica de Córdoba. Co-Director Médico, Centro Médico Dean Funes. Formación internacional en Gustave Roussy y Moffitt Cancer Center. Miembro del Consejo Consultivo del Instituto Nacional del Cáncer (Argentina). Past President SATRO."
   },
   {
     "id": "speaker-065",
-    "name": "Heloisa De Aandrade",
+    "name": "Heloísa De Andrade Carvalho",
     "specialty": "Radioncólogo",
-    "institution": "",
+    "institution": "FMUSP / Hospital das Clínicas",
     "area": "pulmon",
+    "nationality": "Brasil",
     "photo": "",
-    "bio": ""
+    "bio": "Medica Radioterapeuta. Profesora de la Facultad de Medicina da Universidade de São Paulo (FMUSP). Coordenadora del Servicio de Radioterapia de INRAD - Hospital das Clínicas da FMUSP. Contraparte de Brasil en Proyecto ARCAL y Proyecto Ancla con el Organismo Internacional de Energía Atómica. Médica del Hospital Sirio Libanes de 2010 a 2022."
   },
   {
     "id": "speaker-066",
     "name": "Ricardo Ruggeri",
     "specialty": "Físico Médico",
-    "institution": "",
+    "institution": "Grupo Leben Salud, Patagonia, Argentina",
     "area": "pulmon",
+    "nationality": "Argentina",
     "photo": "",
-    "bio": ""
+    "bio": "Bioingeniero y Magíster en Física Médica, especialista en Radioterapia y Medicina Nuclear. Director Técnico Oncológico del Grupo Leben Salud (Patagonia, Argentina). Director de la Residencia en Física Médica acreditada por la IOMP y la Universidad Nacional del Comahue. Presidente de la Asociación Argentina de Radiocirugía. Experto del OIEA en misiones internacionales de calidad y desarrollo en radioterapia en América Latina y el Caribe."
   },
   {
     "id": "speaker-067",
-    "name": "Rodolfo Alfonso",
+    "name": "Rodolfo Alonso",
     "specialty": "Físico Médico",
-    "institution": "",
+    "institution": "Universidad de la Habana / Fundación INTECNUS",
     "area": "pulmon",
+    "nationality": "Cuba",
     "photo": "",
-    "bio": ""
+    "bio": "Ingeniero Nuclear de la Universidad de la Habana, doctorado en la Universidad Técnica de Budapest, Hungría. Físico de Radioterapia en el Instituto Nacional de Oncología de la Habana. Coordinador de la Maestría de Física Médica de la Universidad de la Habana. Más de 40 misiones de experto del OIEA en Física Médica. Profesor titular retirado, Consultor de la Fundación INTECNUS y co-director de su Residencia de Física de Radioterapia. Asesor de City Cancer Challenge."
   },
   {
     "id": "speaker-068",
     "name": "Paola Alvarez",
     "specialty": "Físico Médico",
-    "institution": "",
+    "institution": "UT MD Anderson Cancer Center, Texas",
     "area": "pulmon",
+    "nationality": "Argentina",
     "photo": "",
-    "bio": ""
+    "bio": "Licenciada en Física de la Universidad de Buenos Aires. Física médica del Imaging and Radiation Oncology Core (IROC) Houston QA office y del Radiation Quality Assurance Laboratory (RQA Lab) en el UT MD Anderson Cancer Center, Texas. Encargada del programa de auditoría externa para verificación de la calibración de haces externos de tratamiento. Directora técnica del laboratorio de calibraciones Accredited Dosimetry Calibration Laboratory (ADCL)."
   },
   {
     "id": "speaker-069",
@@ -617,6 +685,7 @@
     "specialty": "Urologo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -626,6 +695,7 @@
     "specialty": "Urologo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -635,6 +705,7 @@
     "specialty": "Urologo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -644,6 +715,7 @@
     "specialty": "Urologo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -653,6 +725,7 @@
     "specialty": "Urologo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -662,6 +735,7 @@
     "specialty": "Urologo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -671,6 +745,7 @@
     "specialty": "Urologo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -680,6 +755,7 @@
     "specialty": "Urologo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -689,6 +765,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -698,6 +775,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -707,6 +785,7 @@
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -716,6 +795,7 @@
     "specialty": "Imagenólogo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -725,6 +805,7 @@
     "specialty": "Imagenólogo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -734,6 +815,7 @@
     "specialty": "Radiooncologo",
     "institution": "",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -743,6 +825,7 @@
     "specialty": "Radiooncologo",
     "institution": "RT International Institute",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "img/speakers/sergio-aguiar.jpg",
     "bio": ""
   },
@@ -752,6 +835,7 @@
     "specialty": "Fisico Médico / Tecnólogos",
     "institution": "RT International Institute",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "img/speakers/joaquin-wilkins.jpg",
     "bio": ""
   },
@@ -761,6 +845,7 @@
     "specialty": "Fisico Médico / Tecnólogos",
     "institution": "RT International Institute",
     "area": "prostata",
+    "nationality": "Uruguay",
     "photo": "img/speakers/eduardo-larrinaga.jpg",
     "bio": ""
   },
@@ -768,10 +853,11 @@
     "id": "speaker-086",
     "name": "Nadia Hernandez",
     "specialty": "Fisico Médico / Tecnólogos",
-    "institution": "",
+    "institution": "UT MD Anderson Cancer Center, Texas",
     "area": "prostata",
+    "nationality": "Cuba",
     "photo": "",
-    "bio": ""
+    "bio": "Ingeniera Nuclear del Instituto Superior de Ciencias y Tecnologías Nucleares, La Habana, Cuba. Asistente de Física Médica del IROC Houston QA office y del Radiation Quality Assurance Laboratory (RQA Lab) en el UT MD Anderson Cancer Center, Texas. Encargada del programa de auditoría externas para verificación del tratamientos de alta complejidad a través de fantomas antropomorfos en haces de fotones y protones."
   },
   {
     "id": "speaker-087",
@@ -779,7 +865,38 @@
     "specialty": "Moderador",
     "institution": "RT International Institute",
     "area": "pulmon",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
+  },
+  {
+    "id": "speaker-088",
+    "name": "Mabel E. Sardi",
+    "specialty": "Radioncólogo",
+    "institution": "Hospital Italiano de Buenos Aires / Mevaterapia",
+    "area": "mama",
+    "nationality": "Argentina",
+    "photo": "",
+    "bio": "Especialista en Radioterapia UBA. Directora de la Carrera de Médico Especialista en Radioterapia de la Facultad de Medicina de la Universidad de Buenos Aires, Unidad Académica Hospital Italiano. Ex Directora de la Residencia en Terapia Radiante del Hospital Italiano de Buenos Aires. Directora Académica Mevaterapia Oncología Radiante. Ex Jefa del Servicio de Terapia Radiante del Hospital Italiano de Buenos Aires."
+  },
+  {
+    "id": "speaker-089",
+    "name": "Verónica Vera",
+    "specialty": "Radioncólogo",
+    "institution": "Instituto Zunino, Córdoba",
+    "area": "pulmon",
+    "nationality": "Argentina",
+    "photo": "",
+    "bio": "Medica cirujana. Especialista en Medicina Interna. Especialista en Radioterapia Oncológica. Master Internacional en Altas tecnologías de radioterapia. Médica staff del Instituto Zunino. Vocal Titular de la Asociación de Oncólogos Clínicos de Córdoba."
+  },
+  {
+    "id": "speaker-090",
+    "name": "Soledad Colombo",
+    "specialty": "Radioncólogo",
+    "institution": "Mevaterapia / Hospital Italiano",
+    "area": "neuro",
+    "nationality": "Argentina",
+    "photo": "",
+    "bio": "Médica especialista en radioterapia. Mevaterapia. Hospital Italiano."
   }
 ]

@@ -357,7 +357,7 @@ function checkMentionNotification(msg) {
     if (!notifDisabled) {
       new Notification('RTCC 2026 \u2014 Te mencionaron en ' + msg.room, {
         body:  msg.display_name + ': ' + msg.body.substring(0, 80),
-        icon:  (typeof BASE_PATH !== 'undefined' ? BASE_PATH : '') + 'img/logo-convention-gold.png',
+        icon:  (typeof BASE_PATH !== 'undefined' ? BASE_PATH : '') + 'img/logo-app.png',
         tag:   'mention-' + msg.room + '-' + msg.id
       });
     }

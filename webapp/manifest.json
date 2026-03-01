@@ -1,7 +1,7 @@
 {
-  "name": "RTII Convention 2026 Companion",
+  "name": "RTII Convenci\u00f3n 2026 Companion",
   "short_name": "RTII 2026",
-  "description": "App companion oficial de la RT International Institute Convention 2026",
+  "description": "App companion oficial de la RT International Institute Convenci\u00f3n 2026",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -12,13 +12,13 @@
   "lang": "es",
   "icons": [
     {
-      "src": "img/logo-convention-gold.png",
+      "src": "img/logo-app.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "img/logo-convention.png",
+      "src": "img/logo-app.png",
       "sizes": "512x512",
       "type": "image/png"
     }
