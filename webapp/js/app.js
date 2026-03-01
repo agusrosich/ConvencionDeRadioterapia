@@ -1281,17 +1281,36 @@ async function scanArrivalLoop() {
   if (!arrivalScanActive) return;
 
   const video = document.getElementById('arrivalScannerVideo');
-  if (!video || !arrivalDetector) {
+  if (!video) {
     stopArrivalScanner(false);
     return;
   }
 
   try {
     if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      const codes = await arrivalDetector.detect(video);
-      if (codes && codes.length) {
-        handleArrivalScanResult(codes[0].rawValue);
-        return;
+      // Use BarcodeDetector if available, otherwise fall back to jsQR
+      if (arrivalDetector) {
+        const codes = await arrivalDetector.detect(video);
+        if (codes && codes.length) {
+          handleArrivalScanResult(codes[0].rawValue);
+          return;
+        }
+      } else if (typeof jsQR === 'function') {
+        if (!window._arrivalCanvas) {
+          window._arrivalCanvas = document.createElement('canvas');
+          window._arrivalCanvasCtx = window._arrivalCanvas.getContext('2d', { willReadFrequently: true });
+        }
+        const canvas = window._arrivalCanvas;
+        const ctx = window._arrivalCanvasCtx;
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height, { inversionAttempts: 'dontInvert' });
+        if (code && code.data) {
+          handleArrivalScanResult(code.data);
+          return;
+        }
       }
     }
   } catch {
@@ -1314,19 +1333,22 @@ async function startArrivalScanner() {
     return;
   }
 
-  if (!('BarcodeDetector' in window)) {
-    setArrivalStatus('Tu navegador no soporta lectura QR en tiempo real. Usa Chrome o Edge actualizado.', 'error');
-    return;
+  // Use BarcodeDetector if available, otherwise fall back to jsQR
+  let useBarcodeDetector = false;
+  if ('BarcodeDetector' in window) {
+    try {
+      const supportedFormats = await BarcodeDetector.getSupportedFormats();
+      if (Array.isArray(supportedFormats) && supportedFormats.includes('qr_code')) {
+        useBarcodeDetector = true;
+      }
+    } catch {
+      // Fall through to jsQR
+    }
   }
 
-  try {
-    const supportedFormats = await BarcodeDetector.getSupportedFormats();
-    if (Array.isArray(supportedFormats) && !supportedFormats.includes('qr_code')) {
-      setArrivalStatus('Este navegador no tiene soporte para QR. Usa otro navegador actualizado.', 'error');
-      return;
-    }
-  } catch {
-    // If the format check fails, proceed and rely on detector runtime.
+  if (!useBarcodeDetector && typeof jsQR !== 'function') {
+    setArrivalStatus('Tu navegador no soporta lectura QR. Intenta actualizar el navegador.', 'error');
+    return;
   }
 
   const video = document.getElementById('arrivalScannerVideo');
@@ -1345,7 +1367,7 @@ async function startArrivalScanner() {
     video.srcObject = stream;
     await video.play();
 
-    arrivalDetector = new BarcodeDetector({ formats: ['qr_code'] });
+    arrivalDetector = useBarcodeDetector ? new BarcodeDetector({ formats: ['qr_code'] }) : null;
     arrivalScanActive = true;
     arrivalLastInvalidAt = 0;
 
