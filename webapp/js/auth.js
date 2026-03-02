@@ -275,11 +275,10 @@ async function handleRegister(event) {
 
   setButtonLoading(btn, true, 'Creando cuenta...');
 
-  const siteUrl = window.location.origin + window.location.pathname;
   const { error } = await supabaseClient.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: siteUrl }
+    options: { emailRedirectTo: 'https://rtconvention.lat' }
   });
 
   setButtonLoading(btn, false, 'Crear cuenta');
@@ -336,9 +335,8 @@ async function handleForgotPassword() {
   btn.textContent = 'Enviando...';
   clearFormErrors();
 
-  const siteUrl = window.location.origin + window.location.pathname;
   const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-    redirectTo: siteUrl,
+    redirectTo: 'https://rtconvention.lat',
   });
 
   btn.disabled = false;
