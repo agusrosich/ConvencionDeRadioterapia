@@ -1312,36 +1312,68 @@ function openPublicProfile(userId) {
     </div>`;
   }
 
-  // Events this person attends (match by speaker_id in agenda)
+  // Mesas where this person participates + role in each one
   let eventsHtml = '';
-  if (attendeeSpeakerId) {
-    const personEvents = [];
-    for (const day of agendaData) {
-      if (!day.sessions || !day.date) continue;
-      for (const session of day.sessions) {
-        const isSpeaker = session.speakers && session.speakers.includes(attendeeSpeakerId);
-        const isModerator = session.moderator && speakersData.find(s => s.id === attendeeSpeakerId && session.moderator.includes(s.name));
-        if (isSpeaker || isModerator) {
-          personEvents.push({ session, dayLabel: 'D\u00eda ' + day.day, date: day.date });
-        }
+  const participantIds = [att.user_id, att._mergeKey].filter(Boolean);
+  const attendeeSpeaker = attendeeSpeakerId && Array.isArray(speakersData)
+    ? speakersData.find(s => s.id === attendeeSpeakerId)
+    : null;
+  const normalizedSpeakerName = attendeeSpeaker ? normalizePersonKey(attendeeSpeaker.name) : '';
+  const personEvents = [];
+
+  for (const day of agendaData) {
+    if (!day.sessions || !day.date) continue;
+    for (const session of day.sessions) {
+      if (!session || session.area === 'evento') continue;
+
+      const roles = [];
+      const isSpeaker = attendeeSpeakerId && Array.isArray(session.speakers) && session.speakers.includes(attendeeSpeakerId);
+      if (isSpeaker) roles.push('Expositor');
+
+      let isModerator = false;
+      if (attendeeSpeakerId && normalizedSpeakerName && session.moderator) {
+        const moderatorNames = String(session.moderator)
+          .split(/\s+y\s+|,|;/i)
+          .map(name => normalizePersonKey(name))
+          .filter(Boolean);
+        isModerator = moderatorNames.includes(normalizedSpeakerName);
+      }
+      if (isModerator) roles.push('Moderador');
+
+      const key = typeof sessionKey === 'function'
+        ? sessionKey(session, day.date)
+        : (day.date + '|' + session.time + '|' + session.title);
+      const enrolledUsers = enrollmentsCache[key] || [];
+      const isParticipant = participantIds.some(uid => enrolledUsers.includes(uid));
+      if (isParticipant && !isSpeaker && !isModerator) roles.push('Participante');
+
+      if (roles.length) {
+        personEvents.push({ session, dayLabel: 'D\u00eda ' + day.day, date: day.date, roles });
       }
     }
+  }
 
-    if (personEvents.length) {
-      personEvents.sort((a, b) => (a.date + a.session.time).localeCompare(b.date + b.session.time));
-      const evItems = personEvents.map(ev => {
-        const areaTag = typeof areaLabel === 'function' ? areaLabel(ev.session.area) : ev.session.area;
-        return `<div class="public-profile-event-item">
-          <div class="public-profile-event-title">${ev.session.title}</div>
-          <div class="public-profile-event-meta">${ev.dayLabel} \u00b7 ${ev.session.time} - ${ev.session.end} \u00b7 <span class="session-area-tag" data-area="${ev.session.area}" style="font-size:11px;">${areaTag}</span></div>
-          <div class="public-profile-event-meta">\u{1F4CD} ${ev.session.room}</div>
-        </div>`;
-      }).join('');
-      eventsHtml = `<div class="public-profile-events">
-        <h3 class="public-profile-events-title">Eventos en los que participa</h3>
-        ${evItems}
+  if (personEvents.length) {
+    const roleOrder = { Moderador: 0, Expositor: 1, Participante: 2 };
+    personEvents.sort((a, b) => (a.date + a.session.time).localeCompare(b.date + b.session.time));
+    const evItems = personEvents.map(ev => {
+      const areaTag = typeof areaLabel === 'function' ? areaLabel(ev.session.area) : ev.session.area;
+      const roleBadges = ev.roles
+        .slice()
+        .sort((a, b) => (roleOrder[a] ?? 99) - (roleOrder[b] ?? 99))
+        .map(role => `<span class="public-profile-role-badge ${role.toLowerCase()}">${role}</span>`)
+        .join('');
+      return `<div class="public-profile-event-item">
+        <div class="public-profile-event-title">${ev.session.title}</div>
+        <div class="public-profile-event-meta">${ev.dayLabel} \u00b7 ${ev.session.time} - ${ev.session.end} \u00b7 <span class="session-area-tag" data-area="${ev.session.area}" style="font-size:11px;">${areaTag}</span></div>
+        <div class="public-profile-event-meta">\u{1F4CD} ${ev.session.room}</div>
+        <div class="public-profile-event-roles">${roleBadges}</div>
       </div>`;
-    }
+    }).join('');
+    eventsHtml = `<div class="public-profile-events">
+      <h3 class="public-profile-events-title">Mesas y rol en el congreso</h3>
+      ${evItems}
+    </div>`;
   }
 
   const pubHalo = attendeeSpeakerId && typeof getSpeakerHaloState === 'function' ? getSpeakerHaloState(attendeeSpeakerId) : null;

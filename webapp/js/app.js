@@ -610,16 +610,37 @@ function resolvePhotoSrc(value) {
 
 function getSpeakerListWithRegisteredAttendees() {
   const merged = [];
+  const speakerIds = new Set();
 
-  // Only show speakers (expositores) — oyentes are hidden from this list
+  // Include all speakers first; non-speaker attendees are merged below.
   speakersData.forEach(speaker => {
     if (!speaker || !speaker.id) return;
+    speakerIds.add(speaker.id);
     merged.push({
       type: 'speaker',
       name: speaker.name || '',
       specialty: speaker.specialty || '',
       institution: speaker.institution || '',
       speaker
+    });
+  });
+
+  const attendees = typeof getAllAttendees === 'function' ? getAllAttendees() : [];
+  attendees.forEach(att => {
+    if (!att) return;
+    const resolvedSpeakerId = String(att._resolvedSpeakerId || '').trim();
+    if (resolvedSpeakerId && speakerIds.has(resolvedSpeakerId)) return;
+
+    const fullName = [att.name, att.lastname].filter(Boolean).join(' ').trim();
+    const displayName = fullName || String(att.email || '').trim();
+    if (!displayName) return;
+
+    merged.push({
+      type: 'attendee',
+      name: displayName,
+      specialty: att.specialty || 'Asistente registrado',
+      institution: att.institution || '',
+      attendee: att
     });
   });
 
@@ -630,7 +651,7 @@ function renderRegisteredAttendeeCard(att) {
   const fullName = [att.name, att.lastname].filter(Boolean).join(' ').trim();
   const initials = getPersonInitials(fullName);
   const photoSrc = resolvePhotoSrc(att.photo_url);
-  const safeUserId = String(att.user_id || '').replace(/'/g, "\\'");
+  const safeProfileId = String(att._mergeKey || att.user_id || '').replace(/'/g, "\\'");
   const countryBadge = att.country && typeof COUNTRIES !== 'undefined'
     ? (() => {
       const country = COUNTRIES.find(c => c.code === att.country);
@@ -640,7 +661,7 @@ function renderRegisteredAttendeeCard(att) {
   const specialty = att.specialty || 'Asistente registrado';
 
   return `
-    <div class="attendee-card" onclick="${safeUserId && typeof openPublicProfile === 'function' ? `openPublicProfile('${safeUserId}')` : 'void(0)'}">
+    <div class="attendee-card" onclick="${safeProfileId && typeof openPublicProfile === 'function' ? `openPublicProfile('${safeProfileId}')` : 'void(0)'}">
       <div class="attendee-photo-wrap">
         ${photoSrc
           ? `<img src="${photoSrc}" alt="${fullName}" class="attendee-photo" onerror="this.outerHTML='<div class=\\'attendee-initials\\'>${initials}</div>'">`
