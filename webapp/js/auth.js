@@ -1467,7 +1467,7 @@ function speakerInitials(name) {
 // ============================================
 // SESSION ENROLLMENTS (Participar en mesa)
 // ============================================
-const ENROLLMENT_MAX = 20;
+const ENROLLMENT_MAX = 40;
 let enrollmentsCache = {};  // { sessionKey: [{ user_id, profile }] }
 let myEnrollments = [];     // [ sessionKey, ... ]
 

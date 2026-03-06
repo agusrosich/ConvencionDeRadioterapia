@@ -319,13 +319,14 @@ function renderAgenda() {
       } else {
         const enrolled = typeof isEnrolled === 'function' && isEnrolled(key);
         const count = typeof getEnrollmentCount === 'function' ? getEnrollmentCount(key) : 0;
-        const full = count >= (typeof ENROLLMENT_MAX !== 'undefined' ? ENROLLMENT_MAX : 20);
+        const enrollmentMax = (typeof ENROLLMENT_MAX !== 'undefined' ? ENROLLMENT_MAX : 40);
+        const full = count >= enrollmentMax;
         if (enrolled) {
-          enrollBtn = `<button class="enroll-btn active" onclick="enrollInSession('${escapedKey}', event)" title="Desinscribirme">${ENROLLED_SVG} <span class="enroll-count">${count}/20</span></button>`;
+          enrollBtn = `<button class="enroll-btn active" onclick="enrollInSession('${escapedKey}', event)" title="Desinscribirme">${ENROLLED_SVG} <span class="enroll-count">${count}/${enrollmentMax}</span></button>`;
         } else if (full) {
           enrollBtn = `<button class="enroll-btn disabled" disabled title="Mesa llena">${ENROLL_SVG} <span class="enroll-count">Llena</span></button>`;
         } else {
-          enrollBtn = `<button class="enroll-btn" onclick="enrollInSession('${escapedKey}', event)" title="Participar en la mesa">${ENROLL_SVG} <span class="enroll-count">${count}/20</span></button>`;
+          enrollBtn = `<button class="enroll-btn" onclick="enrollInSession('${escapedKey}', event)" title="Participar en la mesa">${ENROLL_SVG} <span class="enroll-count">${count}/${enrollmentMax}</span></button>`;
         }
       }
     }
@@ -369,7 +370,8 @@ function openSessionDetail(day, sessionIndex) {
   const isSpeaker = typeof isUserSpeakerInSession === 'function' && isUserSpeakerInSession(session);
   const enrolled = typeof isEnrolled === 'function' && isEnrolled(key);
   const count = typeof getEnrollmentCount === 'function' ? getEnrollmentCount(key) : 0;
-  const full = count >= (typeof ENROLLMENT_MAX !== 'undefined' ? ENROLLMENT_MAX : 20);
+  const enrollmentMax = (typeof ENROLLMENT_MAX !== 'undefined' ? ENROLLMENT_MAX : 40);
+  const full = count >= enrollmentMax;
   const isEvento = !session.area || session.area === 'evento';
 
   let enrollSection = '';
@@ -387,7 +389,7 @@ function openSessionDetail(day, sessionIndex) {
 
     enrollSection = `
     <div class="session-detail-section">
-      <h3 class="session-detail-section-title">Participar de la mesa <span class="enroll-counter">${count}/20 lugares</span></h3>
+      <h3 class="session-detail-section-title">Participar de la mesa <span class="enroll-counter">${count}/${enrollmentMax} lugares</span></h3>
       ${enrollBtnHtml}
       <div class="session-detail-enrolled-list" id="enrolledList-${dayData.day}-${dayData.sessions.indexOf(session)}"></div>
     </div>`;
