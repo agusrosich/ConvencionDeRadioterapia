@@ -131,6 +131,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Load all Supabase profiles and merge over JSON data
   await loadAndMergeSupabaseProfiles();
   await loadAttendees();
+  await loadAllEnrollments();
+
+  // Auto-activate reminders for speakers
+  autoActivateSpeakerReminders();
 });
 
 // ============================================
@@ -1242,4 +1246,190 @@ function speakerInitials(name) {
   return parts.length >= 2
     ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
     : parts[0].substring(0, 2).toUpperCase();
+}
+
+// ============================================
+// SESSION ENROLLMENTS (Participar en mesa)
+// ============================================
+const ENROLLMENT_MAX = 20;
+let enrollmentsCache = {};  // { sessionKey: [{ user_id, profile }] }
+let myEnrollments = [];     // [ sessionKey, ... ]
+
+async function loadAllEnrollments() {
+  if (!supabaseClient) return;
+  try {
+    const { data, error } = await supabaseClient
+      .from('session_enrollments')
+      .select('session_key, user_id');
+    if (error) throw error;
+
+    enrollmentsCache = {};
+    myEnrollments = [];
+    const uid = currentUser ? currentUser.id : null;
+
+    (data || []).forEach(row => {
+      if (!enrollmentsCache[row.session_key]) enrollmentsCache[row.session_key] = [];
+      enrollmentsCache[row.session_key].push(row.user_id);
+      if (uid && row.user_id === uid) myEnrollments.push(row.session_key);
+    });
+  } catch (e) {
+    console.warn('Could not load enrollments:', e.message);
+  }
+}
+
+function getEnrollmentCount(sessionKey) {
+  return (enrollmentsCache[sessionKey] || []).length;
+}
+
+function isEnrolled(sessionKey) {
+  return myEnrollments.includes(sessionKey);
+}
+
+function getSessionTimeSlot(sessionKey) {
+  // sessionKey = "date|time|title" — extract date+time for conflict check
+  const parts = sessionKey.split('|');
+  return parts[0] + '|' + parts[1];  // "2026-03-13|16:30"
+}
+
+function hasConflictingEnrollment(sessionKey) {
+  const slot = getSessionTimeSlot(sessionKey);
+  return myEnrollments.some(k => k !== sessionKey && getSessionTimeSlot(k) === slot);
+}
+
+function getConflictingSessionTitle(sessionKey) {
+  const slot = getSessionTimeSlot(sessionKey);
+  const conflicting = myEnrollments.find(k => k !== sessionKey && getSessionTimeSlot(k) === slot);
+  if (!conflicting) return '';
+  return conflicting.split('|').slice(2).join('|');
+}
+
+async function enrollInSession(sessionKey, event) {
+  if (event) { event.stopPropagation(); event.preventDefault(); }
+
+  if (!currentUser) {
+    showToast('Tenés que iniciar sesión para inscribirte');
+    return;
+  }
+
+  // Check if already enrolled
+  if (isEnrolled(sessionKey)) {
+    await unenrollFromSession(sessionKey);
+    return;
+  }
+
+  // Check seat limit
+  if (getEnrollmentCount(sessionKey) >= ENROLLMENT_MAX) {
+    showToast('Mesa llena (máximo ' + ENROLLMENT_MAX + ' participantes)');
+    return;
+  }
+
+  // Check time conflict
+  if (hasConflictingEnrollment(sessionKey)) {
+    const conflictTitle = getConflictingSessionTitle(sessionKey);
+    showToast('Ya estás inscrito en otra charla en este horario' + (conflictTitle ? ': ' + conflictTitle : ''));
+    return;
+  }
+
+  try {
+    const { error } = await supabaseClient
+      .from('session_enrollments')
+      .insert({ session_key: sessionKey, user_id: currentUser.id });
+    if (error) throw error;
+
+    // Update local cache
+    if (!enrollmentsCache[sessionKey]) enrollmentsCache[sessionKey] = [];
+    enrollmentsCache[sessionKey].push(currentUser.id);
+    myEnrollments.push(sessionKey);
+
+    showToast('Te inscribiste a la mesa');
+    renderAgenda();
+    renderMySessions();
+  } catch (e) {
+    console.error('Enrollment error:', e);
+    showToast('Error al inscribirse: ' + e.message);
+  }
+}
+
+async function unenrollFromSession(sessionKey) {
+  if (!currentUser) return;
+
+  try {
+    const { error } = await supabaseClient
+      .from('session_enrollments')
+      .delete()
+      .eq('session_key', sessionKey)
+      .eq('user_id', currentUser.id);
+    if (error) throw error;
+
+    // Update local cache
+    if (enrollmentsCache[sessionKey]) {
+      enrollmentsCache[sessionKey] = enrollmentsCache[sessionKey].filter(id => id !== currentUser.id);
+    }
+    myEnrollments = myEnrollments.filter(k => k !== sessionKey);
+
+    showToast('Te desinscribiste de la mesa');
+    renderAgenda();
+    renderMySessions();
+  } catch (e) {
+    console.error('Unenrollment error:', e);
+    showToast('Error al desinscribirse: ' + e.message);
+  }
+}
+
+async function getEnrolledProfiles(sessionKey) {
+  if (!supabaseClient) return [];
+  const userIds = enrollmentsCache[sessionKey] || [];
+  if (!userIds.length) return [];
+
+  // Get profiles for enrolled users
+  const profiles = [];
+  for (const uid of userIds) {
+    const att = allAttendees.find(a => a.user_id === uid);
+    if (att) {
+      profiles.push(att);
+    }
+  }
+  return profiles;
+}
+
+function isUserSpeakerInSession(session) {
+  if (!currentProfile || !currentProfile.speaker_id) return false;
+  // Check if user's speaker_id is in session speakers
+  if (Array.isArray(session.speakers) && session.speakers.includes(currentProfile.speaker_id)) return true;
+  // Check if user is moderator
+  if (session.moderator) {
+    const sp = speakersData.find(s => s.id === currentProfile.speaker_id);
+    if (sp && session.moderator.includes(sp.name)) return true;
+  }
+  return false;
+}
+
+function autoActivateSpeakerReminders() {
+  if (!currentProfile || !currentProfile.speaker_id) return;
+  const speakerId = currentProfile.speaker_id;
+  const reminders = typeof getReminders === 'function' ? getReminders() : [];
+  let changed = false;
+
+  for (const day of agendaData) {
+    if (!day.sessions || !day.date) continue;
+    for (const session of day.sessions) {
+      const isSpeaker = Array.isArray(session.speakers) && session.speakers.includes(speakerId);
+      let isModerator = false;
+      if (session.moderator) {
+        const sp = speakersData.find(s => s.id === speakerId);
+        if (sp && session.moderator.includes(sp.name)) isModerator = true;
+      }
+      if (isSpeaker || isModerator) {
+        const key = typeof sessionKey === 'function' ? sessionKey(session, day.date) : (day.date + '|' + session.time + '|' + session.title);
+        if (!reminders.includes(key)) {
+          reminders.push(key);
+          changed = true;
+        }
+      }
+    }
+  }
+
+  if (changed && typeof setReminders === 'function') {
+    setReminders(reminders);
+  }
 }
