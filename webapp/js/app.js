@@ -573,9 +573,16 @@ function filterSpeakersSearch(term) {
   renderSpeakers();
 }
 
+function getResolvedCurrentSpeakerId() {
+  if (typeof getCurrentProfileSpeakerId === 'function') {
+    return getCurrentProfileSpeakerId();
+  }
+  if (typeof currentProfile === 'undefined' || !currentProfile) return null;
+  return currentProfile.speaker_id || null;
+}
+
 function isSpeakerRegistered(speakerId) {
-  if (typeof currentProfile === 'undefined' || !currentProfile) return false;
-  return currentProfile.speaker_id === speakerId;
+  return getResolvedCurrentSpeakerId() === speakerId;
 }
 
 function isSpeakerArrivalValidated(speakerId) {
@@ -912,7 +919,7 @@ function renderMySessions() {
   if (!container) return;
 
   const reminders = getReminders();
-  const mySpeakerId = (typeof currentProfile !== 'undefined' && currentProfile) ? currentProfile.speaker_id : null;
+  const mySpeakerId = getResolvedCurrentSpeakerId();
 
   // Collect sessions where user has reminder OR is a speaker/moderator
   const mySessions = [];
