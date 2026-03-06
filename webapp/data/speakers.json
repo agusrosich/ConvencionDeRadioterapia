@@ -132,32 +132,32 @@
   {
     "id": "speaker-014",
     "name": "Federico Lorenzo",
-    "specialty": "Radiooncologo",
-    "institution": "RT International Institute",
+    "specialty": "Oncologia radioterapica",
+    "institution": "RT International Institute / Universidad de la Republica",
     "area": "mama",
     "nationality": "Uruguay",
     "photo": "img/speakers/federico-lorenzo.jpg",
-    "bio": ""
+    "bio": "Profesor del Departamento de Oncologia Radioterapica y de la Unidad Academica de Radioterapia del Hospital de Clinicas (Udelar). Experto en radiocirugia y radioterapia estereotactica."
   },
   {
     "id": "speaker-015",
-    "name": "Heloisa Carvalho",
-    "specialty": "Radiooncologo",
-    "institution": "",
+    "name": "Heloisa De Andrade Carvalho",
+    "specialty": "Invitada internacional",
+    "institution": "Faculdade de Medicina da Universidade de Sao Paulo (FMUSP)",
     "area": "mama",
-    "nationality": "",
-    "photo": "",
-    "bio": ""
+    "nationality": "Brasil",
+    "photo": "img/speakers/heloisa-carvalho.jpg",
+    "bio": "Medica radioterapeuta. Profesora de la FMUSP y coordinadora del servicio de radioterapia de INRAD - Hospital das Clinicas. Contraparte de Brasil en proyectos ARCAL y ANCLA con el OIEA."
   },
   {
     "id": "speaker-016",
     "name": "Maria Fernanda Diaz",
-    "specialty": "Radiooncologo",
-    "institution": "Centro Médico Dean Funes, Córdoba",
+    "specialty": "Invitada internacional",
+    "institution": "Centro Medico Dean Funes (Cordoba)",
     "area": "mama",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Especialista en Radioterapia y Oncología Clínica. Directora Médica del Centro Médico Dean Funes (Córdoba). Docente Titular de la Carrera de Especialización en Radioterapia Oncológica, Universidad Católica de Córdoba. Conferencista nacional e internacional en cáncer de mama. Participación continua en congresos ASTRO y ESTRO. Amplia experiencia en radioterapia mamaria, post-neoadyuvancia e hipofraccionamiento."
+    "photo": "img/speakers/maria-fernanda-diaz.jpg",
+    "bio": "Especialista en Radioterapia y Oncologia Clinica. Directora medica del Centro Medico Dean Funes y docente titular de la carrera de especializacion en Radioterapia Oncologica (UCC)."
   },
   {
     "id": "speaker-017",
@@ -172,22 +172,22 @@
   {
     "id": "speaker-018",
     "name": "Jesica Lell",
-    "specialty": "Fisico Médico/Tecnólogos",
-    "institution": "",
+    "specialty": "Fisica medica",
+    "institution": "RT International Institute / Universidad de la Republica",
     "area": "mama",
     "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
+    "photo": "img/speakers/jesica-lell.jpg",
+    "bio": "Ingeniera biomedica especialista en fisica de la radioterapia. Profesora adjunta de la Unidad Academica de Radioterapia (Udelar) y ex docente de la Universidad Nacional de Cordoba."
   },
   {
     "id": "speaker-019",
     "name": "Agustin Rosich",
-    "specialty": "Inteligencia Artificial",
-    "institution": "RT International Institute",
+    "specialty": "Oncologia radioterapica / Inteligencia artificial",
+    "institution": "RT International Institute / Universidad de la Republica",
     "area": "mama",
     "nationality": "Uruguay",
     "photo": "img/speakers/agustin-rosich.jpg",
-    "bio": ""
+    "bio": "Integrante del Departamento de Oncologia Radioterapica de la Unidad Academica de Radioterapia del Hospital de Clinicas (Udelar), con enfoque en IA aplicada a radioterapia."
   },
   {
     "id": "speaker-020",
@@ -261,23 +261,23 @@
   },
   {
     "id": "speaker-027",
-    "name": "Joao Gabriel",
-    "specialty": "Neurocirujano",
-    "institution": "",
+    "name": "Joao Gabriel Ribeiro Gomes",
+    "specialty": "Invitado internacional",
+    "institution": "Hospital Esperanca / Real Hospital Portugues (Brasil)",
     "area": "neuro",
-    "nationality": "",
-    "photo": "",
-    "bio": ""
+    "nationality": "Brasil",
+    "photo": "img/speakers/joao-gabriel-ribeiro-gomes.jpg",
+    "bio": "Neurocirujano. Coordinador de radiosurgery en la Sociedade Brasileira de Neurocirurgia y presidente de la Sociedade Brasileira de Radioscirurgia 2021-2022."
   },
   {
     "id": "speaker-028",
     "name": "Soledad Colombo",
-    "specialty": "Radioncologo",
+    "specialty": "Invitada internacional",
     "institution": "Mevaterapia / Hospital Italiano",
     "area": "neuro",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Médica especialista en radioterapia. Mevaterapia. Hospital Italiano."
+    "photo": "img/speakers/soledad-colombo.jpg",
+    "bio": "Medica especialista en radioterapia. Mevaterapia y Hospital Italiano."
   },
   {
     "id": "speaker-029",
@@ -291,23 +291,23 @@
   },
   {
     "id": "speaker-030",
-    "name": "Pablo Castro Peña",
-    "specialty": "Radioncologo",
-    "institution": "CETAC-Juncal / Varian Medical Systems",
+    "name": "Pablo Castro Pena",
+    "specialty": "Invitado internacional",
+    "institution": "CETAC-Juncal / Varian Medical Systems (Latam)",
     "area": "neuro",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Médico Especialista en Radioterapia Oncológica. Consultor Servicio de Radioterapia CETAC-Juncal. Consultor Medical Affairs - Varian Medical Systems (Latam). Master en Gestión Clínica, Dirección Médica y Asistencial. Docente Universitario (UNC). Vocal del Consejo Asesor de la Autoridad Regulatoria Nuclear (CAAR). Secretario de la Asociación Argentina de Radiocirugía (AAR). Vice-Presidente de la ALAIR."
+    "photo": "img/speakers/pablo-castro-pena.jpg",
+    "bio": "Medico especialista en radioterapia oncologica. Consultor del servicio de radioterapia CETAC-Juncal y consultor Medical Affairs para Varian. Secretario de la Asociacion Argentina de Radiocirugia y vicepresidente de ALAIR."
   },
   {
     "id": "speaker-031",
     "name": "Aldo Quarneti",
-    "specialty": "Radioncologo",
+    "specialty": "Oncologia radioterapica",
     "institution": "RT International Institute",
     "area": "neuro",
     "nationality": "Uruguay",
     "photo": "img/speakers/aldo-quarneti.jpg",
-    "bio": "Presidente de la Primera Convención RT Internacional. Doctor en Radioterapia. Profesor de la Cátedra de Oncología de Radioterápica. Experto en Radiocirugía y Radioterapia Estereotáctica. Ex-Director del Centro de Radioterapia del Hospital Pereira Rossell. Ex-Residente del Instituto Gustave-Roussy, Villejuif, Paris. Especialista en Gestión de Calidad de Servicios de Salud Normas ISO. Misiones de experto del OIEA."
+    "bio": "Presidente de la Primera Convencion RT Internacional. Doctor en Radioterapia, profesor de Oncologia Radioterapica, experto en radiocirugia y radioterapia estereotactica. Ex director del Centro de Radioterapia del Hospital Pereira Rossell."
   },
   {
     "id": "speaker-032",
@@ -342,52 +342,52 @@
   {
     "id": "speaker-035",
     "name": "Ricardo Ruggeri",
-    "specialty": "Físico Médico",
-    "institution": "Grupo Leben Salud, Patagonia, Argentina",
+    "specialty": "Fisica medica",
+    "institution": "Grupo Leben Salud (Patagonia, Argentina)",
     "area": "neuro",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Bioingeniero y Magíster en Física Médica, especialista en Radioterapia y Medicina Nuclear. Director Técnico Oncológico del Grupo Leben Salud (Patagonia, Argentina). Director de la Residencia en Física Médica acreditada por la IOMP y la Universidad Nacional del Comahue. Presidente de la Asociación Argentina de Radiocirugía. Experto del OIEA en misiones internacionales de calidad y desarrollo en radioterapia en América Latina y el Caribe."
+    "photo": "img/speakers/ricardo-ruggeri.jpg",
+    "bio": "Bioingeniero y Magister en Fisica Medica. Director tecnico oncologico del Grupo Leben Salud y director de la Residencia en Fisica Medica acreditada por IOMP y UNComa. Presidente de la Asociacion Argentina de Radiocirugia."
   },
   {
     "id": "speaker-036",
     "name": "Cesar Della Biancia",
-    "specialty": "Físico Médico",
+    "specialty": "Invitado internacional",
     "institution": "Memorial Sloan Kettering Cancer Center",
     "area": "neuro",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Físico médico argentino con doctorado en Física por la Universidad Nacional de Córdoba y formación especializada en Física Médica en la CNEA. Certificado en Física Médica (Oncología Radioterápica) por la American Board of Medical Physics. Associate Attending Physicist en el Memorial Sloan Kettering Cancer Center desde 2000, con roles de liderazgo en mejora de calidad y planificación de tratamientos."
+    "photo": "img/speakers/cesar-della-biancia.jpg",
+    "bio": "Fisico medico argentino con doctorado en Fisica (UNC) y formacion en CNEA. Certificado por la American Board of Medical Physics. Associate Attending Physicist en MSKCC desde 2000."
   },
   {
     "id": "speaker-037",
     "name": "Nicolas Larragueta",
-    "specialty": "Físico Médico",
-    "institution": "",
+    "specialty": "Fisica medica",
+    "institution": "RT International Institute",
     "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
+    "nationality": "Argentina",
+    "photo": "img/speakers/nicolas-larragueta.jpg",
+    "bio": "Fisico medico (UNLP) con experiencia en puesta en marcha de aceleradores lineales en Latinoamerica. Profesor titular en la Universidad Nacional de Entre Rios y asesor de centros oncologicos regionales."
   },
   {
     "id": "speaker-038",
     "name": "Eduardo Larrinaga",
-    "specialty": "Físico Médico",
+    "specialty": "Fisica medica",
     "institution": "RT International Institute",
     "area": "neuro",
-    "nationality": "Uruguay",
+    "nationality": "Cuba",
     "photo": "img/speakers/eduardo-larrinaga.jpg",
-    "bio": ""
+    "bio": "Doctor en Ciencias Tecnicas y Fisico Medico. Responsable en proteccion radiobiologica. Ex fisico medico del Instituto Nacional de Oncologia y Radiobiologia (La Habana). Master en Fisica Medica."
   },
   {
     "id": "speaker-039",
     "name": "Nadia Hernandez",
-    "specialty": "Inteligencia artificial",
-    "institution": "UT MD Anderson Cancer Center, Texas",
+    "specialty": "Invitada internacional",
+    "institution": "UT MD Anderson Cancer Center (Texas, EE.UU.)",
     "area": "neuro",
     "nationality": "Cuba",
-    "photo": "",
-    "bio": "Ingeniera Nuclear del Instituto Superior de Ciencias y Tecnologías Nucleares, La Habana, Cuba. Asistente de Física Médica del IROC Houston QA office y del Radiation Quality Assurance Laboratory (RQA Lab) en el UT MD Anderson Cancer Center, Texas. Encargada del programa de auditoría externas para verificación del tratamientos de alta complejidad a través de fantomas antropomorfos en haces de fotones y protones."
+    "photo": "img/speakers/nadia-hernandez.jpg",
+    "bio": "Ingeniera nuclear y asistente de Fisica Medica del IROC Houston QA office y del RQA Lab en UT MD Anderson Cancer Center, con foco en auditorias de tratamientos de alta complejidad con fotones y protones."
   },
   {
     "id": "speaker-040",
@@ -502,42 +502,42 @@
   {
     "id": "speaker-051",
     "name": "Gustavo Ferraris",
-    "specialty": "Radioncólogo",
-    "institution": "Centro Médico Dean Funes, Córdoba",
+    "specialty": "Invitado internacional",
+    "institution": "Centro Medico Dean Funes (Cordoba)",
     "area": "pulmon",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Especialista Universitario Radioterapia y Oncología Clínica. Doctor en Medicina y Magíster en Biología Molecular (CNIO). Director de la Carrera de Especialización en Radioterapia Oncológica, Universidad Católica de Córdoba. Co-Director Médico, Centro Médico Dean Funes. Formación internacional en Gustave Roussy y Moffitt Cancer Center. Miembro del Consejo Consultivo del Instituto Nacional del Cáncer (Argentina). Past President SATRO."
+    "photo": "img/speakers/gustavo-ferraris.jpg",
+    "bio": "Especialista en Radioterapia y Oncologia Clinica. Director de la carrera de especializacion en Radioterapia Oncologica (UCC), co-director medico del Centro Medico Dean Funes y ex presidente de SATRO."
   },
   {
     "id": "speaker-052",
     "name": "Karina Ochandorena",
-    "specialty": "Físico Médico",
-    "institution": "RT International Institute",
+    "specialty": "Tecnologia medica en radioterapia",
+    "institution": "RT International Institute / Universidad de la Republica",
     "area": "pulmon",
     "nationality": "Uruguay",
     "photo": "img/speakers/karina-ochandorena.jpg",
-    "bio": ""
+    "bio": "Directora de la carrera de Tecnologos en Radioterapia (EUTM-Udelar). Responsable de la Unidad Docente Asistencial de Radioterapia del programa de fortalecimiento de ASSE. Licenciada en Imagenologia y tecnologa en radioterapia."
   },
   {
     "id": "speaker-053",
-    "name": "Rodolfo Alfonso",
-    "specialty": "Físico Médico",
-    "institution": "",
+    "name": "Rodolfo Alonso",
+    "specialty": "Invitado internacional",
+    "institution": "Fundacion INTECNUS / City Cancer Challenge",
     "area": "pulmon",
-    "nationality": "",
-    "photo": "",
-    "bio": ""
+    "nationality": "Cuba",
+    "photo": "img/speakers/rodolfo-alonso.jpg",
+    "bio": "Ingeniero nuclear, doctorado en la Universidad Tecnica de Budapest. Ex fisico de radioterapia del Instituto Nacional de Oncologia de La Habana y ex coordinador de la Maestria en Fisica Medica de la Universidad de La Habana. Consultor internacional en desarrollo de radioterapia."
   },
   {
     "id": "speaker-054",
     "name": "Paola Alvarez",
-    "specialty": "Físico Médico",
-    "institution": "UT MD Anderson Cancer Center, Texas",
+    "specialty": "Invitada internacional",
+    "institution": "UT MD Anderson Cancer Center (Texas, EE.UU.)",
     "area": "pulmon",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Licenciada en Física de la Universidad de Buenos Aires. Física médica del Imaging and Radiation Oncology Core (IROC) Houston QA office y del Radiation Quality Assurance Laboratory (RQA Lab) en el UT MD Anderson Cancer Center, Texas. Encargada del programa de auditoría externa para verificación de la calibración de haces externos de tratamiento. Directora técnica del laboratorio de calibraciones Accredited Dosimetry Calibration Laboratory (ADCL)."
+    "photo": "img/speakers/paola-alvarez.jpg",
+    "bio": "Fisica medica del IROC Houston QA office y del RQA Lab en UT MD Anderson Cancer Center. Responsable de auditorias externas de calibracion de haces y directora tecnica del ADCL."
   },
   {
     "id": "speaker-055",
@@ -672,22 +672,22 @@
   {
     "id": "speaker-068",
     "name": "Sergio Aguiar",
-    "specialty": "Radiooncologo",
-    "institution": "RT International Institute",
+    "specialty": "Oncologia radioterapica",
+    "institution": "RT International Institute / Universidad de la Republica",
     "area": "prostata",
     "nationality": "Uruguay",
     "photo": "img/speakers/sergio-aguiar.jpg",
-    "bio": ""
+    "bio": "Profesor del Departamento de Oncologia Radioterapica y de la Unidad Academica de Radioterapia del Hospital de Clinicas (Udelar). Experto del OIEA."
   },
   {
     "id": "speaker-069",
-    "name": "Mabel Sardi",
-    "specialty": "Radiooncologo",
-    "institution": "",
+    "name": "Mabel E. Sardi",
+    "specialty": "Invitada internacional",
+    "institution": "Mevaterapia Oncologia Radiante / Hospital Italiano de Buenos Aires",
     "area": "prostata",
-    "nationality": "",
-    "photo": "",
-    "bio": ""
+    "nationality": "Argentina",
+    "photo": "img/speakers/mabel-sardi.jpg",
+    "bio": "Especialista en Radioterapia (UBA). Directora de la carrera de Medico Especialista en Radioterapia de la Facultad de Medicina (UBA), unidad academica Hospital Italiano. Ex directora de residencia y ex jefa del Servicio de Terapia Radiante del Hospital Italiano."
   },
   {
     "id": "speaker-070",
@@ -722,22 +722,22 @@
   {
     "id": "speaker-073",
     "name": "Valentina Ferreira",
-    "specialty": "Moderador",
-    "institution": "RT International Institute",
+    "specialty": "Oncologia radioterapica",
+    "institution": "RT International Institute / Centro Hospitalario Pereira Rossell",
     "area": "neuro",
     "nationality": "Uruguay",
     "photo": "img/speakers/valentina-ferreira.jpg",
-    "bio": ""
+    "bio": "Jefa del Servicio de Radioterapia del IRCLCC del Centro Hospitalario Pereira Rossell. Experta en radioterapia pediatrica y hemato-oncologica. Docente de Medicina en la Universidad Catolica del Uruguay."
   },
   {
     "id": "speaker-074",
     "name": "Federico Salles",
     "specialty": "Neurocirujano",
-    "institution": "",
+    "institution": "RT International Institute",
     "area": "neuro",
     "nationality": "Uruguay",
     "photo": "",
-    "bio": ""
+    "bio": "Co-moderador del Workshop Sistema Nervioso en la Primera Convencion RT Internacional."
   },
   {
     "id": "speaker-075",
@@ -748,5 +748,35 @@
     "nationality": "Uruguay",
     "photo": "",
     "bio": ""
+  },
+  {
+    "id": "speaker-076",
+    "name": "Ester Sanchez Valdez",
+    "specialty": "Oncologia radioterapica",
+    "institution": "RT International Institute",
+    "area": "evento",
+    "nationality": "Honduras",
+    "photo": "img/speakers/ester-sanchez-valdez.jpg",
+    "bio": "Postgrado de segundo ano de Oncologia Radioterapica de la Unidad Academica de Radioterapia. Master en Direccion Estrategica especializado en organizaciones de salud. Ex tecnica medica de la Unidad de Cancer del Ministerio de Salud de Honduras."
+  },
+  {
+    "id": "speaker-077",
+    "name": "Carlos Vega D'Espaux",
+    "specialty": "Fisica medica",
+    "institution": "RT International Institute",
+    "area": "evento",
+    "nationality": "Uruguay",
+    "photo": "img/speakers/carlos-vega-despaux.jpg",
+    "bio": "Licenciado en Fisica Medica (Udelar), Magister en Fisica Medica (Universidad Nacional de Costa Rica), especialista en Fisica de la Radioterapia (CNEA-UNSAM) y diplomado en IA aplicada a ciencias de la salud."
+  },
+  {
+    "id": "speaker-078",
+    "name": "Veronica Vera",
+    "specialty": "Invitada internacional",
+    "institution": "Instituto Zunino / Asociacion de Oncologos Clinicos de Cordoba",
+    "area": "pulmon",
+    "nationality": "Argentina",
+    "photo": "img/speakers/veronica-vera.jpg",
+    "bio": "Medica cirujana, especialista en Medicina Interna y Radioterapia Oncologica. Master internacional en altas tecnologias de radioterapia. Medica staff del Instituto Zunino y vocal titular de la Asociacion de Oncologos Clinicos de Cordoba."
   }
 ]
