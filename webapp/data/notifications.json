@@ -12,23 +12,23 @@
     "date": "2026-03-13",
     "time": "09:00",
     "title": "☀️ ¡Hoy es el gran día!",
-    "message": "¡Buenos días! Hoy comienza la RT International Institute Convention 2026 en Punta del Este. Consultá el clima del día antes de salir: se esperan temperaturas agradables propias de marzo en la costa. Si la brisa costera refresca por la tarde, te recomendamos llevar un abrigo liviano o saco por las dudas. Revisá también el tránsito si venís por ruta. ¡Nos vemos a las 16 hs en el Gran Hotel Punta del Este!",
+    "message": "Buenos dias. Hoy comienza la RT International Institute Convention 2026 en Punta del Este. La bienvenida inicia a las 15:00 hs y la apertura oficial a las 15:30 hs en el Gran Hotel Punta del Este. Revisa agenda y traslados en la app.",
     "priority": "high"
   },
   {
     "id": 3,
     "date": "2026-03-13",
-    "time": "15:30",
-    "title": "🏨 Check-in y registro de arribo",
-    "message": "¡Falta media hora para el inicio del evento! Si te hospedás en el Gran Hotel, aprovechá para hacer el check-in ahora. Antes de ingresar al salón, recordá registrar tu arribo escaneando el código QR desde la sección \"Mi Perfil\" en la app. Esto es necesario para validar tu asistencia y generar tu certificado.",
+    "time": "14:30",
+    "title": "Bienvenida en 30 minutos",
+    "message": "En 30 minutos comienza la bienvenida (15:00 hs). Antes de ingresar al salon, registra tu arribo escaneando el QR desde la app para validar asistencia y habilitar tu certificado.",
     "priority": "high"
   },
   {
     "id": 4,
     "date": "2026-03-13",
-    "time": "20:00",
-    "title": "🍽️ Cena en I'marangatu — en 30 minutos",
-    "message": "En media hora nos trasladamos a I'marangatu Restaurant & Beach Club (Rambla C. Williman, Parada 7, Playa Mansa) para la cena de la convención. I'marangatu es un exclusivo restaurante frente al mar con una terraza espectacular sobre Playa Mansa, ideal para una velada de networking. Como estaremos cerca de la costa y al aire libre, te sugerimos llevar un saco o abrigo liviano ya que la brisa nocturna puede refrescar. Dresscode: smart casual. ¡El traslado desde el Gran Hotel está incluido!",
+    "time": "20:30",
+    "title": "Cena en I'marangatu - en 30 minutos",
+    "message": "En media hora nos trasladamos a I'marangatu Restaurant & Beach Club (Rambla C. Williman, Parada 7, Playa Mansa) para la actividad social de la convencion (21:00 hs). El traslado desde el Gran Hotel esta incluido.",
     "priority": "high"
   },
   {

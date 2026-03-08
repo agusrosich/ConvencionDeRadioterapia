@@ -31,46 +31,6 @@
   },
   {
     "id": "speaker-004",
-    "name": "Carlitos Arévalo",
-    "specialty": "Mastologo",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-005",
-    "name": "Juan Cossa",
-    "specialty": "Mastologo",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-006",
-    "name": "Praderi",
-    "specialty": "Mastologo",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-007",
-    "name": "Juan Moreli",
-    "specialty": "Mastologo",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-008",
     "name": "Carlos Acevedo",
     "specialty": "Mastologo",
     "institution": "",
@@ -80,8 +40,18 @@
     "bio": ""
   },
   {
-    "id": "speaker-009",
-    "name": "Gustavo Veirano",
+    "id": "speaker-005",
+    "name": "Pablo Sciutto",
+    "specialty": "Mastologo",
+    "institution": "",
+    "area": "mama",
+    "nationality": "",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-006",
+    "name": "Juan Cossa",
     "specialty": "Mastologo",
     "institution": "",
     "area": "mama",
@@ -90,8 +60,8 @@
     "bio": ""
   },
   {
-    "id": "speaker-010",
-    "name": "Scasso",
+    "id": "speaker-007",
+    "name": "Carlitos Arevalo",
     "specialty": "Mastologo",
     "institution": "",
     "area": "mama",
@@ -100,17 +70,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-011",
-    "name": "Laufer",
-    "specialty": "Mastologo",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-012",
+    "id": "speaker-008",
     "name": "Virginia Ortega",
     "specialty": "Patologo",
     "institution": "",
@@ -120,17 +80,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-013",
-    "name": "Gualco",
-    "specialty": "Patologo",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-014",
+    "id": "speaker-009",
     "name": "Musto",
     "specialty": "Patologo",
     "institution": "",
@@ -140,17 +90,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-015",
-    "name": "Lucia Monzon",
-    "specialty": "Patologo",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-016",
+    "id": "speaker-010",
     "name": "Cecilia Castillo",
     "specialty": "Oncologo médico",
     "institution": "",
@@ -160,27 +100,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-017",
-    "name": "Lucia Delgado",
-    "specialty": "Oncologo médico",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-018",
-    "name": "Dahiana Amarillo",
-    "specialty": "Oncologo médico",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-019",
+    "id": "speaker-011",
     "name": "Virginia Rodriguez",
     "specialty": "Oncologo médico",
     "institution": "",
@@ -190,17 +110,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-020",
-    "name": "Liber Saldombide",
-    "specialty": "Oncologo médico",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-021",
+    "id": "speaker-012",
     "name": "Estela Corrazo",
     "specialty": "Oncologo médico",
     "institution": "",
@@ -210,17 +120,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-022",
-    "name": "Luis Ubillos",
-    "specialty": "Oncologo médico",
-    "institution": "",
-    "area": "mama",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-023",
+    "id": "speaker-013",
     "name": "Dana Kimelman",
     "specialty": "Genetista",
     "institution": "",
@@ -230,27 +130,37 @@
     "bio": ""
   },
   {
-    "id": "speaker-024",
-    "name": "María Fernanda Díaz",
-    "specialty": "Radiooncologo",
-    "institution": "Centro Médico Dean Funes, Córdoba",
-    "area": "mama",
-    "nationality": "Argentina",
-    "photo": "",
-    "bio": "Especialista en Radioterapia y Oncología Clínica. Directora Médica del Centro Médico Dean Funes (Córdoba). Docente Titular de la Carrera de Especialización en Radioterapia Oncológica, Universidad Católica de Córdoba. Conferencista nacional e internacional en cáncer de mama. Participación continua en congresos ASTRO y ESTRO. Amplia experiencia en radioterapia mamaria, post-neoadyuvancia e hipofraccionamiento."
-  },
-  {
-    "id": "speaker-025",
+    "id": "speaker-014",
     "name": "Federico Lorenzo",
-    "specialty": "Radiooncologo",
-    "institution": "RT International Institute",
+    "specialty": "Oncologia radioterapica",
+    "institution": "RT International Institute / Universidad de la Republica",
     "area": "mama",
     "nationality": "Uruguay",
     "photo": "img/speakers/federico-lorenzo.jpg",
-    "bio": ""
+    "bio": "Profesor del Departamento de Oncologia Radioterapica y de la Unidad Academica de Radioterapia del Hospital de Clinicas (Udelar). Experto en radiocirugia y radioterapia estereotactica."
   },
   {
-    "id": "speaker-026",
+    "id": "speaker-015",
+    "name": "Heloisa De Andrade Carvalho",
+    "specialty": "Invitada internacional",
+    "institution": "Faculdade de Medicina da Universidade de Sao Paulo (FMUSP)",
+    "area": "mama",
+    "nationality": "Brasil",
+    "photo": "img/speakers/heloisa-carvalho.jpg",
+    "bio": "Medica radioterapeuta. Profesora de la FMUSP y coordinadora del servicio de radioterapia de INRAD - Hospital das Clinicas. Contraparte de Brasil en proyectos ARCAL y ANCLA con el OIEA."
+  },
+  {
+    "id": "speaker-016",
+    "name": "Maria Fernanda Diaz",
+    "specialty": "Invitada internacional",
+    "institution": "Centro Medico Dean Funes (Cordoba)",
+    "area": "mama",
+    "nationality": "Argentina",
+    "photo": "img/speakers/maria-fernanda-diaz.jpg",
+    "bio": "Especialista en Radioterapia y Oncologia Clinica. Directora medica del Centro Medico Dean Funes y docente titular de la carrera de especializacion en Radioterapia Oncologica (UCC)."
+  },
+  {
+    "id": "speaker-017",
     "name": "Natalia Gadea",
     "specialty": "Fisico Médico/Tecnólogos",
     "institution": "RT International Institute",
@@ -260,28 +170,28 @@
     "bio": ""
   },
   {
-    "id": "speaker-027",
+    "id": "speaker-018",
     "name": "Jesica Lell",
-    "specialty": "Fisico Médico/Tecnólogos",
-    "institution": "",
+    "specialty": "Fisica medica",
+    "institution": "RT International Institute / Universidad de la Republica",
     "area": "mama",
     "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
+    "photo": "img/speakers/jesica-lell.jpg",
+    "bio": "Ingeniera biomedica especialista en fisica de la radioterapia. Profesora adjunta de la Unidad Academica de Radioterapia (Udelar) y ex docente de la Universidad Nacional de Cordoba."
   },
   {
-    "id": "speaker-028",
+    "id": "speaker-019",
     "name": "Agustin Rosich",
-    "specialty": "Inteligencia Artificial",
-    "institution": "RT International Institute",
+    "specialty": "Oncologia radioterapica / Inteligencia artificial",
+    "institution": "RT International Institute / Universidad de la Republica",
     "area": "mama",
     "nationality": "Uruguay",
     "photo": "img/speakers/agustin-rosich.jpg",
-    "bio": ""
+    "bio": "Integrante del Departamento de Oncologia Radioterapica de la Unidad Academica de Radioterapia del Hospital de Clinicas (Udelar), con enfoque en IA aplicada a radioterapia."
   },
   {
-    "id": "speaker-029",
-    "name": "Robinson Rodriguez",
+    "id": "speaker-020",
+    "name": "Luis Ubillos",
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "neuro",
@@ -290,8 +200,18 @@
     "bio": ""
   },
   {
-    "id": "speaker-030",
-    "name": "Emilio Turcatti",
+    "id": "speaker-021",
+    "name": "Jorge Boschi",
+    "specialty": "Imagenologo",
+    "institution": "",
+    "area": "neuro",
+    "nationality": "",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-022",
+    "name": "Martín Rodriguez",
     "specialty": "Imagenologo",
     "institution": "",
     "area": "neuro",
@@ -300,47 +220,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-031",
-    "name": "Nicolas Sgarbi",
-    "specialty": "Imagenologo",
-    "institution": "",
-    "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-032",
-    "name": "Elena Otero Cudim",
-    "specialty": "Imagenologo",
-    "institution": "",
-    "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-033",
-    "name": "Cecilia Purcallas",
-    "specialty": "Imagenologo",
-    "institution": "",
-    "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-034",
-    "name": "Martin Rodriguez",
-    "specialty": "Imagenologo",
-    "institution": "",
-    "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-035",
+    "id": "speaker-023",
     "name": "Osmar Tellis",
     "specialty": "Imagenologo",
     "institution": "",
@@ -350,9 +230,9 @@
     "bio": ""
   },
   {
-    "id": "speaker-036",
-    "name": "Wapkcof",
-    "specialty": "Neurocirujano",
+    "id": "speaker-024",
+    "name": "Garagorri",
+    "specialty": "Patologo",
     "institution": "",
     "area": "neuro",
     "nationality": "Uruguay",
@@ -360,7 +240,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-037",
+    "id": "speaker-025",
     "name": "Fernando Martinez",
     "specialty": "Neurocirujano",
     "institution": "",
@@ -370,57 +250,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-038",
-    "name": "Federico Salles",
-    "specialty": "Neurocirujano",
-    "institution": "",
-    "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-039",
-    "name": "Humberto Prinzo",
-    "specialty": "Neurocirujano",
-    "institution": "",
-    "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-040",
-    "name": "João Gabriel Ribeiro Gomes",
-    "specialty": "Neurocirujano",
-    "institution": "Hospital Esperança / Real Hospital Portugues, Brasil",
-    "area": "neuro",
-    "nationality": "Brasil",
-    "photo": "",
-    "bio": "Neurosurgeon. Coordinator of Radiosurgery Department at Brazilian Society of Neurosurgery. President of Brazilian Society of Radiosurgery 2021-2022. Chief of Neurosurgery Department at Hospital Esperança, Olinda-Pernambuco, Brazil. Director of López & Gomes, Adult and Pediatric Neurocenter, Recife-Pernambuco, Brazil."
-  },
-  {
-    "id": "speaker-041",
-    "name": "Alvaro Villar",
-    "specialty": "Neurocirujano",
-    "institution": "",
-    "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-042",
-    "name": "Pablo Pereda",
-    "specialty": "Neurocirujano",
-    "institution": "",
-    "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-043",
+    "id": "speaker-026",
     "name": "Alejandra Jaume",
     "specialty": "Neurocirujano",
     "institution": "",
@@ -430,77 +260,137 @@
     "bio": ""
   },
   {
-    "id": "speaker-044",
-    "name": "Valentina Ferreira",
-    "specialty": "Radioncologo",
-    "institution": "RT International Institute",
+    "id": "speaker-027",
+    "name": "Joao Gabriel Ribeiro Gomes",
+    "specialty": "Invitado internacional",
+    "institution": "Hospital Esperanca / Real Hospital Portugues (Brasil)",
     "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "img/speakers/valentina-ferreira.jpg",
+    "nationality": "Brasil",
+    "photo": "img/speakers/joao-gabriel-ribeiro-gomes.jpg",
+    "bio": "Neurocirujano. Coordinador de radiosurgery en la Sociedade Brasileira de Neurocirurgia y presidente de la Sociedade Brasileira de Radioscirurgia 2021-2022."
+  },
+  {
+    "id": "speaker-028",
+    "name": "Soledad Colombo",
+    "specialty": "Invitada internacional",
+    "institution": "Mevaterapia / Hospital Italiano",
+    "area": "neuro",
+    "nationality": "Argentina",
+    "photo": "img/speakers/soledad-colombo.jpg",
+    "bio": "Medica especialista en radioterapia. Mevaterapia y Hospital Italiano."
+  },
+  {
+    "id": "speaker-029",
+    "name": "Pablo Castropeña",
+    "specialty": "Radioncologo",
+    "institution": "",
+    "area": "neuro",
+    "nationality": "",
+    "photo": "",
     "bio": ""
   },
   {
-    "id": "speaker-045",
+    "id": "speaker-030",
+    "name": "Pablo Castro Pena",
+    "specialty": "Invitado internacional",
+    "institution": "CETAC-Juncal / Varian Medical Systems (Latam)",
+    "area": "neuro",
+    "nationality": "Argentina",
+    "photo": "img/speakers/pablo-castro-pena.jpg",
+    "bio": "Medico especialista en radioterapia oncologica. Consultor del servicio de radioterapia CETAC-Juncal y consultor Medical Affairs para Varian. Secretario de la Asociacion Argentina de Radiocirugia y vicepresidente de ALAIR."
+  },
+  {
+    "id": "speaker-031",
     "name": "Aldo Quarneti",
-    "specialty": "Radioncologo",
+    "specialty": "Oncologia radioterapica",
     "institution": "RT International Institute",
     "area": "neuro",
     "nationality": "Uruguay",
     "photo": "img/speakers/aldo-quarneti.jpg",
-    "bio": "Presidente de la Primera Convención RT Internacional. Doctor en Radioterapia. Profesor de la Cátedra de Oncología de Radioterápica. Experto en Radiocirugía y Radioterapia Estereotáctica. Ex-Director del Centro de Radioterapia del Hospital Pereira Rossell. Ex-Residente del Instituto Gustave-Roussy, Villejuif, Paris. Especialista en Gestión de Calidad de Servicios de Salud Normas ISO. Misiones de experto del OIEA."
+    "bio": "Presidente de la Primera Convencion RT Internacional. Doctor en Radioterapia, profesor de Oncologia Radioterapica, experto en radiocirugia y radioterapia estereotactica. Ex director del Centro de Radioterapia del Hospital Pereira Rossell."
   },
   {
-    "id": "speaker-046",
-    "name": "Pablo Castro Peña",
-    "specialty": "Radioncologo",
-    "institution": "CETAC-Juncal / Varian Medical Systems",
-    "area": "neuro",
-    "nationality": "Argentina",
-    "photo": "",
-    "bio": "Médico Especialista en Radioterapia Oncológica. Consultor Servicio de Radioterapia CETAC-Juncal. Consultor Medical Affairs - Varian Medical Systems (Latam). Master en Gestión Clínica, Dirección Médica y Asistencial. Docente Universitario (UNC). Vocal del Consejo Asesor de la Autoridad Regulatoria Nuclear (CAAR). Secretario de la Asociación Argentina de Radiocirugía (AAR). Vice-Presidente de la ALAIR."
-  },
-  {
-    "id": "speaker-047",
-    "name": "Garagorri",
+    "id": "speaker-032",
+    "name": "Alejandro Scaramelli",
     "specialty": "Psiquiatra",
     "institution": "",
     "area": "neuro",
-    "nationality": "Uruguay",
+    "nationality": "",
     "photo": "",
     "bio": ""
   },
   {
-    "id": "speaker-048",
-    "name": "César Della Biancia",
-    "specialty": "Físico Médico",
+    "id": "speaker-033",
+    "name": "María Inés Nouzelles",
+    "specialty": "Psiquiatra",
+    "institution": "",
+    "area": "neuro",
+    "nationality": "",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-034",
+    "name": "Ignacio Amorín",
+    "specialty": "Psiquiatra",
+    "institution": "",
+    "area": "neuro",
+    "nationality": "",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-035",
+    "name": "Ricardo Ruggeri",
+    "specialty": "Fisica medica",
+    "institution": "Grupo Leben Salud (Patagonia, Argentina)",
+    "area": "neuro",
+    "nationality": "Argentina",
+    "photo": "img/speakers/ricardo-ruggeri.jpg",
+    "bio": "Bioingeniero y Magister en Fisica Medica. Director tecnico oncologico del Grupo Leben Salud y director de la Residencia en Fisica Medica acreditada por IOMP y UNComa. Presidente de la Asociacion Argentina de Radiocirugia."
+  },
+  {
+    "id": "speaker-036",
+    "name": "Cesar Della Biancia",
+    "specialty": "Invitado internacional",
     "institution": "Memorial Sloan Kettering Cancer Center",
     "area": "neuro",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Físico médico argentino con doctorado en Física por la Universidad Nacional de Córdoba y formación especializada en Física Médica en la CNEA. Certificado en Física Médica (Oncología Radioterápica) por la American Board of Medical Physics. Associate Attending Physicist en el Memorial Sloan Kettering Cancer Center desde 2000, con roles de liderazgo en mejora de calidad y planificación de tratamientos."
+    "photo": "img/speakers/cesar-della-biancia.jpg",
+    "bio": "Fisico medico argentino con doctorado en Fisica (UNC) y formacion en CNEA. Certificado por la American Board of Medical Physics. Associate Attending Physicist en MSKCC desde 2000."
   },
   {
-    "id": "speaker-049",
-    "name": "Karina Ochandorena",
-    "specialty": "Físico Médico",
+    "id": "speaker-037",
+    "name": "Nicolas Larragueta",
+    "specialty": "Fisica medica",
     "institution": "RT International Institute",
     "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "img/speakers/karina-ochandorena.jpg",
-    "bio": ""
+    "nationality": "Argentina",
+    "photo": "img/speakers/nicolas-larragueta.jpg",
+    "bio": "Fisico medico (UNLP) con experiencia en puesta en marcha de aceleradores lineales en Latinoamerica. Profesor titular en la Universidad Nacional de Entre Rios y asesor de centros oncologicos regionales."
   },
   {
-    "id": "speaker-050",
-    "name": "Nicolas Larragueta",
-    "specialty": "Físico Médico",
-    "institution": "",
+    "id": "speaker-038",
+    "name": "Eduardo Larrinaga",
+    "specialty": "Fisica medica",
+    "institution": "RT International Institute",
     "area": "neuro",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
+    "nationality": "Cuba",
+    "photo": "img/speakers/eduardo-larrinaga.jpg",
+    "bio": "Doctor en Ciencias Tecnicas y Fisico Medico. Responsable en proteccion radiobiologica. Ex fisico medico del Instituto Nacional de Oncologia y Radiobiologia (La Habana). Master en Fisica Medica."
   },
   {
-    "id": "speaker-051",
+    "id": "speaker-039",
+    "name": "Nadia Hernandez",
+    "specialty": "Invitada internacional",
+    "institution": "UT MD Anderson Cancer Center (Texas, EE.UU.)",
+    "area": "neuro",
+    "nationality": "Cuba",
+    "photo": "img/speakers/nadia-hernandez.jpg",
+    "bio": "Ingeniera nuclear y asistente de Fisica Medica del IROC Houston QA office y del RQA Lab en UT MD Anderson Cancer Center, con foco en auditorias de tratamientos de alta complejidad con fotones y protones."
+  },
+  {
+    "id": "speaker-040",
     "name": "Ana Gruss",
     "specialty": "Neumólogo",
     "institution": "",
@@ -510,17 +400,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-052",
-    "name": "Liliana Servente",
-    "specialty": "Imagenologo",
-    "institution": "",
-    "area": "pulmon",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-053",
+    "id": "speaker-041",
     "name": "Nelson De trapani",
     "specialty": "Imagenologo",
     "institution": "",
@@ -530,8 +410,8 @@
     "bio": ""
   },
   {
-    "id": "speaker-054",
-    "name": "Veronica Gigirey",
+    "id": "speaker-042",
+    "name": "Liliana Servente",
     "specialty": "Imagenologo",
     "institution": "",
     "area": "pulmon",
@@ -540,37 +420,27 @@
     "bio": ""
   },
   {
-    "id": "speaker-055",
-    "name": "Clarita Rodriguez",
-    "specialty": "Oncólogo Médico",
+    "id": "speaker-043",
+    "name": "Juan Barcia",
+    "specialty": "Patologo",
     "institution": "",
     "area": "pulmon",
-    "nationality": "Uruguay",
+    "nationality": "",
     "photo": "",
     "bio": ""
   },
   {
-    "id": "speaker-056",
-    "name": "Gianeya Santander",
-    "specialty": "Oncólogo Médico",
+    "id": "speaker-044",
+    "name": "Laura Bódega",
+    "specialty": "Patologo",
     "institution": "",
     "area": "pulmon",
-    "nationality": "Uruguay",
+    "nationality": "",
     "photo": "",
     "bio": ""
   },
   {
-    "id": "speaker-057",
-    "name": "Matias Jeldres",
-    "specialty": "Oncólogo Médico",
-    "institution": "",
-    "area": "pulmon",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-058",
+    "id": "speaker-045",
     "name": "Diego Touya",
     "specialty": "Oncólogo Médico",
     "institution": "",
@@ -580,8 +450,8 @@
     "bio": ""
   },
   {
-    "id": "speaker-059",
-    "name": "Mauricio Cuello",
+    "id": "speaker-046",
+    "name": "Matias Jeldres",
     "specialty": "Oncólogo Médico",
     "institution": "",
     "area": "pulmon",
@@ -590,17 +460,17 @@
     "bio": ""
   },
   {
-    "id": "speaker-060",
-    "name": "Julio Truschansky",
+    "id": "speaker-047",
+    "name": "Julio Trostchansky",
     "specialty": "Cirujano de torax",
     "institution": "",
     "area": "pulmon",
-    "nationality": "Uruguay",
+    "nationality": "",
     "photo": "",
     "bio": ""
   },
   {
-    "id": "speaker-061",
+    "id": "speaker-048",
     "name": "Gerardo Bruno",
     "specialty": "Cirujano de torax",
     "institution": "",
@@ -610,7 +480,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-062",
+    "id": "speaker-049",
     "name": "José Magiolo",
     "specialty": "Cirujano de torax",
     "institution": "",
@@ -620,7 +490,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-063",
+    "id": "speaker-050",
     "name": "Daniel Terra",
     "specialty": "Cirujano de torax",
     "institution": "",
@@ -630,57 +500,47 @@
     "bio": ""
   },
   {
-    "id": "speaker-064",
+    "id": "speaker-051",
     "name": "Gustavo Ferraris",
-    "specialty": "Radioncólogo",
-    "institution": "Centro Médico Dean Funes, Córdoba",
+    "specialty": "Invitado internacional",
+    "institution": "Centro Medico Dean Funes (Cordoba)",
     "area": "pulmon",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Especialista Universitario Radioterapia y Oncología Clínica. Doctor en Medicina y Magíster en Biología Molecular (CNIO). Director de la Carrera de Especialización en Radioterapia Oncológica, Universidad Católica de Córdoba. Co-Director Médico, Centro Médico Dean Funes. Formación internacional en Gustave Roussy y Moffitt Cancer Center. Miembro del Consejo Consultivo del Instituto Nacional del Cáncer (Argentina). Past President SATRO."
+    "photo": "img/speakers/gustavo-ferraris.jpg",
+    "bio": "Especialista en Radioterapia y Oncologia Clinica. Director de la carrera de especializacion en Radioterapia Oncologica (UCC), co-director medico del Centro Medico Dean Funes y ex presidente de SATRO."
   },
   {
-    "id": "speaker-065",
-    "name": "Heloísa De Andrade Carvalho",
-    "specialty": "Radioncólogo",
-    "institution": "FMUSP / Hospital das Clínicas",
+    "id": "speaker-052",
+    "name": "Karina Ochandorena",
+    "specialty": "Tecnologia medica en radioterapia",
+    "institution": "RT International Institute / Universidad de la Republica",
     "area": "pulmon",
-    "nationality": "Brasil",
-    "photo": "",
-    "bio": "Medica Radioterapeuta. Profesora de la Facultad de Medicina da Universidade de São Paulo (FMUSP). Coordenadora del Servicio de Radioterapia de INRAD - Hospital das Clínicas da FMUSP. Contraparte de Brasil en Proyecto ARCAL y Proyecto Ancla con el Organismo Internacional de Energía Atómica. Médica del Hospital Sirio Libanes de 2010 a 2022."
+    "nationality": "Uruguay",
+    "photo": "img/speakers/karina-ochandorena.jpg",
+    "bio": "Directora de la carrera de Tecnologos en Radioterapia (EUTM-Udelar). Responsable de la Unidad Docente Asistencial de Radioterapia del programa de fortalecimiento de ASSE. Licenciada en Imagenologia y tecnologa en radioterapia."
   },
   {
-    "id": "speaker-066",
-    "name": "Ricardo Ruggeri",
-    "specialty": "Físico Médico",
-    "institution": "Grupo Leben Salud, Patagonia, Argentina",
-    "area": "pulmon",
-    "nationality": "Argentina",
-    "photo": "",
-    "bio": "Bioingeniero y Magíster en Física Médica, especialista en Radioterapia y Medicina Nuclear. Director Técnico Oncológico del Grupo Leben Salud (Patagonia, Argentina). Director de la Residencia en Física Médica acreditada por la IOMP y la Universidad Nacional del Comahue. Presidente de la Asociación Argentina de Radiocirugía. Experto del OIEA en misiones internacionales de calidad y desarrollo en radioterapia en América Latina y el Caribe."
-  },
-  {
-    "id": "speaker-067",
+    "id": "speaker-053",
     "name": "Rodolfo Alonso",
-    "specialty": "Físico Médico",
-    "institution": "Universidad de la Habana / Fundación INTECNUS",
+    "specialty": "Invitado internacional",
+    "institution": "Fundacion INTECNUS / City Cancer Challenge",
     "area": "pulmon",
     "nationality": "Cuba",
-    "photo": "",
-    "bio": "Ingeniero Nuclear de la Universidad de la Habana, doctorado en la Universidad Técnica de Budapest, Hungría. Físico de Radioterapia en el Instituto Nacional de Oncología de la Habana. Coordinador de la Maestría de Física Médica de la Universidad de la Habana. Más de 40 misiones de experto del OIEA en Física Médica. Profesor titular retirado, Consultor de la Fundación INTECNUS y co-director de su Residencia de Física de Radioterapia. Asesor de City Cancer Challenge."
+    "photo": "img/speakers/rodolfo-alonso.jpg",
+    "bio": "Ingeniero nuclear, doctorado en la Universidad Tecnica de Budapest. Ex fisico de radioterapia del Instituto Nacional de Oncologia de La Habana y ex coordinador de la Maestria en Fisica Medica de la Universidad de La Habana. Consultor internacional en desarrollo de radioterapia."
   },
   {
-    "id": "speaker-068",
+    "id": "speaker-054",
     "name": "Paola Alvarez",
-    "specialty": "Físico Médico",
-    "institution": "UT MD Anderson Cancer Center, Texas",
+    "specialty": "Invitada internacional",
+    "institution": "UT MD Anderson Cancer Center (Texas, EE.UU.)",
     "area": "pulmon",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Licenciada en Física de la Universidad de Buenos Aires. Física médica del Imaging and Radiation Oncology Core (IROC) Houston QA office y del Radiation Quality Assurance Laboratory (RQA Lab) en el UT MD Anderson Cancer Center, Texas. Encargada del programa de auditoría externa para verificación de la calibración de haces externos de tratamiento. Directora técnica del laboratorio de calibraciones Accredited Dosimetry Calibration Laboratory (ADCL)."
+    "photo": "img/speakers/paola-alvarez.jpg",
+    "bio": "Fisica medica del IROC Houston QA office y del RQA Lab en UT MD Anderson Cancer Center. Responsable de auditorias externas de calibracion de haces y directora tecnica del ADCL."
   },
   {
-    "id": "speaker-069",
+    "id": "speaker-055",
     "name": "Suarez",
     "specialty": "Urologo",
     "institution": "",
@@ -690,17 +550,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-070",
-    "name": "Domenech",
-    "specialty": "Urologo",
-    "institution": "",
-    "area": "prostata",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-071",
+    "id": "speaker-056",
     "name": "Levin Martinez",
     "specialty": "Urologo",
     "institution": "",
@@ -710,7 +560,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-072",
+    "id": "speaker-057",
     "name": "Topolansky",
     "specialty": "Urologo",
     "institution": "",
@@ -720,7 +570,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-073",
+    "id": "speaker-058",
     "name": "Roberto Puente",
     "specialty": "Urologo",
     "institution": "",
@@ -730,7 +580,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-074",
+    "id": "speaker-059",
     "name": "Federico Lopez",
     "specialty": "Urologo",
     "institution": "",
@@ -740,7 +590,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-075",
+    "id": "speaker-060",
     "name": "Laura Mouro",
     "specialty": "Urologo",
     "institution": "",
@@ -750,17 +600,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-076",
-    "name": "Raul Cepellini",
-    "specialty": "Urologo",
-    "institution": "",
-    "area": "prostata",
-    "nationality": "Uruguay",
-    "photo": "",
-    "bio": ""
-  },
-  {
-    "id": "speaker-077",
+    "id": "speaker-061",
     "name": "Melissa Klubber",
     "specialty": "Oncologo médico",
     "institution": "",
@@ -770,7 +610,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-078",
+    "id": "speaker-062",
     "name": "Noelia Silvera",
     "specialty": "Oncologo médico",
     "institution": "",
@@ -780,17 +620,17 @@
     "bio": ""
   },
   {
-    "id": "speaker-079",
-    "name": "Gabriel Krigger",
+    "id": "speaker-063",
+    "name": "Gabriel Krygier",
     "specialty": "Oncologo médico",
     "institution": "",
     "area": "prostata",
-    "nationality": "Uruguay",
+    "nationality": "",
     "photo": "",
     "bio": ""
   },
   {
-    "id": "speaker-080",
+    "id": "speaker-064",
     "name": "Cono Santi",
     "specialty": "Imagenólogo",
     "institution": "",
@@ -800,7 +640,7 @@
     "bio": ""
   },
   {
-    "id": "speaker-081",
+    "id": "speaker-065",
     "name": "Pablo Pedetti",
     "specialty": "Imagenólogo",
     "institution": "",
@@ -810,27 +650,47 @@
     "bio": ""
   },
   {
-    "id": "speaker-082",
-    "name": "Andres Cordova",
-    "specialty": "Radiooncologo",
+    "id": "speaker-066",
+    "name": "Margarita Garcia Fontes",
+    "specialty": "Imagenólogo",
     "institution": "",
     "area": "prostata",
-    "nationality": "Uruguay",
+    "nationality": "",
     "photo": "",
     "bio": ""
   },
   {
-    "id": "speaker-083",
-    "name": "Sergio Aguiar",
-    "specialty": "Radiooncologo",
-    "institution": "RT International Institute",
+    "id": "speaker-067",
+    "name": "Gerardo Do Santos",
+    "specialty": "Imagenólogo",
+    "institution": "",
     "area": "prostata",
-    "nationality": "Uruguay",
-    "photo": "img/speakers/sergio-aguiar.jpg",
+    "nationality": "",
+    "photo": "",
     "bio": ""
   },
   {
-    "id": "speaker-084",
+    "id": "speaker-068",
+    "name": "Sergio Aguiar",
+    "specialty": "Oncologia radioterapica",
+    "institution": "RT International Institute / Universidad de la Republica",
+    "area": "prostata",
+    "nationality": "Uruguay",
+    "photo": "img/speakers/sergio-aguiar.jpg",
+    "bio": "Profesor del Departamento de Oncologia Radioterapica y de la Unidad Academica de Radioterapia del Hospital de Clinicas (Udelar). Experto del OIEA."
+  },
+  {
+    "id": "speaker-069",
+    "name": "Mabel E. Sardi",
+    "specialty": "Invitada internacional",
+    "institution": "Mevaterapia Oncologia Radiante / Hospital Italiano de Buenos Aires",
+    "area": "prostata",
+    "nationality": "Argentina",
+    "photo": "img/speakers/mabel-sardi.jpg",
+    "bio": "Especialista en Radioterapia (UBA). Directora de la carrera de Medico Especialista en Radioterapia de la Facultad de Medicina (UBA), unidad academica Hospital Italiano. Ex directora de residencia y ex jefa del Servicio de Terapia Radiante del Hospital Italiano."
+  },
+  {
+    "id": "speaker-070",
     "name": "Joaquín Wilkins",
     "specialty": "Fisico Médico / Tecnólogos",
     "institution": "RT International Institute",
@@ -840,27 +700,47 @@
     "bio": ""
   },
   {
-    "id": "speaker-085",
-    "name": "Eduardo Larrinaga",
-    "specialty": "Fisico Médico / Tecnólogos",
-    "institution": "RT International Institute",
+    "id": "speaker-071",
+    "name": "Gabriela Walko",
+    "specialty": "Patólogo",
+    "institution": "",
     "area": "prostata",
-    "nationality": "Uruguay",
-    "photo": "img/speakers/eduardo-larrinaga.jpg",
+    "nationality": "",
+    "photo": "",
     "bio": ""
   },
   {
-    "id": "speaker-086",
-    "name": "Nadia Hernandez",
-    "specialty": "Fisico Médico / Tecnólogos",
-    "institution": "UT MD Anderson Cancer Center, Texas",
+    "id": "speaker-072",
+    "name": "Adriana DellaValle",
+    "specialty": "Patólogo",
+    "institution": "",
     "area": "prostata",
-    "nationality": "Cuba",
+    "nationality": "",
     "photo": "",
-    "bio": "Ingeniera Nuclear del Instituto Superior de Ciencias y Tecnologías Nucleares, La Habana, Cuba. Asistente de Física Médica del IROC Houston QA office y del Radiation Quality Assurance Laboratory (RQA Lab) en el UT MD Anderson Cancer Center, Texas. Encargada del programa de auditoría externas para verificación del tratamientos de alta complejidad a través de fantomas antropomorfos en haces de fotones y protones."
+    "bio": ""
   },
   {
-    "id": "speaker-087",
+    "id": "speaker-073",
+    "name": "Valentina Ferreira",
+    "specialty": "Oncologia radioterapica",
+    "institution": "RT International Institute / Centro Hospitalario Pereira Rossell",
+    "area": "neuro",
+    "nationality": "Uruguay",
+    "photo": "img/speakers/valentina-ferreira.jpg",
+    "bio": "Jefa del Servicio de Radioterapia del IRCLCC del Centro Hospitalario Pereira Rossell. Experta en radioterapia pediatrica y hemato-oncologica. Docente de Medicina en la Universidad Catolica del Uruguay."
+  },
+  {
+    "id": "speaker-074",
+    "name": "Federico Salles",
+    "specialty": "Neurocirujano",
+    "institution": "RT International Institute",
+    "area": "neuro",
+    "nationality": "Uruguay",
+    "photo": "",
+    "bio": "Co-moderador del Workshop Sistema Nervioso en la Primera Convencion RT Internacional."
+  },
+  {
+    "id": "speaker-075",
     "name": "Emiliano Rivero",
     "specialty": "Moderador",
     "institution": "RT International Institute",
@@ -870,33 +750,33 @@
     "bio": ""
   },
   {
-    "id": "speaker-088",
-    "name": "Mabel E. Sardi",
-    "specialty": "Radioncólogo",
-    "institution": "Hospital Italiano de Buenos Aires / Mevaterapia",
-    "area": "mama",
-    "nationality": "Argentina",
-    "photo": "",
-    "bio": "Especialista en Radioterapia UBA. Directora de la Carrera de Médico Especialista en Radioterapia de la Facultad de Medicina de la Universidad de Buenos Aires, Unidad Académica Hospital Italiano. Ex Directora de la Residencia en Terapia Radiante del Hospital Italiano de Buenos Aires. Directora Académica Mevaterapia Oncología Radiante. Ex Jefa del Servicio de Terapia Radiante del Hospital Italiano de Buenos Aires."
+    "id": "speaker-076",
+    "name": "Ester Sanchez Valdez",
+    "specialty": "Oncologia radioterapica",
+    "institution": "RT International Institute",
+    "area": "evento",
+    "nationality": "Honduras",
+    "photo": "img/speakers/ester-sanchez-valdez.jpg",
+    "bio": "Postgrado de segundo ano de Oncologia Radioterapica de la Unidad Academica de Radioterapia. Master en Direccion Estrategica especializado en organizaciones de salud. Ex tecnica medica de la Unidad de Cancer del Ministerio de Salud de Honduras."
   },
   {
-    "id": "speaker-089",
-    "name": "Verónica Vera",
-    "specialty": "Radioncólogo",
-    "institution": "Instituto Zunino, Córdoba",
+    "id": "speaker-077",
+    "name": "Carlos Vega D'Espaux",
+    "specialty": "Fisica medica",
+    "institution": "RT International Institute",
+    "area": "evento",
+    "nationality": "Uruguay",
+    "photo": "img/speakers/carlos-vega-despaux.jpg",
+    "bio": "Licenciado en Fisica Medica (Udelar), Magister en Fisica Medica (Universidad Nacional de Costa Rica), especialista en Fisica de la Radioterapia (CNEA-UNSAM) y diplomado en IA aplicada a ciencias de la salud."
+  },
+  {
+    "id": "speaker-078",
+    "name": "Veronica Vera",
+    "specialty": "Invitada internacional",
+    "institution": "Instituto Zunino / Asociacion de Oncologos Clinicos de Cordoba",
     "area": "pulmon",
     "nationality": "Argentina",
-    "photo": "",
-    "bio": "Medica cirujana. Especialista en Medicina Interna. Especialista en Radioterapia Oncológica. Master Internacional en Altas tecnologías de radioterapia. Médica staff del Instituto Zunino. Vocal Titular de la Asociación de Oncólogos Clínicos de Córdoba."
-  },
-  {
-    "id": "speaker-090",
-    "name": "Soledad Colombo",
-    "specialty": "Radioncólogo",
-    "institution": "Mevaterapia / Hospital Italiano",
-    "area": "neuro",
-    "nationality": "Argentina",
-    "photo": "",
-    "bio": "Médica especialista en radioterapia. Mevaterapia. Hospital Italiano."
+    "photo": "img/speakers/veronica-vera.jpg",
+    "bio": "Medica cirujana, especialista en Medicina Interna y Radioterapia Oncologica. Master internacional en altas tecnologias de radioterapia. Medica staff del Instituto Zunino y vocal titular de la Asociacion de Oncologos Clinicos de Cordoba."
   }
 ]

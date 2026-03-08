@@ -131,29 +131,209 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Load all Supabase profiles and merge over JSON data
   await loadAndMergeSupabaseProfiles();
   await loadAttendees();
+  await loadAllEnrollments();
+
+  // Auto-activate reminders for speakers
+  autoActivateSpeakerReminders();
 });
 
 // ============================================
 // SUPABASE PROFILE MERGE
 // ============================================
+function normalizePersonKey(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/dr\.?\s*|dra\.?\s*/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
+
+function getSpeakerNameIndex() {
+  const map = new Map();
+  if (!Array.isArray(speakersData)) return map;
+
+  speakersData.forEach(speaker => {
+    if (!speaker || !speaker.id) return;
+    const key = normalizePersonKey(speaker.name);
+    if (!key) return;
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(speaker.id);
+  });
+
+  return map;
+}
+
+function findSpeakerIdByProfileName(profile, speakerNameIndex = null) {
+  if (!profile) return null;
+  const index = speakerNameIndex || getSpeakerNameIndex();
+  const fullName = buildFullName(profile.name, profile.lastname);
+  const key = normalizePersonKey(fullName);
+  if (!key) return null;
+  const matches = index.get(key) || [];
+  if (matches.length !== 1) return null;
+  return matches[0];
+}
+
+function findSpeakerIdByAlias(profileNameKey) {
+  if (!profileNameKey) return null;
+  const aliases = {
+    'mathias jeldres': 'speaker-046',
+  };
+  return aliases[profileNameKey] || null;
+}
+
+function resolveProfileSpeakerId(profile, speakerNameIndex = null) {
+  if (!profile) return null;
+  const index = speakerNameIndex || getSpeakerNameIndex();
+  const profileNameKey = normalizePersonKey(buildFullName(profile.name, profile.lastname));
+  const aliasMatch = findSpeakerIdByAlias(profileNameKey);
+  if (aliasMatch) return aliasMatch;
+
+  const rawSpeakerId = String(profile.speaker_id || '').trim();
+  if (rawSpeakerId && Array.isArray(speakersData)) {
+    const speakerById = speakersData.find(s => s.id === rawSpeakerId);
+    if (speakerById) {
+      if (!profileNameKey) return rawSpeakerId;
+
+      const idNameKey = normalizePersonKey(speakerById.name);
+      if (profileNameKey === idNameKey) return rawSpeakerId;
+
+      const nameMatchedId = findSpeakerIdByProfileName(profile, index);
+      if (nameMatchedId) return nameMatchedId;
+      return null;
+    }
+  }
+  return findSpeakerIdByProfileName(profile, index);
+}
+
+function withResolvedSpeakerId(profile, speakerNameIndex = null) {
+  if (!profile) return profile;
+  return {
+    ...profile,
+    _resolvedSpeakerId: resolveProfileSpeakerId(profile, speakerNameIndex) || null,
+  };
+}
+
+function hasValue(value) {
+  return value !== null && value !== undefined && value !== '';
+}
+
+function profileCompletenessScore(profile) {
+  if (!profile) return 0;
+  let score = 0;
+  if (hasValue(profile.user_id)) score += 5;
+  if (hasValue(profile._resolvedSpeakerId)) score += 4;
+  if (hasValue(profile.photo_url)) score += 2;
+  if (hasValue(profile.bio)) score += 2;
+  if (profile.visibility && Object.keys(profile.visibility).length) score += 1;
+
+  const fields = ['name', 'lastname', 'country', 'institution', 'specialty', 'phone', 'email', 'room_number'];
+  fields.forEach(field => {
+    if (hasValue(profile[field])) score += 1;
+  });
+
+  return score;
+}
+
+function mergeProfileRows(preferred, other) {
+  if (!preferred) return other;
+  if (!other) return preferred;
+
+  const merged = {
+    ...other,
+    ...preferred,
+  };
+
+  const fields = ['name', 'lastname', 'country', 'institution', 'specialty', 'phone', 'email', 'bio', 'photo_url', 'room_number'];
+  fields.forEach(field => {
+    merged[field] = hasValue(preferred[field]) ? preferred[field] : (other[field] || '');
+  });
+
+  merged.user_id = hasValue(preferred.user_id) ? preferred.user_id : (other.user_id || '');
+  merged.speaker_id = hasValue(preferred.speaker_id) ? preferred.speaker_id : (other.speaker_id || '');
+  merged.hotel_stay = preferred.hotel_stay;
+  if (merged.hotel_stay === null || merged.hotel_stay === undefined) {
+    merged.hotel_stay = other.hotel_stay;
+  }
+
+  merged.visibility = {
+    ...(other.visibility || {}),
+    ...(preferred.visibility || {}),
+  };
+  merged._resolvedSpeakerId = preferred._resolvedSpeakerId || other._resolvedSpeakerId || null;
+
+  return merged;
+}
+
+function mergeProfilesByResolvedSpeakerId(profiles) {
+  const bySpeaker = new Map();
+  const passthrough = [];
+
+  (profiles || []).forEach((profile, index) => {
+    if (!profile) return;
+
+    const resolvedId = profile._resolvedSpeakerId || null;
+    if (!resolvedId) {
+      passthrough.push({
+        ...profile,
+        _mergeKey: profile.user_id || `standalone-${index}`,
+      });
+      return;
+    }
+
+    const existing = bySpeaker.get(resolvedId);
+    if (!existing) {
+      bySpeaker.set(resolvedId, {
+        ...profile,
+        _mergeKey: profile.user_id || `speaker-${resolvedId}`,
+      });
+      return;
+    }
+
+    const existingScore = profileCompletenessScore(existing);
+    const currentScore = profileCompletenessScore(profile);
+    const preferred = currentScore >= existingScore ? profile : existing;
+    const other = preferred === profile ? existing : profile;
+    const merged = mergeProfileRows(preferred, other);
+    merged._resolvedSpeakerId = resolvedId;
+    merged._mergeKey = merged.user_id || existing._mergeKey || `speaker-${resolvedId}`;
+    bySpeaker.set(resolvedId, merged);
+  });
+
+  return [...bySpeaker.values(), ...passthrough];
+}
+
+function getCurrentProfileSpeakerId() {
+  if (!currentProfile) return null;
+  if (currentProfile._resolvedSpeakerId) return currentProfile._resolvedSpeakerId;
+  currentProfile = withResolvedSpeakerId(currentProfile, getSpeakerNameIndex());
+  return currentProfile._resolvedSpeakerId;
+}
+
 async function loadAndMergeSupabaseProfiles() {
   if (!supabaseClient) return;
 
   try {
     const { data: profiles, error } = await supabaseClient
       .from('profiles')
-      .select('speaker_id, name, lastname, country, institution, specialty, phone, email, bio, photo_url, visibility');
+      .select('user_id, speaker_id, name, lastname, country, institution, specialty, phone, email, bio, photo_url, visibility, hotel_stay, room_number');
 
     if (error) throw error;
+    claimedSpeakerIds.clear();
     if (!profiles || !profiles.length) return;
 
-    claimedSpeakerIds.clear();
+    const speakerNameIndex = getSpeakerNameIndex();
+    const normalizedProfiles = profiles.map(profile => withResolvedSpeakerId(profile, speakerNameIndex));
+    const mergedProfiles = mergeProfilesByResolvedSpeakerId(normalizedProfiles);
 
-    profiles.forEach(prof => {
-      if (!prof.speaker_id) return;
-      claimedSpeakerIds.add(prof.speaker_id);
+    mergedProfiles.forEach(prof => {
+      const speakerId = prof._resolvedSpeakerId;
+      if (!speakerId) return;
+      claimedSpeakerIds.add(speakerId);
 
-      const idx = speakersData.findIndex(s => s.id === prof.speaker_id);
+      const idx = speakersData.findIndex(s => s.id === speakerId);
       if (idx === -1) return;
 
       const base = speakersData[idx];
@@ -168,10 +348,14 @@ async function loadAndMergeSupabaseProfiles() {
         email:       prof.email       || base.email,
         bio:         prof.bio         || base.bio,
         photo:       prof.photo_url   || base.photo,
-        visibility:  prof.visibility  || {},
+        visibility:  prof.visibility  || base.visibility || {},
         _claimed:    true,
       };
     });
+
+    if (currentProfile) {
+      currentProfile = withResolvedSpeakerId(currentProfile, speakerNameIndex);
+    }
 
     if (typeof renderSpeakers === 'function') renderSpeakers();
   } catch (e) {
@@ -188,7 +372,7 @@ async function loadCurrentProfile() {
     .eq('user_id', currentUser.id)
     .single();
 
-  currentProfile = data;
+  currentProfile = withResolvedSpeakerId(data, getSpeakerNameIndex());
 }
 
 function buildFullName(name, lastname) {
@@ -478,7 +662,7 @@ async function createProfileFromClaimChoice(speakerId) {
     return;
   }
 
-  currentProfile = data;
+  currentProfile = withResolvedSpeakerId(data, getSpeakerNameIndex());
   closeModal('modalClaim');
   await loadAndMergeSupabaseProfiles();
   updateAuthButton();
@@ -617,7 +801,7 @@ async function handleSaveProfile(event) {
     return;
   }
 
-  currentProfile = data;
+  currentProfile = withResolvedSpeakerId(data, getSpeakerNameIndex());
   pendingPhotoBlob = null;
   closeModal('modalProfile');
   await loadAndMergeSupabaseProfiles();
@@ -630,7 +814,7 @@ async function handleSaveProfile(event) {
 // PHOTO UPLOAD TO SUPABASE STORAGE
 // ============================================
 async function uploadPhoto(blob) {
-  const photoKey = currentProfile.speaker_id || 'profile';
+  const photoKey = getCurrentProfileSpeakerId() || currentProfile.speaker_id || 'profile';
   const filePath = currentUser.id + '/' + photoKey + '.jpg';
 
   const { error } = await supabaseClient.storage
@@ -862,7 +1046,7 @@ function cancelCrop() {
 // ============================================
 // Called from app.js renderSpeakers() template
 function authEditBtn(speaker) {
-  if (!currentProfile || currentProfile.speaker_id !== speaker.id) return '';
+  if (!currentProfile || getCurrentProfileSpeakerId() !== speaker.id) return '';
   return '<button class="speaker-edit-btn" onclick="openProfileModal(); event.stopPropagation();" title="Editar mi perfil">' +
     '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
     '<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>' +
@@ -1021,7 +1205,9 @@ async function loadAttendees() {
       .from('profiles')
       .select('user_id, speaker_id, name, lastname, country, institution, specialty, phone, email, bio, photo_url, visibility, hotel_stay, room_number');
     if (error) throw error;
-    allAttendees = data || [];
+    const speakerNameIndex = getSpeakerNameIndex();
+    const normalized = (data || []).map(profile => withResolvedSpeakerId(profile, speakerNameIndex));
+    allAttendees = mergeProfilesByResolvedSpeakerId(normalized);
     renderAttendees();
     if (typeof renderSpeakers === 'function') renderSpeakers();
   } catch (e) {
@@ -1058,6 +1244,7 @@ function renderAttendees() {
   container.innerHTML = list.map(att => {
     const fullName = buildFullName(att.name, att.lastname);
     const initials = getInitials(fullName);
+    const attendeeKey = String(att._mergeKey || att.user_id || '').replace(/'/g, "\\'");
     const countryObj = COUNTRIES.find(c => c.code === att.country);
     const flag = countryObj ? countryObj.flag : '';
     const photoHtml = att.photo_url
@@ -1065,7 +1252,7 @@ function renderAttendees() {
       : `<div class="attendee-initials">${initials}</div>`;
 
     return `
-      <div class="attendee-card" onclick="openPublicProfile('${att.user_id}')">
+      <div class="attendee-card" onclick="openPublicProfile('${attendeeKey}')">
         <div class="attendee-photo-wrap">
           ${photoHtml}
           ${flag ? `<span class="speaker-flag-badge">${flag}</span>` : ''}
@@ -1092,8 +1279,9 @@ function getInitials(name) {
 // PUBLIC PROFILE MODAL
 // ============================================
 function openPublicProfile(userId) {
-  const att = allAttendees.find(a => a.user_id === userId);
+  const att = allAttendees.find(a => (a._mergeKey || a.user_id || '') === userId || a.user_id === userId);
   if (!att) return;
+  const attendeeSpeakerId = resolveProfileSpeakerId(att, getSpeakerNameIndex());
 
   const vis = att.visibility || {};
   const showField = (field) => vis[field] !== false;
@@ -1132,39 +1320,71 @@ function openPublicProfile(userId) {
     </div>`;
   }
 
-  // Events this person attends (match by speaker_id in agenda)
+  // Mesas where this person participates + role in each one
   let eventsHtml = '';
-  if (att.speaker_id) {
-    const personEvents = [];
-    for (const day of agendaData) {
-      if (!day.sessions || !day.date) continue;
-      for (const session of day.sessions) {
-        const isSpeaker = session.speakers && session.speakers.includes(att.speaker_id);
-        const isModerator = session.moderator && speakersData.find(s => s.id === att.speaker_id && session.moderator.includes(s.name));
-        if (isSpeaker || isModerator) {
-          personEvents.push({ session, dayLabel: 'D\u00eda ' + day.day, date: day.date });
-        }
-      }
-    }
+  const participantIds = [att.user_id, att._mergeKey].filter(Boolean);
+  const attendeeSpeaker = attendeeSpeakerId && Array.isArray(speakersData)
+    ? speakersData.find(s => s.id === attendeeSpeakerId)
+    : null;
+  const normalizedSpeakerName = attendeeSpeaker ? normalizePersonKey(attendeeSpeaker.name) : '';
+  const personEvents = [];
 
-    if (personEvents.length) {
-      personEvents.sort((a, b) => (a.date + a.session.time).localeCompare(b.date + b.session.time));
-      const evItems = personEvents.map(ev => {
-        const areaTag = typeof areaLabel === 'function' ? areaLabel(ev.session.area) : ev.session.area;
-        return `<div class="public-profile-event-item">
-          <div class="public-profile-event-title">${ev.session.title}</div>
-          <div class="public-profile-event-meta">${ev.dayLabel} \u00b7 ${ev.session.time} - ${ev.session.end} \u00b7 <span class="session-area-tag" data-area="${ev.session.area}" style="font-size:11px;">${areaTag}</span></div>
-          <div class="public-profile-event-meta">\u{1F4CD} ${ev.session.room}</div>
-        </div>`;
-      }).join('');
-      eventsHtml = `<div class="public-profile-events">
-        <h3 class="public-profile-events-title">Eventos en los que participa</h3>
-        ${evItems}
-      </div>`;
+  for (const day of agendaData) {
+    if (!day.sessions || !day.date) continue;
+    for (const session of day.sessions) {
+      if (!session || session.area === 'evento') continue;
+
+      const roles = [];
+      const isSpeaker = attendeeSpeakerId && Array.isArray(session.speakers) && session.speakers.includes(attendeeSpeakerId);
+      if (isSpeaker) roles.push('Expositor');
+
+      let isModerator = false;
+      if (attendeeSpeakerId && normalizedSpeakerName && session.moderator) {
+        const moderatorNames = String(session.moderator)
+          .split(/\s+y\s+|,|;/i)
+          .map(name => normalizePersonKey(name))
+          .filter(Boolean);
+        isModerator = moderatorNames.includes(normalizedSpeakerName);
+      }
+      if (isModerator) roles.push('Moderador');
+
+      const key = typeof sessionKey === 'function'
+        ? sessionKey(session, day.date)
+        : (day.date + '|' + session.time + '|' + session.title);
+      const enrolledUsers = enrollmentsCache[key] || [];
+      const isParticipant = participantIds.some(uid => enrolledUsers.includes(uid));
+      if (isParticipant && !isSpeaker && !isModerator) roles.push('Participante');
+
+      if (roles.length) {
+        personEvents.push({ session, dayLabel: 'D\u00eda ' + day.day, date: day.date, roles });
+      }
     }
   }
 
-  const pubHalo = att.speaker_id && typeof getSpeakerHaloState === 'function' ? getSpeakerHaloState(att.speaker_id) : null;
+  if (personEvents.length) {
+    const roleOrder = { Moderador: 0, Expositor: 1, Participante: 2 };
+    personEvents.sort((a, b) => (a.date + a.session.time).localeCompare(b.date + b.session.time));
+    const evItems = personEvents.map(ev => {
+      const areaTag = typeof areaLabel === 'function' ? areaLabel(ev.session.area) : ev.session.area;
+      const roleBadges = ev.roles
+        .slice()
+        .sort((a, b) => (roleOrder[a] ?? 99) - (roleOrder[b] ?? 99))
+        .map(role => `<span class="public-profile-role-badge ${role.toLowerCase()}">${role}</span>`)
+        .join('');
+      return `<div class="public-profile-event-item">
+        <div class="public-profile-event-title">${ev.session.title}</div>
+        <div class="public-profile-event-meta">${ev.dayLabel} \u00b7 ${ev.session.time} - ${ev.session.end} \u00b7 <span class="session-area-tag" data-area="${ev.session.area}" style="font-size:11px;">${areaTag}</span></div>
+        <div class="public-profile-event-meta">\u{1F4CD} ${ev.session.room}</div>
+        <div class="public-profile-event-roles">${roleBadges}</div>
+      </div>`;
+    }).join('');
+    eventsHtml = `<div class="public-profile-events">
+      <h3 class="public-profile-events-title">Mesas y rol en el congreso</h3>
+      ${evItems}
+    </div>`;
+  }
+
+  const pubHalo = attendeeSpeakerId && typeof getSpeakerHaloState === 'function' ? getSpeakerHaloState(attendeeSpeakerId) : null;
   const pubWrapClass = pubHalo ? `speaker-photo-wrap detail speaker-photo-wrap--${pubHalo}` : 'speaker-photo-wrap detail';
 
   document.getElementById('publicProfileContent').innerHTML = `
@@ -1250,4 +1470,191 @@ function speakerInitials(name) {
   return parts.length >= 2
     ? (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
     : parts[0].substring(0, 2).toUpperCase();
+}
+
+// ============================================
+// SESSION ENROLLMENTS (Participar en mesa)
+// ============================================
+const ENROLLMENT_MAX = 40;
+let enrollmentsCache = {};  // { sessionKey: [{ user_id, profile }] }
+let myEnrollments = [];     // [ sessionKey, ... ]
+
+async function loadAllEnrollments() {
+  if (!supabaseClient) return;
+  try {
+    const { data, error } = await supabaseClient
+      .from('session_enrollments')
+      .select('session_key, user_id');
+    if (error) throw error;
+
+    enrollmentsCache = {};
+    myEnrollments = [];
+    const uid = currentUser ? currentUser.id : null;
+
+    (data || []).forEach(row => {
+      if (!enrollmentsCache[row.session_key]) enrollmentsCache[row.session_key] = [];
+      enrollmentsCache[row.session_key].push(row.user_id);
+      if (uid && row.user_id === uid) myEnrollments.push(row.session_key);
+    });
+  } catch (e) {
+    console.warn('Could not load enrollments:', e.message);
+  }
+}
+
+function getEnrollmentCount(sessionKey) {
+  return (enrollmentsCache[sessionKey] || []).length;
+}
+
+function isEnrolled(sessionKey) {
+  return myEnrollments.includes(sessionKey);
+}
+
+function getSessionTimeSlot(sessionKey) {
+  // sessionKey = "date|time|title" — extract date+time for conflict check
+  const parts = sessionKey.split('|');
+  return parts[0] + '|' + parts[1];  // "2026-03-13|16:30"
+}
+
+function hasConflictingEnrollment(sessionKey) {
+  const slot = getSessionTimeSlot(sessionKey);
+  return myEnrollments.some(k => k !== sessionKey && getSessionTimeSlot(k) === slot);
+}
+
+function getConflictingSessionTitle(sessionKey) {
+  const slot = getSessionTimeSlot(sessionKey);
+  const conflicting = myEnrollments.find(k => k !== sessionKey && getSessionTimeSlot(k) === slot);
+  if (!conflicting) return '';
+  return conflicting.split('|').slice(2).join('|');
+}
+
+async function enrollInSession(sessionKey, event) {
+  if (event) { event.stopPropagation(); event.preventDefault(); }
+
+  if (!currentUser) {
+    showToast('Tenés que iniciar sesión para inscribirte');
+    return;
+  }
+
+  // Check if already enrolled
+  if (isEnrolled(sessionKey)) {
+    await unenrollFromSession(sessionKey);
+    return;
+  }
+
+  // Check seat limit
+  if (getEnrollmentCount(sessionKey) >= ENROLLMENT_MAX) {
+    showToast('Mesa llena (máximo ' + ENROLLMENT_MAX + ' participantes)');
+    return;
+  }
+
+  // Check time conflict
+  if (hasConflictingEnrollment(sessionKey)) {
+    const conflictTitle = getConflictingSessionTitle(sessionKey);
+    showToast('Ya estás inscrito en otra charla en este horario' + (conflictTitle ? ': ' + conflictTitle : ''));
+    return;
+  }
+
+  try {
+    const { error } = await supabaseClient
+      .from('session_enrollments')
+      .insert({ session_key: sessionKey, user_id: currentUser.id });
+    if (error) throw error;
+
+    // Update local cache
+    if (!enrollmentsCache[sessionKey]) enrollmentsCache[sessionKey] = [];
+    enrollmentsCache[sessionKey].push(currentUser.id);
+    myEnrollments.push(sessionKey);
+
+    showToast('Te inscribiste a la mesa');
+    renderAgenda();
+    renderMySessions();
+  } catch (e) {
+    console.error('Enrollment error:', e);
+    showToast('Error al inscribirse: ' + e.message);
+  }
+}
+
+async function unenrollFromSession(sessionKey) {
+  if (!currentUser) return;
+
+  try {
+    const { error } = await supabaseClient
+      .from('session_enrollments')
+      .delete()
+      .eq('session_key', sessionKey)
+      .eq('user_id', currentUser.id);
+    if (error) throw error;
+
+    // Update local cache
+    if (enrollmentsCache[sessionKey]) {
+      enrollmentsCache[sessionKey] = enrollmentsCache[sessionKey].filter(id => id !== currentUser.id);
+    }
+    myEnrollments = myEnrollments.filter(k => k !== sessionKey);
+
+    showToast('Te desinscribiste de la mesa');
+    renderAgenda();
+    renderMySessions();
+  } catch (e) {
+    console.error('Unenrollment error:', e);
+    showToast('Error al desinscribirse: ' + e.message);
+  }
+}
+
+async function getEnrolledProfiles(sessionKey) {
+  if (!supabaseClient) return [];
+  const userIds = enrollmentsCache[sessionKey] || [];
+  if (!userIds.length) return [];
+
+  // Get profiles for enrolled users
+  const profiles = [];
+  for (const uid of userIds) {
+    const att = allAttendees.find(a => a.user_id === uid);
+    if (att) {
+      profiles.push(att);
+    }
+  }
+  return profiles;
+}
+
+function isUserSpeakerInSession(session) {
+  const speakerId = getCurrentProfileSpeakerId();
+  if (!speakerId) return false;
+  // Check if user's speaker_id is in session speakers
+  if (Array.isArray(session.speakers) && session.speakers.includes(speakerId)) return true;
+  // Check if user is moderator
+  if (session.moderator) {
+    const sp = speakersData.find(s => s.id === speakerId);
+    if (sp && session.moderator.includes(sp.name)) return true;
+  }
+  return false;
+}
+
+function autoActivateSpeakerReminders() {
+  const speakerId = getCurrentProfileSpeakerId();
+  if (!speakerId) return;
+  const reminders = typeof getReminders === 'function' ? getReminders() : [];
+  let changed = false;
+
+  for (const day of agendaData) {
+    if (!day.sessions || !day.date) continue;
+    for (const session of day.sessions) {
+      const isSpeaker = Array.isArray(session.speakers) && session.speakers.includes(speakerId);
+      let isModerator = false;
+      if (session.moderator) {
+        const sp = speakersData.find(s => s.id === speakerId);
+        if (sp && session.moderator.includes(sp.name)) isModerator = true;
+      }
+      if (isSpeaker || isModerator) {
+        const key = typeof sessionKey === 'function' ? sessionKey(session, day.date) : (day.date + '|' + session.time + '|' + session.title);
+        if (!reminders.includes(key)) {
+          reminders.push(key);
+          changed = true;
+        }
+      }
+    }
+  }
+
+  if (changed && typeof setReminders === 'function') {
+    setReminders(reminders);
+  }
 }

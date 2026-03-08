@@ -25,6 +25,8 @@ const BASE_PATH = (() => {
 
 const BELL_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`;
 const BELL_FILL_SVG = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0" fill="none" stroke-width="2"/></svg>`;
+const ENROLL_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>`;
+const ENROLLED_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>`;
 const ARRIVAL_QR_EXPECTED = 'RTCC2026|ARRIBO|HANDSHAKE|R-9F2A-7C61-58D4';
 const ARRIVAL_HANDSHAKE_KEY = 'rtcc_arrival_handshake';
 
@@ -307,11 +309,36 @@ function renderAgenda() {
     const reminded = isReminded(session, dayData.date);
     const escapedKey = key.replace(/'/g, "\\'");
     const sessionIndex = dayData.sessions.indexOf(session);
+
+    // Enrollment button (only for non-evento sessions)
+    let enrollBtn = '';
+    if (session.area && session.area !== 'evento') {
+      const isSpeaker = typeof isUserSpeakerInSession === 'function' && isUserSpeakerInSession(session);
+      if (isSpeaker) {
+        enrollBtn = `<span class="enroll-badge speaker-badge">Expositor</span>`;
+      } else {
+        const enrolled = typeof isEnrolled === 'function' && isEnrolled(key);
+        const count = typeof getEnrollmentCount === 'function' ? getEnrollmentCount(key) : 0;
+        const enrollmentMax = (typeof ENROLLMENT_MAX !== 'undefined' ? ENROLLMENT_MAX : 40);
+        const full = count >= enrollmentMax;
+        if (enrolled) {
+          enrollBtn = `<button class="enroll-btn active" onclick="enrollInSession('${escapedKey}', event)" title="Desinscribirme">${ENROLLED_SVG} <span class="enroll-count">${count}/${enrollmentMax}</span></button>`;
+        } else if (full) {
+          enrollBtn = `<button class="enroll-btn disabled" disabled title="Mesa llena">${ENROLL_SVG} <span class="enroll-count">Llena</span></button>`;
+        } else {
+          enrollBtn = `<button class="enroll-btn" onclick="enrollInSession('${escapedKey}', event)" title="Participar en la mesa">${ENROLL_SVG} <span class="enroll-count">${count}/${enrollmentMax}</span></button>`;
+        }
+      }
+    }
+
     return `
       <div class="session-card ${isNow ? 'now' : ''}" data-area="${session.area}" onclick="openSessionDetail(${dayData.day}, ${sessionIndex})">
-        <button class="reminder-btn ${reminded ? 'active' : ''}" onclick="toggleReminder('${escapedKey}', '${session.title.replace(/'/g, "\\'")}', event)" title="Notificarme">
-          ${reminded ? BELL_FILL_SVG : BELL_SVG}
-        </button>
+        <div class="session-actions">
+          <button class="reminder-btn ${reminded ? 'active' : ''}" onclick="toggleReminder('${escapedKey}', '${session.title.replace(/'/g, "\\'")}', event)" title="Notificarme">
+            ${reminded ? BELL_FILL_SVG : BELL_SVG}
+          </button>
+          ${enrollBtn}
+        </div>
         <div class="session-time-block">
           <span class="session-time-text">${session.time} - ${session.end}</span>
           <span class="session-area-tag" data-area="${session.area}">${areaLabel(session.area)}</span>
@@ -337,6 +364,37 @@ function openSessionDetail(day, sessionIndex) {
   const participantEntries = getSessionParticipantEntries(session, speakerEntries);
   const areaTag = areaLabel(session.area);
 
+  // Enrollment section
+  const key = sessionKey(session, dayData.date);
+  const escapedKey = key.replace(/'/g, "\\'");
+  const isSpeaker = typeof isUserSpeakerInSession === 'function' && isUserSpeakerInSession(session);
+  const enrolled = typeof isEnrolled === 'function' && isEnrolled(key);
+  const count = typeof getEnrollmentCount === 'function' ? getEnrollmentCount(key) : 0;
+  const enrollmentMax = (typeof ENROLLMENT_MAX !== 'undefined' ? ENROLLMENT_MAX : 40);
+  const full = count >= enrollmentMax;
+  const isEvento = !session.area || session.area === 'evento';
+
+  let enrollSection = '';
+  if (!isEvento) {
+    let enrollBtnHtml = '';
+    if (isSpeaker) {
+      enrollBtnHtml = `<div class="session-detail-enroll-badge speaker-badge">Sos expositor de esta mesa</div>`;
+    } else if (enrolled) {
+      enrollBtnHtml = `<button class="session-detail-enroll-btn active" onclick="enrollInSession('${escapedKey}', event)">${ENROLLED_SVG} Inscrito — Desinscribirme</button>`;
+    } else if (full) {
+      enrollBtnHtml = `<button class="session-detail-enroll-btn disabled" disabled>${ENROLL_SVG} Mesa llena</button>`;
+    } else {
+      enrollBtnHtml = `<button class="session-detail-enroll-btn" onclick="enrollInSession('${escapedKey}', event)">${ENROLL_SVG} Participar en esta mesa</button>`;
+    }
+
+    enrollSection = `
+    <div class="session-detail-section">
+      <h3 class="session-detail-section-title">Participar de la mesa <span class="enroll-counter">${count}/${enrollmentMax} lugares</span></h3>
+      ${enrollBtnHtml}
+      <div class="session-detail-enrolled-list" id="enrolledList-${dayData.day}-${dayData.sessions.indexOf(session)}"></div>
+    </div>`;
+  }
+
   container.innerHTML = `
     <div class="session-detail-header">
       <h2 class="session-detail-title">${escapeHTML(session.title)}</h2>
@@ -359,19 +417,35 @@ function openSessionDetail(day, sessionIndex) {
       </div>
     </div>
 
-    <div class="session-detail-section">
-      <h3 class="session-detail-section-title">Anotados</h3>
-      <div class="session-detail-list">
-        ${participantEntries.length ? participantEntries.map(renderSessionPersonChip).join('') : '<p class="session-detail-empty">No hay participantes cargados para esta sesi&oacute;n.</p>'}
-      </div>
-    </div>
+    ${enrollSection}
   `;
+
+  // Load enrolled profiles async
+  if (!isEvento) {
+    loadEnrolledListForDetail(key, dayData.day, dayData.sessions.indexOf(session));
+  }
 
   if (typeof openModal === 'function') {
     openModal('modalSessionDetail');
   } else {
     document.getElementById('modalSessionDetail')?.classList.remove('hidden');
   }
+}
+
+async function loadEnrolledListForDetail(sessionKey, day, sessionIndex) {
+  const container = document.getElementById(`enrolledList-${day}-${sessionIndex}`);
+  if (!container) return;
+
+  const profiles = typeof getEnrolledProfiles === 'function' ? await getEnrolledProfiles(sessionKey) : [];
+  if (!profiles.length) {
+    container.innerHTML = '<p class="session-detail-empty">Nadie inscripto a&uacute;n.</p>';
+    return;
+  }
+
+  container.innerHTML = profiles.map(att => {
+    const fullName = [att.name, att.lastname].filter(Boolean).join(' ').trim();
+    return `<span class="session-person-chip enrolled">${escapeHTML(fullName)}</span>`;
+  }).join('');
 }
 
 function getSessionSpeakerEntries(session) {
@@ -501,9 +575,16 @@ function filterSpeakersSearch(term) {
   renderSpeakers();
 }
 
+function getResolvedCurrentSpeakerId() {
+  if (typeof getCurrentProfileSpeakerId === 'function') {
+    return getCurrentProfileSpeakerId();
+  }
+  if (typeof currentProfile === 'undefined' || !currentProfile) return null;
+  return currentProfile.speaker_id || null;
+}
+
 function isSpeakerRegistered(speakerId) {
-  if (typeof currentProfile === 'undefined' || !currentProfile) return false;
-  return currentProfile.speaker_id === speakerId;
+  return getResolvedCurrentSpeakerId() === speakerId;
 }
 
 function isSpeakerArrivalValidated(speakerId) {
@@ -532,10 +613,8 @@ function resolvePhotoSrc(value) {
 function getSpeakerListWithRegisteredAttendees() {
   const merged = [];
   const speakerIds = new Set();
-  const attendeeKeys = new Set();
-  const attendeeList = typeof getAllAttendees === 'function' ? getAllAttendees() : [];
-  const registered = Array.isArray(attendeeList) ? attendeeList : [];
 
+  // Include all speakers first; non-speaker attendees are merged below.
   speakersData.forEach(speaker => {
     if (!speaker || !speaker.id) return;
     speakerIds.add(speaker.id);
@@ -548,22 +627,20 @@ function getSpeakerListWithRegisteredAttendees() {
     });
   });
 
-  registered.forEach(att => {
+  const attendees = typeof getAllAttendees === 'function' ? getAllAttendees() : [];
+  attendees.forEach(att => {
     if (!att) return;
-    const speakerId = String(att.speaker_id || '').trim();
-    if (speakerId && speakerIds.has(speakerId)) return;
+    const resolvedSpeakerId = String(att._resolvedSpeakerId || '').trim();
+    if (resolvedSpeakerId && speakerIds.has(resolvedSpeakerId)) return;
 
     const fullName = [att.name, att.lastname].filter(Boolean).join(' ').trim();
-    if (!fullName) return;
-
-    const key = String(att.user_id || '').trim() || normalizeText(fullName);
-    if (attendeeKeys.has(key)) return;
-    attendeeKeys.add(key);
+    const displayName = fullName || String(att.email || '').trim();
+    if (!displayName) return;
 
     merged.push({
       type: 'attendee',
-      name: fullName,
-      specialty: att.specialty || '',
+      name: displayName,
+      specialty: att.specialty || 'Asistente registrado',
       institution: att.institution || '',
       attendee: att
     });
@@ -576,7 +653,7 @@ function renderRegisteredAttendeeCard(att) {
   const fullName = [att.name, att.lastname].filter(Boolean).join(' ').trim();
   const initials = getPersonInitials(fullName);
   const photoSrc = resolvePhotoSrc(att.photo_url);
-  const safeUserId = String(att.user_id || '').replace(/'/g, "\\'");
+  const safeProfileId = String(att._mergeKey || att.user_id || '').replace(/'/g, "\\'");
   const countryBadge = att.country && typeof COUNTRIES !== 'undefined'
     ? (() => {
       const country = COUNTRIES.find(c => c.code === att.country);
@@ -586,7 +663,7 @@ function renderRegisteredAttendeeCard(att) {
   const specialty = att.specialty || 'Asistente registrado';
 
   return `
-    <div class="attendee-card" onclick="${safeUserId && typeof openPublicProfile === 'function' ? `openPublicProfile('${safeUserId}')` : 'void(0)'}">
+    <div class="attendee-card" onclick="${safeProfileId && typeof openPublicProfile === 'function' ? `openPublicProfile('${safeProfileId}')` : 'void(0)'}">
       <div class="attendee-photo-wrap">
         ${photoSrc
           ? `<img src="${photoSrc}" alt="${fullName}" class="attendee-photo" onerror="this.outerHTML='<div class=\\'attendee-initials\\'>${initials}</div>'">`
@@ -865,7 +942,7 @@ function renderMySessions() {
   if (!container) return;
 
   const reminders = getReminders();
-  const mySpeakerId = (typeof currentProfile !== 'undefined' && currentProfile) ? currentProfile.speaker_id : null;
+  const mySpeakerId = getResolvedCurrentSpeakerId();
 
   // Collect sessions where user has reminder OR is a speaker/moderator
   const mySessions = [];

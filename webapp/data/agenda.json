@@ -4,102 +4,189 @@
     "date": "2026-03-13",
     "sessions": [
       {
-        "time": "16:00",
-        "end": "16:30",
+        "time": "15:00",
+        "end": "15:30",
         "area": "evento",
-        "room": "Sal\u00f3n Principal",
-        "title": "Acreditaci\u00f3n y bienvenida",
+        "room": "Salon Principal",
+        "title": "Bienvenida",
         "speakers": [],
-        "description": "Palabras de bienvenida y presentaci\u00f3n del formato."
+        "description": "Recepcion de participantes y apertura del encuentro."
       },
       {
-        "time": "16:30",
-        "end": "17:45",
+        "time": "15:30",
+        "end": "16:00",
+        "area": "evento",
+        "room": "Salon Principal",
+        "title": "Apertura",
+        "speakers": [],
+        "description": "Inicio oficial de la Primera Convencion RT Internacional."
+      },
+      {
+        "time": "16:00",
+        "end": "17:15",
         "area": "mama",
         "room": "Sala A",
-        "title": "Caso 1 \u2014 Mama: Rt post neoadyuvancia",
-        "speakers": [],
+        "title": "Workshop Mama: Valor de la RT post-neoadyuvancia",
+        "speakers": [
+          "speaker-001",
+          "speaker-004",
+          "speaker-008",
+          "speaker-010",
+          "speaker-014",
+          "speaker-017",
+          "speaker-019"
+        ],
         "moderator": "Federico Lorenzo"
       },
       {
-        "time": "16:30",
-        "end": "17:45",
+        "time": "16:00",
+        "end": "17:15",
         "area": "pulmon",
         "room": "Sala B",
-        "title": "Caso 1 \u2014 Pulm\u00f3n: 2 Nodulos SBRT, medio y superior derecho",
-        "speakers": [],
+        "title": "Workshop Pulmon: Nodulos pulmonares en oligometastasis",
+        "speakers": [
+          "speaker-022",
+          "speaker-035",
+          "speaker-040",
+          "speaker-043",
+          "speaker-045",
+          "speaker-047",
+          "speaker-048",
+          "speaker-051",
+          "speaker-052",
+          "speaker-075"
+        ],
         "moderator": "Emiliano Rivero"
       },
       {
-        "time": "16:30",
-        "end": "17:45",
+        "time": "16:00",
+        "end": "17:15",
         "area": "prostata",
         "room": "Sala C",
-        "title": "Caso 1 \u2014 Pr\u00f3stata: Recidiva bioqu\u00edmica postprostatectomia. Pet negativo, RT adyuvante",
-        "speakers": [],
+        "title": "Workshop Prostata: Recidiva bioquimica PET negativo",
+        "speakers": [
+          "speaker-038",
+          "speaker-055",
+          "speaker-061",
+          "speaker-064",
+          "speaker-065",
+          "speaker-070",
+          "speaker-071"
+        ],
         "moderator": "Sergio Aguiar"
       },
       {
-        "time": "16:30",
-        "end": "17:45",
+        "time": "16:00",
+        "end": "17:15",
         "area": "neuro",
         "room": "Sala D",
-        "title": "Caso 1 \u2014 Neuro: Meningioma G2",
-        "speakers": [],
-        "moderator": "Valentina Ferreira"
+        "title": "Workshop Sistema Nervioso: Meningioma grado II y neurinoma del acustico",
+        "speakers": [
+          "speaker-018",
+          "speaker-021",
+          "speaker-024",
+          "speaker-025",
+          "speaker-028",
+          "speaker-029",
+          "speaker-073",
+          "speaker-074"
+        ],
+        "moderator": "Valentina Ferreira y Federico Salles"
       },
       {
-        "time": "17:45",
-        "end": "18:15",
+        "time": "17:15",
+        "end": "17:45",
         "area": "evento",
         "room": "Foyer",
-        "title": "Coffee break",
+        "title": "Break",
         "speakers": []
       },
       {
-        "time": "18:15",
-        "end": "19:30",
+        "time": "17:45",
+        "end": "19:00",
         "area": "mama",
         "room": "Sala A",
-        "title": "Caso 2 \u2014 Mama: Avanzado N2",
-        "speakers": [],
+        "title": "Workshop Mama: Cancer de mama locorregionalmente avanzado",
+        "speakers": [
+          "speaker-002",
+          "speaker-005",
+          "speaker-015",
+          "speaker-018"
+        ],
         "moderator": "Federico Lorenzo"
       },
       {
-        "time": "18:15",
-        "end": "19:30",
+        "time": "17:45",
+        "end": "19:00",
         "area": "pulmon",
         "room": "Sala B",
-        "title": "Caso 2 \u2014 Pulm\u00f3n: SBRT nodulo pulmonar unico, lobulo superior derecho",
-        "speakers": [],
+        "title": "Workshop Pulmon: Nodulo pulmonar",
+        "speakers": [
+          "speaker-022",
+          "speaker-041",
+          "speaker-046",
+          "speaker-049",
+          "speaker-052",
+          "speaker-053",
+          "speaker-075"
+        ],
         "moderator": "Emiliano Rivero"
       },
       {
-        "time": "18:15",
-        "end": "19:30",
+        "time": "17:45",
+        "end": "19:00",
         "area": "prostata",
         "room": "Sala C",
-        "title": "Caso 2 \u2014 Pr\u00f3stata: Localizado, intermedio, resultados de la clinica. Hidrogel, SBRT",
-        "speakers": [],
+        "title": "Workshop Prostata: Cancer de prostata localizado",
+        "speakers": [
+          "speaker-020",
+          "speaker-038",
+          "speaker-056",
+          "speaker-057",
+          "speaker-066",
+          "speaker-068",
+          "speaker-070",
+          "speaker-072"
+        ],
         "moderator": "Sergio Aguiar"
       },
       {
-        "time": "18:15",
-        "end": "19:30",
+        "time": "17:45",
+        "end": "19:00",
         "area": "neuro",
         "room": "Sala D",
-        "title": "Caso 2 \u2014 Neuro: Neurinoma del ac\u00fastico / Funcional",
-        "speakers": [],
-        "moderator": "Valentina Ferreira"
+        "title": "Workshop Sistema Nervioso: Glioblastoma y metastasis en columna",
+        "speakers": [
+          "speaker-017",
+          "speaker-019",
+          "speaker-020",
+          "speaker-022",
+          "speaker-025",
+          "speaker-028",
+          "speaker-030",
+          "speaker-035",
+          "speaker-073",
+          "speaker-074"
+        ],
+        "moderator": "Valentina Ferreira y Federico Salles"
       },
       {
-        "time": "20:30",
+        "time": "19:15",
+        "end": "19:45",
+        "area": "evento",
+        "room": "Salon Principal",
+        "title": "Anuncios",
+        "speakers": [],
+        "description": "Comunicaciones generales de cierre de la jornada cientifica."
+      },
+      {
+        "time": "21:00",
         "end": "23:00",
         "area": "evento",
-        "room": "I'marangat\u00fa Restaurant & Beach Club",
-        "title": "Cena de la Convenci\u00f3n",
+        "room": "I'marangatu Restaurant & Beach Club",
+        "title": "Actividad social: Cena de la Convencion",
         "speakers": [],
-        "description": "Cena formal de networking en I'marangat\u00fa (Rambla C. Williman, Parada 7, Playa Mansa). Traslado incluido desde el Gran Hotel."
+        "description": "Encuentro social en I'marangatu (Rambla C. Williman, Parada 7, Playa Mansa). Traslado incluido desde el Gran Hotel."
       }
     ]
   },
@@ -112,8 +199,15 @@
         "end": "10:15",
         "area": "mama",
         "room": "Sala A",
-        "title": "Caso 3 \u2014 Mama: T1-2N0 Fast foward APBI",
-        "speakers": [],
+        "title": "Workshop Mama: Cancer de mama en estadios iniciales",
+        "speakers": [
+          "speaker-003",
+          "speaker-006",
+          "speaker-009",
+          "speaker-011",
+          "speaker-013",
+          "speaker-016"
+        ],
         "moderator": "Federico Lorenzo"
       },
       {
@@ -121,8 +215,16 @@
         "end": "10:15",
         "area": "pulmon",
         "room": "Sala B",
-        "title": "Caso 3 \u2014 Pulm\u00f3n: Mocuepidermoide de traquea",
-        "speakers": [],
+        "title": "Workshop Pulmon: Carcinoma mucoepidermoide de traquea",
+        "speakers": [
+          "speaker-018",
+          "speaker-041",
+          "speaker-044",
+          "speaker-046",
+          "speaker-050",
+          "speaker-054",
+          "speaker-075"
+        ],
         "moderator": "Emiliano Rivero"
       },
       {
@@ -130,8 +232,15 @@
         "end": "10:15",
         "area": "prostata",
         "room": "Sala C",
-        "title": "Caso 3 \u2014 Pr\u00f3stata: Recidiva bioquimica Pet positivo. Recidiva local post radioterapia, SBRT, HIFU",
-        "speakers": [],
+        "title": "Workshop Prostata: Recidiva bioquimica PET positivo",
+        "speakers": [
+          "speaker-052",
+          "speaker-058",
+          "speaker-059",
+          "speaker-062",
+          "speaker-067",
+          "speaker-068"
+        ],
         "moderator": "Sergio Aguiar"
       },
       {
@@ -139,16 +248,27 @@
         "end": "10:15",
         "area": "neuro",
         "room": "Sala D",
-        "title": "Caso 3 \u2014 Neuro: Columna",
-        "speakers": [],
-        "moderator": "Valentina Ferreira"
+        "title": "Workshop Sistema Nervioso: Malformacion arteriovenosa",
+        "speakers": [
+          "speaker-014",
+          "speaker-019",
+          "speaker-023",
+          "speaker-026",
+          "speaker-027",
+          "speaker-036",
+          "speaker-038",
+          "speaker-039",
+          "speaker-073",
+          "speaker-074"
+        ],
+        "moderator": "Valentina Ferreira y Federico Salles"
       },
       {
         "time": "10:15",
         "end": "10:45",
         "area": "evento",
         "room": "Foyer",
-        "title": "Coffee break",
+        "title": "Break",
         "speakers": []
       },
       {
@@ -156,8 +276,13 @@
         "end": "12:00",
         "area": "mama",
         "room": "Sala A",
-        "title": "Caso 4 \u2014 Mama: Por confirmar",
-        "speakers": [],
+        "title": "Workshop Mama: Cancer de mama in situ",
+        "speakers": [
+          "speaker-001",
+          "speaker-007",
+          "speaker-012",
+          "speaker-015"
+        ],
         "moderator": "Federico Lorenzo"
       },
       {
@@ -165,8 +290,16 @@
         "end": "12:00",
         "area": "pulmon",
         "room": "Sala B",
-        "title": "Caso 4 \u2014 Pulm\u00f3n: Oligometastasis",
-        "speakers": [],
+        "title": "Workshop Pulmon: Estado oligometastasico",
+        "speakers": [
+          "speaker-018",
+          "speaker-036",
+          "speaker-042",
+          "speaker-045",
+          "speaker-046",
+          "speaker-047",
+          "speaker-075"
+        ],
         "moderator": "Emiliano Rivero"
       },
       {
@@ -174,8 +307,15 @@
         "end": "12:00",
         "area": "prostata",
         "room": "Sala C",
-        "title": "Caso 4 \u2014 Pr\u00f3stata: SBRT oligometast\u00e1sico metacr\u00f3nico",
-        "speakers": [],
+        "title": "Workshop Prostata: Estado metastasico metacronico",
+        "speakers": [
+          "speaker-019",
+          "speaker-039",
+          "speaker-052",
+          "speaker-060",
+          "speaker-063",
+          "speaker-069"
+        ],
         "moderator": "Sergio Aguiar"
       },
       {
@@ -183,18 +323,20 @@
         "end": "12:00",
         "area": "neuro",
         "room": "Sala D",
-        "title": "Caso 4 \u2014 Neuro: MAV",
-        "speakers": [],
-        "moderator": "Valentina Ferreira"
-      },
-      {
-        "time": "12:00",
-        "end": "12:30",
-        "area": "evento",
-        "room": "Sal\u00f3n Principal",
-        "title": "Cierre y conclusiones",
-        "speakers": [],
-        "description": "S\u00edntesis de las discusiones y pr\u00f3ximos pasos."
+        "title": "Workshop Sistema Nervioso: Temblor y neuralgia del trigemino",
+        "speakers": [
+          "speaker-027",
+          "speaker-030",
+          "speaker-031",
+          "speaker-032",
+          "speaker-033",
+          "speaker-034",
+          "speaker-037",
+          "speaker-038",
+          "speaker-073",
+          "speaker-074"
+        ],
+        "moderator": "Valentina Ferreira y Federico Salles"
       }
     ]
   }
