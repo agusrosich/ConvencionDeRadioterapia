@@ -234,6 +234,14 @@ function openAuthModal() {
   switchAuthTab('login');
 }
 
+function togglePasswordVisibility(btn) {
+  const input = btn.parentElement.querySelector('input');
+  const isPassword = input.type === 'password';
+  input.type = isPassword ? 'text' : 'password';
+  btn.querySelector('.eye-icon').classList.toggle('hidden', isPassword);
+  btn.querySelector('.eye-off-icon').classList.toggle('hidden', !isPassword);
+}
+
 function switchAuthTab(tab) {
   document.getElementById('formLogin').classList.toggle('hidden', tab !== 'login');
   document.getElementById('formRegister').classList.toggle('hidden', tab !== 'register');
@@ -319,7 +327,7 @@ function translateAuthError(msg) {
   if (msg.includes('Email not confirmed'))return 'Confirm\u00e1 tu email antes de ingresar.';
   if (msg.includes('already registered')) return 'already_registered';
   if (msg.includes('Password should be')) return 'La contrase\u00f1a debe tener al menos 6 caracteres.';
-  if (msg.includes('rate limit'))         return 'Demasiados intentos. Esper\u00e1 un momento.';
+  if (msg.includes('rate limit'))         return 'Esper\u00e1 un momento antes de volver a intentar.';
   return msg;
 }
 
