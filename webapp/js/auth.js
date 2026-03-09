@@ -107,6 +107,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentUser = session?.user ?? null;
     if (event === 'SIGNED_IN') {
       await loadCurrentProfile();
+      await loadAllEnrollments();
+      refreshEnrollmentUI();
       updateAuthButton();
       // Reveal app on login
       revealApp();
@@ -132,6 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadAndMergeSupabaseProfiles();
   await loadAttendees();
   await loadAllEnrollments();
+  refreshEnrollmentUI();
 
   // Auto-activate reminders for speakers
   autoActivateSpeakerReminders();
@@ -1478,6 +1481,12 @@ function speakerInitials(name) {
 const ENROLLMENT_MAX = 40;
 let enrollmentsCache = {};  // { sessionKey: [{ user_id, profile }] }
 let myEnrollments = [];     // [ sessionKey, ... ]
+
+function refreshEnrollmentUI() {
+  if (typeof renderAgenda === 'function') renderAgenda();
+  if (typeof renderMySessions === 'function') renderMySessions();
+  if (typeof renderProfileEvents === 'function') renderProfileEvents();
+}
 
 async function loadAllEnrollments() {
   if (!supabaseClient) return;

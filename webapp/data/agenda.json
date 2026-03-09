@@ -36,7 +36,13 @@
           "speaker-017",
           "speaker-019"
         ],
-        "moderator": "Federico Lorenzo"
+        "moderator": "Federico Lorenzo",
+        "cases": [
+          {
+            "title": "Caso I - Post-neoadyuvancia",
+            "description": "Paciente de 58 anos diagnosticada con un nodulo en la mama derecha, subtipo biologico HER2 positivo, tras haber completado su esquema de quimioterapia neoadyuvante y cirugia mamaria."
+          }
+        ]
       },
       {
         "time": "16:00",
@@ -56,7 +62,13 @@
           "speaker-052",
           "speaker-075"
         ],
-        "moderator": "Emiliano Rivero"
+        "moderator": "Emiliano Rivero",
+        "cases": [
+          {
+            "title": "Caso I - SBRT Pulmon",
+            "description": "Paciente masculino de 81 anos, con antecedentes de hipertension, que presenta una lesion pulmonar sospechosa detectada en control radiologico por sindrome de repercusion general."
+          }
+        ]
       },
       {
         "time": "16:00",
@@ -73,7 +85,13 @@
           "speaker-070",
           "speaker-071"
         ],
-        "moderator": "Sergio Aguiar"
+        "moderator": "Sergio Aguiar",
+        "cases": [
+          {
+            "title": "Caso I - Recidiva Bioquimica",
+            "description": "Paciente de 70 anos, con antecedente de prostatectomia radical, que presenta una elevacion progresiva del antigeno prostatico especifico (PSA) hasta alcanzar los 6 ng/ml, sugiriendo una recaida."
+          }
+        ]
       },
       {
         "time": "16:00",
@@ -91,7 +109,17 @@
           "speaker-073",
           "speaker-074"
         ],
-        "moderator": "Valentina Ferreira y Federico Salles"
+        "moderator": "Valentina Ferreira y Federico Salles",
+        "cases": [
+          {
+            "title": "Caso I - Meningioma",
+            "description": "Paciente femenina de 47 anos que consulta por cefalea persistente. Las imagenes revelan una formacion expansiva extra-axial temporal derecha de gran tamano (65 x 52 x 45 mm) con importante edema perilesional e impronta en el parenquima cerebral."
+          },
+          {
+            "title": "Caso II - Neurinoma",
+            "description": "Paciente femenina de 60 anos con cuadro de inestabilidad y tinnitus. En la resonancia magnetica se identifica una lesion de 6 mm situada en el conducto auditivo interno izquierdo, compatible con un schwannoma del acustico."
+          }
+        ]
       },
       {
         "time": "17:15",
@@ -113,7 +141,13 @@
           "speaker-015",
           "speaker-018"
         ],
-        "moderator": "Federico Lorenzo"
+        "moderator": "Federico Lorenzo",
+        "cases": [
+          {
+            "title": "Caso II - Avanzado",
+            "description": "Paciente de 55 anos que presenta un cancer de mama con compromiso ganglionar axilar extenso y biologia HER2 positiva, requiriendo un abordaje integral tras la cirugia de rescate."
+          }
+        ]
       },
       {
         "time": "17:45",
@@ -130,7 +164,13 @@
           "speaker-053",
           "speaker-075"
         ],
-        "moderator": "Emiliano Rivero"
+        "moderator": "Emiliano Rivero",
+        "cases": [
+          {
+            "title": "Caso II - Nodulo Pulmonar",
+            "description": "Paciente de 81 anos con un hallazgo incidental en PET-CT de un nodulo hipermetabolico en el lobulo superior derecho (LSD), asociado a una adenopatia yugulo-carotidea tambien positiva."
+          }
+        ]
       },
       {
         "time": "17:45",
@@ -148,7 +188,13 @@
           "speaker-070",
           "speaker-072"
         ],
-        "moderator": "Sergio Aguiar"
+        "moderator": "Sergio Aguiar",
+        "cases": [
+          {
+            "title": "Caso II - Riesgo Intermedio",
+            "description": "Paciente de 62 anos que acude por aumento del PSA en controles rutinarios. La biopsia confirma un adenocarcinoma de prostata con un score de Gleason 3+4 (Riesgo Intermedio)."
+          }
+        ]
       },
       {
         "time": "17:45",
@@ -168,7 +214,17 @@
           "speaker-073",
           "speaker-074"
         ],
-        "moderator": "Valentina Ferreira y Federico Salles"
+        "moderator": "Valentina Ferreira y Federico Salles",
+        "cases": [
+          {
+            "title": "Caso III - Metastasis Espinal",
+            "description": "Paciente de 45 anos con antecedentes de cancer de mama que presenta dolor intenso en la region toracica. Los estudios de imagen muestran una lesion osea litica en el cuerpo vertebral de T9 con compromiso de la estabilidad."
+          },
+          {
+            "title": "Caso IV - Glioblastoma",
+            "description": "Paciente masculino de 54 anos que ingresa por crisis convulsivas de inicio reciente. Se detecta una lesion expansiva infiltrante en el lobulo temporal derecho de 28 mm, con captacion de contraste en anillo y edema asociado."
+          }
+        ]
       },
       {
         "time": "19:15",
@@ -208,7 +264,17 @@
           "speaker-013",
           "speaker-016"
         ],
-        "moderator": "Federico Lorenzo"
+        "moderator": "Federico Lorenzo",
+        "cases": [
+          {
+            "title": "Caso III - Precoz (Joven)",
+            "description": "Paciente joven de 39 anos con una tumoracion palpable de 10 mm en la mama. El diagnostico confirma un carcinoma ductal infiltrante estadio pT1bN0, de subtipo Luminal A."
+          },
+          {
+            "title": "Caso IV - Precoz (Adulta)",
+            "description": "Paciente de 51 anos con un hallazgo mamografico de un carcinoma invasivo luminal de pequeno tamano (8x6 mm) sin evidencia clinica de ganglios afectados."
+          }
+        ]
       },
       {
         "time": "09:00",
@@ -225,7 +291,13 @@
           "speaker-054",
           "speaker-075"
         ],
-        "moderator": "Emiliano Rivero"
+        "moderator": "Emiliano Rivero",
+        "cases": [
+          {
+            "title": "Caso III - Traquea",
+            "description": "Paciente de 64 anos, ex fumador, que consulta por episodios de hemoptisis leve. La broncoscopia identifica una lesion endoluminal en la traquea diagnosticada como carcinoma mucoepidermoide."
+          }
+        ]
       },
       {
         "time": "09:00",
@@ -241,7 +313,13 @@
           "speaker-067",
           "speaker-068"
         ],
-        "moderator": "Sergio Aguiar"
+        "moderator": "Sergio Aguiar",
+        "cases": [
+          {
+            "title": "Caso III - Recidiva Local",
+            "description": "Paciente de 78 anos que, tras anos de estabilidad despues de un tratamiento radioterapico previo, comienza con ascenso de PSA. El PET-PSMA localiza la actividad tumoral exclusivamente dentro de la glandula prostatica."
+          }
+        ]
       },
       {
         "time": "09:00",
@@ -261,7 +339,13 @@
           "speaker-073",
           "speaker-074"
         ],
-        "moderator": "Valentina Ferreira y Federico Salles"
+        "moderator": "Valentina Ferreira y Federico Salles",
+        "cases": [
+          {
+            "title": "Caso V - Malformacion Arteriovenosa",
+            "description": "Paciente joven de 19 anos que presenta cefalea subita de gran intensidad. La angiorresonancia revela una malformacion arteriovenosa (MAV) de 13 mm localizada en la cisterna interpeduncular (Grado 3 de Spetzler-Martin)."
+          }
+        ]
       },
       {
         "time": "10:15",
@@ -300,7 +384,13 @@
           "speaker-047",
           "speaker-075"
         ],
-        "moderator": "Emiliano Rivero"
+        "moderator": "Emiliano Rivero",
+        "cases": [
+          {
+            "title": "Caso IV - Oligometastasis",
+            "description": "Paciente de 81 anos en quien se detecta un nodulo pulmonar unico durante el seguimiento. Se sospecha de enfermedad oligometastasica al no encontrarse otras lesiones activas en el resto del cuerpo."
+          }
+        ]
       },
       {
         "time": "10:45",
@@ -316,7 +406,13 @@
           "speaker-063",
           "speaker-069"
         ],
-        "moderator": "Sergio Aguiar"
+        "moderator": "Sergio Aguiar",
+        "cases": [
+          {
+            "title": "Caso IV - Oligometastasico",
+            "description": "Paciente de 54 anos con diagnostico de cancer de prostata avanzado donde las imagenes de extension revelan lesiones secundarias limitadas a huesos (L4-L5) y ganglios pelvicos y supraclaviculares."
+          }
+        ]
       },
       {
         "time": "10:45",

@@ -2463,6 +2463,63 @@ button.session-person-chip {
   color: var(--gray-400);
 }
 
+/* --- Cases in session cards --- */
+.session-cases {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.session-case-chip {
+  background: rgba(48, 58, 127, 0.06);
+  border-left: 3px solid var(--blue);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
+.session-case-chip .case-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 3px;
+}
+
+.session-case-chip .case-desc {
+  display: block;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--gray-600);
+}
+
+/* --- Cases in session detail modal --- */
+.session-detail-cases {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-case-card {
+  background: rgba(48, 58, 127, 0.05);
+  border-left: 3px solid var(--blue);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.detail-case-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 6px;
+}
+
+.detail-case-desc {
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--gray-600);
+}
+
 /* --- Install Banner --- */
 /* iOS fullscreen install modal */
 .ios-install-modal {
