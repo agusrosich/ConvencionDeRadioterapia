@@ -348,7 +348,6 @@ function renderAgenda() {
         <div class="session-detail">&#128205; ${session.room}</div>
         ${session.moderator ? `<div class="session-detail">&#128100; Moderador: ${session.moderator}</div>` : ''}
         ${session.description ? `<div class="session-detail" style="margin-top:6px; color: var(--gray-600);">${session.description}</div>` : ''}
-        ${Array.isArray(session.cases) && session.cases.length ? `<div class="session-cases">${session.cases.map(c => `<div class="session-case-chip"><span class="case-title">${c.title}</span><span class="case-desc">${c.description}</span></div>`).join('')}</div>` : ''}
       </div>
     `;
   }).join('');
