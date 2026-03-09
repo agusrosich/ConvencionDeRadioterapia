@@ -6,11 +6,21 @@
 begin;
 
 -- 0) Backup completo con timestamp (no pisa backups anteriores)
+--    Se guarda en schema no expuesto por PostgREST para evitar alertas de Security Advisor.
+create schema if not exists backups;
+
 do $$
+declare
+  ts text := to_char(clock_timestamp(), 'YYYYMMDD_HH24MISS');
 begin
   execute format(
-    'create table public.profiles_backup_%s as table public.profiles',
-    to_char(clock_timestamp(), 'YYYYMMDD_HH24MISS')
+    'create table backups.profiles_backup_%s as table public.profiles',
+    ts
+  );
+  -- Defensa adicional: si el schema se expone a futuro, queda protegido.
+  execute format(
+    'alter table backups.profiles_backup_%s enable row level security',
+    ts
   );
 end $$;
 
