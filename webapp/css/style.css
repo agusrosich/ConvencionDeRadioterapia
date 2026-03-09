@@ -1824,6 +1824,52 @@ body {
   line-height: 1.4;
 }
 
+.auth-feedback {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(48, 58, 127, 0.14);
+  background: linear-gradient(180deg, #f9faff 0%, #f3f5ff 100%);
+  color: var(--gray-600);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.auth-feedback strong {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.auth-feedback-link {
+  color: var(--gold-dark);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.auth-inline-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.btn-link.auth-inline-action {
+  margin-top: 0;
+  padding: 9px 12px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 10px;
+  background-color: var(--gray-100);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.btn-link.auth-inline-action:hover {
+  color: var(--gold-dark);
+  border-color: rgba(182, 144, 90, 0.45);
+  background-color: #fff;
+}
+
 .btn-primary {
   width: 100%;
   padding: 13px;

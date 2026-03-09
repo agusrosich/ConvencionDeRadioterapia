@@ -559,8 +559,12 @@
           </div>
         </div>
         <div class="form-error hidden" id="loginError"></div>
+        <div class="auth-feedback hidden" id="loginInfo"></div>
         <button type="submit" class="btn-primary" id="loginSubmit">Ingresar</button>
-        <button type="button" class="btn-link" onclick="handleForgotPassword()" id="forgotPasswordBtn">&iquest;Olvidaste tu contrase&ntilde;a?</button>
+        <div class="auth-inline-actions">
+          <button type="button" class="btn-link auth-inline-action" onclick="handleForgotPassword()" id="forgotPasswordBtn">&iquest;Olvidaste tu contrase&ntilde;a?</button>
+          <button type="button" class="btn-link auth-inline-action" onclick="handleResendConfirmation('login')" id="resendLoginConfirmBtn">Reenviar confirmaci&oacute;n</button>
+        </div>
       </form>
 
       <form id="formRegister" class="auth-form hidden" onsubmit="handleRegister(event)">
@@ -589,7 +593,11 @@
           </div>
         </div>
         <div class="form-error hidden" id="registerError"></div>
+        <div class="auth-feedback hidden" id="registerInfo"></div>
         <button type="submit" class="btn-primary" id="registerSubmit">Crear cuenta</button>
+        <div class="auth-inline-actions">
+          <button type="button" class="btn-link auth-inline-action" onclick="handleResendConfirmation('register')" id="resendRegisterConfirmBtn">Reenviar confirmaci&oacute;n</button>
+        </div>
       </form>
     </div>
   </div>

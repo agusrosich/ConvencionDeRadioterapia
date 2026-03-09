@@ -9,6 +9,7 @@
 // TODO: Replace with your Supabase project values
 const SUPABASE_URL  = 'https://csknrwrqyrmblzqfnzju.supabase.co';
 const SUPABASE_ANON = 'sb_publishable_JKEUYfYuxUPD8ohiA2QtVw_1gfeUEx8';
+const AUTH_REDIRECT_URL = 'https://rtconvention.lat';
 
 // --- MODULE STATE ---
 let supabaseClient   = null;
@@ -16,6 +17,7 @@ let currentUser      = null;
 let currentProfile   = null;   // Row from public.profiles
 let pendingPhotoBlob = null;   // Compressed JPEG before upload
 let claimedSpeakerIds = new Set(); // Already claimed speaker_ids
+let lastAuthEmail = '';
 
 // Latin American + common countries for radiotherapy convention
 const COUNTRIES = [
@@ -382,6 +384,15 @@ function buildFullName(name, lastname) {
   return [name, lastname].filter(Boolean).join(' ').trim();
 }
 
+function escapeHtml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // ============================================
 // AUTH BUTTON
 // ============================================
@@ -442,7 +453,9 @@ async function handleLogin(event) {
   const email    = document.getElementById('loginEmail').value.trim();
   const password = document.getElementById('loginPassword').value;
   const btn      = document.getElementById('loginSubmit');
+  const safeEmail = escapeHtml(email);
 
+  if (email) lastAuthEmail = email;
   setButtonLoading(btn, true, 'Ingresando...');
   clearFormErrors();
 
@@ -451,6 +464,12 @@ async function handleLogin(event) {
   setButtonLoading(btn, false, 'Ingresar');
   if (error) {
     showFormError('loginError', translateAuthError(error.message));
+    if (error.message.includes('Email not confirmed')) {
+      showFormInfo(
+        'loginInfo',
+        `Si no recibiste el correo de confirmacion para <strong>${safeEmail}</strong>, usa el boton "Reenviar confirmacion".`
+      );
+    }
   }
 }
 
@@ -460,11 +479,13 @@ async function handleRegister(event) {
   const password        = document.getElementById('registerPassword').value;
   const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
   const btn             = document.getElementById('registerSubmit');
+  const safeEmail = escapeHtml(email);
 
+  if (email) lastAuthEmail = email;
   clearFormErrors();
 
   if (password !== passwordConfirm) {
-    showFormError('registerError', 'Las contraseñas no coinciden');
+    showFormError('registerError', 'Las contrase\u00f1as no coinciden');
     return;
   }
 
@@ -473,7 +494,7 @@ async function handleRegister(event) {
   const { error } = await supabaseClient.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: 'https://rtconvention.lat' }
+    options: { emailRedirectTo: AUTH_REDIRECT_URL }
   });
 
   setButtonLoading(btn, false, 'Crear cuenta');
@@ -485,17 +506,11 @@ async function handleRegister(event) {
       showFormError('registerError', translated);
     }
   } else {
-    document.getElementById('formRegister').innerHTML = `
-      <div style="text-align:center; padding: 1.5rem 0;">
-        <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">📧</div>
-        <h3 style="margin: 0 0 0.5rem; color: #fff;">¡Revisá tu correo!</h3>
-        <p style="color: #aab; margin: 0; line-height: 1.5;">
-          Te enviamos un email a <strong style="color: #fff;">${email}</strong> con un enlace para confirmar tu cuenta.
-        </p>
-        <p style="color: #889; margin: 0.75rem 0 0; font-size: 0.85rem;">
-          Si no lo ves, revisá la carpeta de spam.
-        </p>
-      </div>`;
+    showFormInfo(
+      'registerInfo',
+      `Te enviamos un email a <strong>${safeEmail}</strong> con el enlace para confirmar tu cuenta.<br>` +
+      'Si no llega en 1-2 minutos, revisa spam o usa "Reenviar confirmacion".'
+    );
   }
 }
 
@@ -511,7 +526,7 @@ async function handleLogout() {
 
 function translateAuthError(msg) {
   if (msg.includes('Invalid login'))      return 'Email o contrase\u00f1a incorrectos.';
-  if (msg.includes('Email not confirmed'))return 'Confirm\u00e1 tu email antes de ingresar.';
+  if (msg.includes('Email not confirmed'))return 'Confirma tu email antes de ingresar.';
   if (msg.includes('already registered')) return 'already_registered';
   if (msg.includes('Password should be')) return 'La contrase\u00f1a debe tener al menos 6 caracteres.';
   if (msg.includes('rate limit'))         return 'Esper\u00e1 un momento antes de volver a intentar.';
@@ -520,22 +535,22 @@ function translateAuthError(msg) {
 
 async function handleForgotPassword() {
   const email = document.getElementById('loginEmail').value.trim();
+  const safeEmail = escapeHtml(email);
   if (!email) {
     showFormError('loginError', 'Ingres\u00e1 tu email primero para recuperar la contrase\u00f1a.');
     return;
   }
+  lastAuthEmail = email;
 
   const btn = document.getElementById('forgotPasswordBtn');
-  btn.disabled = true;
-  btn.textContent = 'Enviando...';
+  setButtonLoading(btn, true, 'Enviando...');
   clearFormErrors();
 
   const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-    redirectTo: 'https://rtconvention.lat',
+    redirectTo: AUTH_REDIRECT_URL,
   });
 
-  btn.disabled = false;
-  btn.textContent = '\u00bfOlvidaste tu contrase\u00f1a?';
+  setButtonLoading(btn, false, '\u00bfOlvidaste tu contrase\u00f1a?');
 
   if (error) {
     showFormError('loginError', error.message.includes('rate limit')
@@ -544,17 +559,55 @@ async function handleForgotPassword() {
     return;
   }
 
-  document.getElementById('formLogin').innerHTML = `
-    <div style="text-align:center; padding: 1.5rem 0;">
-      <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🔑</div>
-      <h3 style="margin: 0 0 0.5rem; color: #fff;">Revis\u00e1 tu correo</h3>
-      <p style="color: #aab; margin: 0; line-height: 1.5;">
-        Te enviamos un enlace a <strong style="color: #fff;">${email}</strong> para restablecer tu contrase\u00f1a.
-      </p>
-      <p style="color: #889; margin: 0.75rem 0 0; font-size: 0.85rem;">
-        Si no lo ves, revis\u00e1 la carpeta de spam.
-      </p>
-    </div>`;
+  showFormInfo(
+    'loginInfo',
+    `Te enviamos un enlace de recuperacion a <strong>${safeEmail}</strong>.<br>` +
+    'Si no aparece, revisa spam o promociones.'
+  );
+}
+
+async function handleResendConfirmation(source = 'login') {
+  const isRegister = source === 'register';
+  const emailInput = document.getElementById(isRegister ? 'registerEmail' : 'loginEmail');
+  const errorId = isRegister ? 'registerError' : 'loginError';
+  const infoId = isRegister ? 'registerInfo' : 'loginInfo';
+  const btnId = isRegister ? 'resendRegisterConfirmBtn' : 'resendLoginConfirmBtn';
+  const email = (emailInput?.value || lastAuthEmail || '').trim();
+
+  if (!email) {
+    showFormError(errorId, 'Ingresa tu email para reenviar la confirmacion.');
+    return;
+  }
+
+  lastAuthEmail = email;
+  clearFormErrors();
+
+  const btn = document.getElementById(btnId);
+  if (btn) setButtonLoading(btn, true, 'Enviando...');
+
+  const { error } = await supabaseClient.auth.resend({
+    type: 'signup',
+    email,
+    options: { emailRedirectTo: AUTH_REDIRECT_URL },
+  });
+
+  if (btn) setButtonLoading(btn, false, 'Reenviar confirmaci\u00f3n');
+
+  if (error) {
+    showFormError(
+      errorId,
+      error.message.includes('rate limit')
+        ? 'Demasiados intentos. Espera un momento antes de reenviar.'
+        : 'No se pudo reenviar el email de confirmacion. Intenta de nuevo.'
+    );
+    return;
+  }
+
+  showFormInfo(
+    infoId,
+    `Reenviamos el correo de confirmacion a <strong>${escapeHtml(email)}</strong>.<br>` +
+    'Revisa tambien spam o promociones.'
+  );
 }
 
 function showAlreadyRegisteredError(email) {
@@ -562,9 +615,9 @@ function showAlreadyRegisteredError(email) {
   if (!errorEl) return;
   errorEl.innerHTML = `
     Ya existe una cuenta con <strong>${email}</strong>.<br>
-    <a href="#" onclick="switchAuthTab('login'); document.getElementById('loginEmail').value='${email}'; return false;" style="color: var(--gold); text-decoration: underline;">Inici\u00e1 sesi\u00f3n</a>
+    <a href="#" class="auth-feedback-link" onclick="switchAuthTab('login'); document.getElementById('loginEmail').value='${email}'; return false;">Inici\u00e1 sesi\u00f3n</a>
     o
-    <a href="#" onclick="switchAuthTab('login'); document.getElementById('loginEmail').value='${email}'; handleForgotPassword(); return false;" style="color: var(--gold); text-decoration: underline;">recuper\u00e1 tu contrase\u00f1a</a>.
+    <a href="#" class="auth-feedback-link" onclick="switchAuthTab('login'); document.getElementById('loginEmail').value='${email}'; handleForgotPassword(); return false;">recuper\u00e1 tu contrase\u00f1a</a>.
   `;
   errorEl.classList.remove('hidden');
 }
@@ -1109,13 +1162,28 @@ function setButtonLoading(btn, loading, label) {
 }
 
 function clearFormErrors() {
-  document.querySelectorAll('.form-error').forEach(el => el.classList.add('hidden'));
+  document.querySelectorAll('.form-error').forEach(el => {
+    el.textContent = '';
+    el.classList.add('hidden');
+  });
+  document.querySelectorAll('.auth-feedback').forEach(el => {
+    el.innerHTML = '';
+    el.classList.add('hidden');
+  });
 }
 
 function showFormError(elementId, message) {
   const el = document.getElementById(elementId);
   if (el) {
     el.textContent = message;
+    el.classList.remove('hidden');
+  }
+}
+
+function showFormInfo(elementId, htmlMessage) {
+  const el = document.getElementById(elementId);
+  if (el) {
+    el.innerHTML = htmlMessage;
     el.classList.remove('hidden');
   }
 }
