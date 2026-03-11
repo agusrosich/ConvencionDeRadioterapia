@@ -280,18 +280,8 @@
     "bio": "Medica especialista en radioterapia. Mevaterapia y Hospital Italiano."
   },
   {
-    "id": "speaker-029",
-    "name": "Pablo Castropeña",
-    "specialty": "Radioncologo",
-    "institution": "",
-    "area": "neuro",
-    "nationality": "",
-    "photo": "",
-    "bio": ""
-  },
-  {
     "id": "speaker-030",
-    "name": "Pablo Castro Pena",
+    "name": "Pablo Castropeña",
     "specialty": "Invitado internacional",
     "institution": "CETAC-Juncal / Varian Medical Systems (Latam)",
     "area": "neuro",

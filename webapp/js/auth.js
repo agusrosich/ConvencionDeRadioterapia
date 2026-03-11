@@ -192,6 +192,13 @@ function findSpeakerIdByAlias(profileNameKey) {
     'esther sanchez': 'speaker-076',
     'ester sanchez valdez': 'speaker-076',
     'esther sanchez valdez': 'speaker-076',
+    'federico salle': 'speaker-074',
+    'federico salles': 'speaker-074',
+    'osmar telles': 'speaker-023',
+    'osmar tellis': 'speaker-023',
+    'pablo castropena': 'speaker-030',
+    'pablo castro pena': 'speaker-030',
+    'virginia rodriguez': 'speaker-011',
   };
   return aliases[profileNameKey] || null;
 }
