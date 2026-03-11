@@ -185,6 +185,13 @@ function findSpeakerIdByAlias(profileNameKey) {
   if (!profileNameKey) return null;
   const aliases = {
     'mathias jeldres': 'speaker-046',
+    'mathias jeldrez': 'speaker-046',
+    'matias jeldres': 'speaker-046',
+    'matias jeldrez': 'speaker-046',
+    'ester sanchez': 'speaker-076',
+    'esther sanchez': 'speaker-076',
+    'ester sanchez valdez': 'speaker-076',
+    'esther sanchez valdez': 'speaker-076',
   };
   return aliases[profileNameKey] || null;
 }

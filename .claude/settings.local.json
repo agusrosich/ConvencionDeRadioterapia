@@ -10,7 +10,8 @@
       "Bash(git push:*)",
       "WebFetch(domain:imarangatu.com.uy)",
       "Bash(du -sh */)",
-      "WebFetch(domain:js.org)"
+      "WebFetch(domain:js.org)",
+      "Bash(grep -n \"ester\\\\|sanchez\\\\|mathias\\\\|jeldrez\" /d/GitHub/ConvencionDeRadioterapia/scripts/*.py -i)"
     ]
   }
 }
