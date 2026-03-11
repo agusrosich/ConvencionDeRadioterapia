@@ -475,6 +475,8 @@ async function handleLogin(event) {
 
 async function handleRegister(event) {
   event.preventDefault();
+  const rawName         = document.getElementById('registerName').value.trim();
+  const rawLastname     = document.getElementById('registerLastname').value.trim();
   const email           = document.getElementById('registerEmail').value.trim();
   const password        = document.getElementById('registerPassword').value;
   const passwordConfirm = document.getElementById('registerPasswordConfirm').value;
@@ -484,17 +486,40 @@ async function handleRegister(event) {
   if (email) lastAuthEmail = email;
   clearFormErrors();
 
+  if (!rawName || !rawLastname) {
+    showFormError('registerError', 'Complet\u00e1 tu nombre y apellido.');
+    return;
+  }
+
   if (password !== passwordConfirm) {
     showFormError('registerError', 'Las contrase\u00f1as no coinciden');
     return;
   }
 
+  const registerName     = toTitleCase(rawName);
+  const registerLastname = toTitleCase(rawLastname);
+
   setButtonLoading(btn, true, 'Creando cuenta...');
+
+  // Check email uniqueness against existing profiles
+  const { data: existingProfiles } = await supabaseClient
+    .from('profiles')
+    .select('email')
+    .eq('email', email);
+
+  if (existingProfiles && existingProfiles.length > 0) {
+    setButtonLoading(btn, false, 'Crear cuenta');
+    showFormError('registerError', 'Este email ya est\u00e1 registrado por otro usuario.');
+    return;
+  }
 
   const { error } = await supabaseClient.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: AUTH_REDIRECT_URL }
+    options: {
+      emailRedirectTo: AUTH_REDIRECT_URL,
+      data: { name: registerName, lastname: registerLastname }
+    }
   });
 
   setButtonLoading(btn, false, 'Crear cuenta');
@@ -506,6 +531,8 @@ async function handleRegister(event) {
       showFormError('registerError', translated);
     }
   } else {
+    // Store name temporarily so claim modal can use it
+    window._registerNameData = { name: registerName, lastname: registerLastname };
     showFormInfo(
       'registerInfo',
       `Te enviamos un email a <strong>${safeEmail}</strong> con el enlace para confirmar tu cuenta.<br>` +
@@ -681,15 +708,21 @@ async function createProfileFromClaimChoice(speakerId) {
   clearFormErrors();
 
   const baseSpeaker = speakerId ? speakersData.find(s => s.id === speakerId) : null;
-  const fallbackName = (currentUser.user_metadata?.full_name || currentUser.user_metadata?.name || '').trim();
+  const regData = window._registerNameData || {};
+  const metaName = currentUser.user_metadata?.name || '';
+  const metaLastname = currentUser.user_metadata?.lastname || '';
+  const fallbackName = (currentUser.user_metadata?.full_name || metaName || '').trim();
   const fallbackFromEmail = (currentUser.email || '').split('@')[0].replace(/[._-]+/g, ' ').trim();
   const nameParts = splitName(baseSpeaker?.name || fallbackName || fallbackFromEmail || 'Participante');
+
+  const finalName = regData.name || (baseSpeaker ? nameParts.name : toTitleCase(nameParts.name)) || 'Participante';
+  const finalLastname = regData.lastname || metaLastname || (baseSpeaker ? nameParts.lastname : toTitleCase(nameParts.lastname));
 
   const payload = {
     user_id: currentUser.id,
     speaker_id: speakerId || null,
-    name: nameParts.name || 'Participante',
-    lastname: nameParts.lastname,
+    name: finalName,
+    lastname: finalLastname,
     institution: baseSpeaker?.institution || '',
     specialty: baseSpeaker?.specialty || '',
     email: currentUser.email,
@@ -732,6 +765,13 @@ function splitName(fullName) {
   return { name: parts[0], lastname: parts.slice(1).join(' ') };
 }
 
+function toTitleCase(str) {
+  return str.trim().replace(/\s+/g, ' ')
+    .split(' ')
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(' ');
+}
+
 // ============================================
 // PROFILE EDIT MODAL
 // ============================================
@@ -769,7 +809,45 @@ function openProfileModal() {
   pendingPhotoBlob = null;
   clearFormErrors();
   if (typeof renderProfileEvents === 'function') renderProfileEvents();
+  updateCertificateSection();
   openModal('modalProfile');
+}
+
+// ============================================
+// CERTIFICATE SECTION
+// ============================================
+function updateCertificateSection() {
+  const btn = document.getElementById('certificateDownloadBtn');
+  const instructions = document.getElementById('certificateInstructions');
+  if (!btn || !instructions) return;
+
+  const arrivalDone = typeof isArrivalValidated === 'function' && isArrivalValidated();
+
+  // Convention end date: update this to actual convention end date
+  const conventionEnd = new Date('2026-03-28T23:59:59');
+  const now = new Date();
+  const conventionFinished = now >= conventionEnd;
+
+  if (!arrivalDone) {
+    instructions.textContent = 'Para obtener tu certificado, primero deb\u00e9s escanear el c\u00f3digo QR de arribo al llegar a la convenci\u00f3n. Una vez finalizado el congreso, este bot\u00f3n se habilitar\u00e1 para que puedas descargarlo.';
+    btn.disabled = true;
+    btn.className = 'btn-certificate btn-certificate--disabled';
+  } else if (!conventionFinished) {
+    instructions.textContent = 'Tu arribo fue registrado. El certificado estar\u00e1 disponible para descarga una vez que finalice el congreso.';
+    btn.disabled = true;
+    btn.className = 'btn-certificate btn-certificate--disabled';
+  } else {
+    instructions.textContent = 'Tu arribo fue validado y el congreso ha finalizado. Ya pod\u00e9s descargar tu certificado de asistencia.';
+    btn.disabled = false;
+    btn.className = 'btn-certificate btn-certificate--enabled';
+  }
+}
+
+function handleDownloadCertificate() {
+  if (!currentProfile) return;
+  showToast('Preparando certificado...');
+  // Placeholder: replace with actual certificate generation/download URL
+  // Example: window.open('https://rtconvention.lat/api/certificate/' + currentUser.id);
 }
 
 function renderProfilePhotoPreview(photoUrl) {
@@ -828,9 +906,18 @@ async function handleSaveProfile(event) {
   const hotelStay = document.getElementById('hotelYes').classList.contains('active');
   const roomNumber = hotelStay ? document.getElementById('profileRoomNumber').value.trim() : '';
 
+  const rawName     = document.getElementById('profileName').value.trim();
+  const rawLastname = document.getElementById('profileLastname').value.trim();
+
+  if (!rawName || !rawLastname) {
+    showFormError('profileError', 'Complet\u00e1 tu nombre y apellido.');
+    setButtonLoading(btn, false, 'Guardar cambios');
+    return;
+  }
+
   const updates = {
-    name:        document.getElementById('profileName').value.trim(),
-    lastname:    document.getElementById('profileLastname').value.trim(),
+    name:        toTitleCase(rawName),
+    lastname:    toTitleCase(rawLastname),
     country:     countryCode,
     institution: document.getElementById('profileInstitution').value.trim(),
     specialty:   document.getElementById('profileSpecialty').value.trim(),

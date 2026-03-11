@@ -2237,6 +2237,61 @@ body {
   margin: 0;
 }
 
+/* Certificate section */
+.profile-certificate-section {
+  margin-top: 0.5rem;
+}
+
+.certificate-instructions {
+  color: #aab;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  margin: 0.5rem 0 1rem;
+}
+
+.btn-certificate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.btn-certificate--disabled {
+  background: #444;
+  color: #888;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-certificate--enabled {
+  background: var(--gold);
+  color: #fff;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.btn-certificate--enabled:active {
+  background: var(--gold-dark);
+}
+
+.certificate-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #6c8;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
 .profile-event-item {
   display: flex;
   align-items: center;

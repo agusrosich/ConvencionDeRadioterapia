@@ -333,7 +333,7 @@
             </div>
             <div class="form-group">
               <label class="form-label">Apellido</label>
-              <input class="form-input" type="text" id="profileLastname" placeholder="Apellido">
+              <input class="form-input" type="text" id="profileLastname" placeholder="Apellido" required>
             </div>
           </div>
           <div class="form-group">
@@ -411,6 +411,21 @@
           <div id="profileEventsList" class="profile-events-list">
             <p class="profile-events-empty">No ten&eacute;s eventos con recordatorio activado.</p>
           </div>
+        </div>
+
+        <div class="profile-section-divider"></div>
+
+        <div class="profile-certificate-section">
+          <h3 class="profile-events-title">Certificado de asistencia</h3>
+          <p class="certificate-instructions" id="certificateInstructions">
+            Para obtener tu certificado, primero deb&eacute;s escanear el c&oacute;digo QR de arribo al llegar a la convenci&oacute;n. Una vez finalizado el congreso, este bot&oacute;n se habilitar&aacute; para que puedas descargarlo.
+          </p>
+          <button type="button" class="btn-certificate btn-certificate--disabled" id="certificateDownloadBtn" disabled onclick="handleDownloadCertificate()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            Descargar certificado
+          </button>
         </div>
 
         <button type="button" class="btn-secondary" style="margin-top: 1rem;" onclick="handleLogout()">Cerrar sesi&oacute;n</button>
@@ -568,6 +583,16 @@
       </form>
 
       <form id="formRegister" class="auth-form hidden" onsubmit="handleRegister(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nombre</label>
+            <input class="form-input" type="text" id="registerName" placeholder="Nombre" required autocomplete="given-name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Apellido</label>
+            <input class="form-input" type="text" id="registerLastname" placeholder="Apellido" required autocomplete="family-name">
+          </div>
+        </div>
         <div class="form-group">
           <label class="form-label">Email</label>
           <input class="form-input" type="email" id="registerEmail" placeholder="tu@email.com" required autocomplete="email">
