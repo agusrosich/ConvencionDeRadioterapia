@@ -1129,6 +1129,50 @@ body {
 }
 
 /* ============================================
+   ADMIN PANEL
+   ============================================ */
+.admin-panel {
+  padding: 0 16px;
+}
+
+.admin-preview {
+  margin-top: 12px;
+}
+
+.admin-sent-list .notification-card {
+  padding-right: 36px;
+}
+
+.admin-delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--gray-400);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.admin-delete-btn:hover,
+.admin-delete-btn:active {
+  background: #fff5f5;
+  color: #e53e3e;
+}
+
+#navAdmin span {
+  color: #ef4444;
+}
+#navAdmin.active span,
+#navAdmin.active svg {
+  color: #ef4444;
+  stroke: #ef4444;
+}
+
+/* ============================================
    REMINDER BELL (session cards)
    ============================================ */
 .session-card {

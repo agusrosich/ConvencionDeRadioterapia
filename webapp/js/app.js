@@ -240,6 +240,12 @@ function navigateTo(page, updateHash = true) {
     markNotificationsRead();
   }
 
+  // Admin page: load sent list and guard access
+  if (page === 'admin') {
+    if (typeof isAdmin === 'function' && !isAdmin()) { navigateTo('home'); return; }
+    if (typeof renderAdminSentList === 'function') renderAdminSentList();
+  }
+
   // Cargar registrados cuando se abre "Asistentes".
   if (page === 'speakers' && typeof loadAttendees === 'function') {
     loadAttendees();
@@ -1690,3 +1696,160 @@ if ('serviceWorker' in navigator) {
   document.addEventListener('touchend', endPull, { passive: true });
   document.addEventListener('touchcancel', endPull, { passive: true });
 })();
+
+// ============================================
+// ADMIN - Enviar Notificaciones (Solo Agustin Rosich)
+// ============================================
+const ADMIN_EMAILS = ['agustinrosich@gmail.com'];
+let pushNotifications = [];
+
+function isAdmin() {
+  return currentUser && ADMIN_EMAILS.includes(currentUser.email.toLowerCase());
+}
+
+function showAdminNavIfAllowed() {
+  const nav = document.getElementById('navAdmin');
+  if (!nav) return;
+  if (isAdmin()) {
+    nav.classList.remove('hidden');
+  } else {
+    nav.classList.add('hidden');
+  }
+}
+
+async function loadPushNotifications() {
+  if (!supabaseClient) return;
+  try {
+    const { data, error } = await supabaseClient
+      .from('push_notifications')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) { console.warn('push_notifications table:', error.message); return; }
+    pushNotifications = (data || []).map(n => ({
+      id: 10000 + n.id,
+      date: n.created_at.split('T')[0],
+      time: n.created_at.split('T')[1]?.substring(0, 5) || '00:00',
+      title: n.title,
+      message: n.message,
+      priority: n.priority || 'normal'
+    }));
+    // Merge into notificationsData
+    const staticIds = new Set(notificationsData.filter(n => n.id < 10000).map(n => n.id));
+    notificationsData = [
+      ...notificationsData.filter(n => n.id < 10000),
+      ...pushNotifications
+    ];
+    renderNotifications();
+    updateNotifBadge();
+  } catch (e) {
+    console.warn('Error loading push notifications:', e);
+  }
+}
+
+// Live preview
+function setupAdminPreview() {
+  const title = document.getElementById('adminNotifTitle');
+  const msg = document.getElementById('adminNotifMessage');
+  const priority = document.getElementById('adminNotifPriority');
+  if (!title) return;
+
+  const update = () => {
+    const preview = document.getElementById('adminNotifPreview');
+    const card = document.getElementById('adminPreviewCard');
+    if (title.value.trim() || msg.value.trim()) {
+      preview.classList.remove('hidden');
+      card.className = 'notification-card priority-' + priority.value;
+      document.getElementById('adminPreviewMeta').textContent = 'Ahora';
+      document.getElementById('adminPreviewTitle').textContent = title.value || '(sin titulo)';
+      document.getElementById('adminPreviewMsg').textContent = msg.value || '';
+    } else {
+      preview.classList.add('hidden');
+    }
+  };
+
+  title.addEventListener('input', update);
+  msg.addEventListener('input', update);
+  priority.addEventListener('change', update);
+}
+
+async function sendAdminNotification() {
+  if (!isAdmin()) return;
+  const title = document.getElementById('adminNotifTitle').value.trim();
+  const message = document.getElementById('adminNotifMessage').value.trim();
+  const priority = document.getElementById('adminNotifPriority').value;
+
+  if (!title || !message) {
+    showToast('Completa titulo y mensaje');
+    return;
+  }
+
+  const btn = document.getElementById('adminSendBtn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('push_notifications')
+      .insert([{ title, message, priority, sent_by: currentUser.email }])
+      .select();
+
+    if (error) throw error;
+
+    showToast('Notificacion enviada');
+    document.getElementById('adminNotifTitle').value = '';
+    document.getElementById('adminNotifMessage').value = '';
+    document.getElementById('adminNotifPriority').value = 'normal';
+    document.getElementById('adminNotifPreview').classList.add('hidden');
+
+    // Reload push notifications
+    await loadPushNotifications();
+    renderAdminSentList();
+  } catch (e) {
+    showToast('Error: ' + e.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Enviar a todos';
+  }
+}
+
+async function renderAdminSentList() {
+  if (!isAdmin() || !supabaseClient) return;
+  const container = document.getElementById('adminSentList');
+  if (!container) return;
+
+  const { data } = await supabaseClient
+    .from('push_notifications')
+    .select('*')
+    .order('created_at', { ascending: false })
+    .limit(20);
+
+  if (!data || !data.length) {
+    container.innerHTML = '<p class="muted" style="text-align:center;font-size:13px;">No hay notificaciones enviadas.</p>';
+    return;
+  }
+
+  container.innerHTML = '<p class="form-label" style="margin-bottom:8px;">Enviadas recientemente</p>' +
+    data.map(n => `
+      <div class="notification-card priority-${n.priority || 'normal'}" style="position:relative;">
+        <div class="notification-meta">${new Date(n.created_at).toLocaleString('es-UY', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' })}</div>
+        <div class="notification-title">${n.title}</div>
+        <div class="notification-message">${n.message}</div>
+        <button class="admin-delete-btn" onclick="deleteAdminNotification(${n.id})" title="Eliminar">✕</button>
+      </div>
+    `).join('');
+}
+
+async function deleteAdminNotification(id) {
+  if (!isAdmin() || !supabaseClient) return;
+  if (!confirm('Eliminar esta notificacion?')) return;
+
+  const { error } = await supabaseClient
+    .from('push_notifications')
+    .delete()
+    .eq('id', id);
+
+  if (error) { showToast('Error: ' + error.message); return; }
+  showToast('Notificacion eliminada');
+  await loadPushNotifications();
+  renderAdminSentList();
+}

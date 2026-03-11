@@ -101,6 +101,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
   updateAuthButton();
 
+  // Admin nav + push notifications on initial load
+  if (typeof showAdminNavIfAllowed === 'function') showAdminNavIfAllowed();
+  if (typeof loadPushNotifications === 'function') loadPushNotifications();
+  if (typeof setupAdminPreview === 'function') setupAdminPreview();
+
   // Reveal app or auth wall based on session
   authRevealAfterSplash(!!session);
 
@@ -121,10 +126,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         closeModal('modalAuth');
         showToast('Bienvenido/a de nuevo');
       }
+      // Admin panel
+      if (typeof showAdminNavIfAllowed === 'function') showAdminNavIfAllowed();
+      if (typeof loadPushNotifications === 'function') loadPushNotifications();
     } else if (event === 'SIGNED_OUT') {
       currentProfile = null;
       updateAuthButton();
       if (typeof renderSpeakers === 'function') renderSpeakers();
+      if (typeof showAdminNavIfAllowed === 'function') showAdminNavIfAllowed();
       // Show auth wall on logout
       const wall = document.getElementById('authWall');
       wall.classList.remove('hidden', 'fade-out');
