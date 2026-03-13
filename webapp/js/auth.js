@@ -134,6 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       updateAuthButton();
       if (typeof renderSpeakers === 'function') renderSpeakers();
       if (typeof showAdminNavIfAllowed === 'function') showAdminNavIfAllowed();
+      if (typeof stopPushNotificationsLiveUpdates === 'function') stopPushNotificationsLiveUpdates();
       // Show auth wall on logout
       const wall = document.getElementById('authWall');
       wall.classList.remove('hidden', 'fade-out');

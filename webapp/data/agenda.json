@@ -39,8 +39,8 @@
         "moderator": "Federico Lorenzo",
         "cases": [
           {
-            "title": "Caso 1 - Ana Marrero",
-            "description": "RT post neoadyuvancia. Imagenólogo: Gustavo Febles. Mastólogo: Carlos Acevedo. Patólogo: Virginia Ortega. Oncólogo médico: Cecilia Castillo. Radiooncólogo: Federico Lorenzo. Físico Médico: Natalia Gadea (Contorneo automático con Radformation). IA: Agustín Rosich."
+            "title": "Caso 1",
+            "description": "RT post neoadyuvancia."
           }
         ]
       },
@@ -63,8 +63,8 @@
         "moderator": "Valentina Ferreira con apoyo de Federico Salles",
         "cases": [
           {
-            "title": "Caso 1 - Calderón / María Reyes",
-            "description": "Meningioma G2 y Neurinoma del Acústico. Imagenólogo: Jorge Boschi (Neurinoma). Patólogo: Garagorri. Neurocirujano: Fernando Martinez. Radiooncólogo: Soledad Colombo (Meningioma) / Pablo Castropeña (Schwanoma). Físico Médico: Jesica Lell (Planificación con Eclipse)."
+            "title": "Caso 1",
+            "description": "Meningioma grado 2 y neurinoma del acústico."
           }
         ]
       },
@@ -88,8 +88,8 @@
         "moderator": "Emiliano Rivero",
         "cases": [
           {
-            "title": "Caso 1 - Maria de Los Angeles Hegoburu",
-            "description": "2 Nódulos SBRT, medio y superior derecho. Imagenólogo: Martín Rodríguez. Patólogo: Juan Barcia. Oncólogo Médico: Diego Touya. Cirujano de tórax: Julio Trostchansky / Gerardo Bruno. Radioncólogo: Gustavo Ferraris. Físico Médico: Ricardo Ruggeri / Karina Ochandorena (Flujo integral con Syngo.via)."
+            "title": "Caso 1",
+            "description": "Dos nódulos pulmonares en lóbulo medio y lóbulo superior derecho tratados con SBRT."
           }
         ]
       },
@@ -112,8 +112,8 @@
         "moderator": "Sergio Aguiar",
         "cases": [
           {
-            "title": "Caso 1 - Diego Sagaseta",
-            "description": "Recidiva bioquímica postprostatectomía. PET negativo, RT adyuvante. Urólogo: Suárez. Oncólogo médico: Melissa Klubber. Imagenólogo: Cono Santi / Pablo Pedetti. Patólogo: Gabriela Walko. Radiooncólogo: Sergio Aguiar. Físico Médico: Joaquín Wilkins / Eduardo Larrinaga (Posicionamiento con IGRT en próstata)."
+            "title": "Caso 1",
+            "description": "Recidiva bioquímica post prostatectomía con PET negativo y RT adyuvante."
           }
         ]
       },
@@ -142,8 +142,8 @@
         "moderator": "Federico Lorenzo",
         "cases": [
           {
-            "title": "Caso 2 - Silvia Paulette",
-            "description": "Avanzado N2. Imagenólogo: Gabriela Méndez. Mastólogo: Pablo Sciutto. Patólogo: Virginia Ortega. Oncólogo médico: Cecilia Castillo. Radiooncólogo: Heloisa Carvalho. Físico Médico: Jesica Lell (Planificación con Eclipse). IA: N/A."
+            "title": "Caso 2",
+            "description": "Cáncer de mama locorregionalmente avanzado con compromiso N2."
           }
         ]
       },
@@ -169,8 +169,8 @@
         "moderator": "Valentina Ferreira con apoyo de Federico Salles",
         "cases": [
           {
-            "title": "Caso 2 - Navatta / Caffarena",
-            "description": "Columna y Glioblastoma. Oncólogo médico: Luis Ubillos (Glioblastoma). Imagenólogo: Martín Rodríguez. Patólogo: Garagorri. Neurocirujano: Fernando Martínez. Radiooncólogo: Soledad Colombo (Spine) / Pablo Castro Peña (Nuevo Protocolo). Físico Médico: Ricardo Ruggeri / Natalia Gadea (Posicionamiento y Posprocesamiento de imágenes con Syngo.via). IA: Agustín Rosich."
+            "title": "Caso 2",
+            "description": "Compromiso de columna y glioblastoma."
           }
         ]
       },
@@ -196,8 +196,8 @@
         "moderator": "Emiliano Rivero",
         "cases": [
           {
-            "title": "Caso 2 - Susana Rodríguez",
-            "description": "SBRT nódulo pulmonar único, lóbulo superior derecho. Neumólogo: Ana Gruss. Cirugía: Pablo Palacio / Julio Trostchansky / Emiliano Rivero. Imagenólogo: Martín Rodríguez / Nelson De Trapani. Patólogo: Juan Barcia. Oncólogo Médico: Matías Jeldrés. Radioncólogo: Gustavo Ferraris. Físico Médico: Rodolfo Alfonso / Karina Ochandorena (QA paciente específico)."
+            "title": "Caso 2",
+            "description": "Nódulo pulmonar único en lóbulo superior derecho tratado con SBRT."
           }
         ]
       },
@@ -220,8 +220,8 @@
         "moderator": "Sergio Aguiar",
         "cases": [
           {
-            "title": "Caso 2 - Daniel De Leonardi",
-            "description": "Localizado, intermedio, resultados de la clínica. Hidrogel, SBRT. Urólogo: Levin Martínez / Topolansky. Oncólogo médico: Luis Ubillos. Imagenólogo: Margarita García Fontes. Patólogo: Adriana DellaValle. Radiooncólogo: Sergio Aguiar. Físico Médico: Eduardo Larrinaga / Joaquín Wilkins (Planificación con Eclipse)."
+            "title": "Caso 2",
+            "description": "Cáncer de próstata localizado de riesgo intermedio con evaluación de hidrogel y SBRT."
           }
         ]
       },
@@ -267,8 +267,8 @@
         "moderator": "Federico Lorenzo",
         "cases": [
           {
-            "title": "Caso 3 - Natalia Pérez",
-            "description": "T1-2N0 Fast forward APBI. Imagenólogo: Fernando Lavista. Mastólogo: Juan Cossa (INSEMA SOUND). Patólogo: Musto. Oncólogo médico: Virginia Rodríguez. Genetista: Dana Kimelman. Radiooncólogo: María Fernanda Díaz. Físico Médico: KOL Brainlab Esteban Herrera (DIBH con Exactrack Dynamic Surface)."
+            "title": "Caso 3",
+            "description": "Cáncer de mama T1-2N0 en estadios iniciales con estrategia Fast-Forward APBI."
           }
         ]
       },
@@ -298,8 +298,8 @@
         "moderator": "Valentina Ferreira con apoyo de Federico Salles",
         "cases": [
           {
-            "title": "Caso 3 - Lucia Mascari",
-            "description": "MAV y Funcional: neuralgia del trigémino y temblor. Imagenólogo: Osmar Tellis. Patólogo: Garagorri. Neurocirujano: Alejandra Jaume / João Gabriel Ribeiro. Radiooncólogo: Federico Lorenzo / Agustín Rosich (MAV: SRS o RC?) / Soledad Colombo. Neurólogos: Alejandro Scaramelli (HB) / María Inés Nouzelles (PE) / Ignacio Amorín (Cátedra). Físico Médico: César Della Biancia (Tracking con Exactrack Dynamic Surface). IA: Nadia Hernández / Eduardo Larrinaga (Acreditación de SRS por MD Anderson)."
+            "title": "Caso 3",
+            "description": "Malformación arteriovenosa y patología funcional con neuralgia del trigémino y temblor."
           }
         ]
       },
@@ -324,8 +324,8 @@
         "moderator": "Emiliano Rivero",
         "cases": [
           {
-            "title": "Caso 3 - Mutio",
-            "description": "Mucoepidermoide de tráquea. Límite en la Cirugía en el CBP EIIIB (Pablo Palacio) / CBP NSCLC EIIIB RT (Verónica Vera) / NSCLC EIIIB Tratamiento Sistémico (Diego Touya). Imagenólogo: Nelson De Trapani. Patólogo: Laura Bódega. Oncólogo Médico: Matías Jeldrés. Endoscopista: Hospital Maciel. Cirujano: Daniel Terra / Julio Trostchansky (Paciente quirúrgico en H. Maciel). Físico Médico: Paola Álvarez / Jesica Lell (Acreditación de pulmón por MD Anderson). IA: Agustín Rosich."
+            "title": "Caso 3",
+            "description": "Carcinoma mucoepidermoide de tráquea con discusión de límites terapéuticos en EIIIB."
           }
         ]
       },
@@ -347,8 +347,8 @@
         "moderator": "Sergio Aguiar",
         "cases": [
           {
-            "title": "Caso 3 - Jorge Tecco",
-            "description": "Recidiva bioquímica PET positivo. Recidiva local post radioterapia, SBRT, HIFU. Urólogo: Roberto Puente / Federico López. Oncólogo médico: Noelia Silvera. Imagenólogo: Gerardo Do Santos. Radiooncólogo: Sergio Aguiar. Físico Médico: KOL Brainlab Esteban Herrera / Karina Ochandorena (Tracking con Exactrack Dynamic Surface)."
+            "title": "Caso 3",
+            "description": "Recidiva bioquímica con PET positivo y recidiva local post radioterapia."
           }
         ]
       },
@@ -376,8 +376,8 @@
         "moderator": "Federico Lorenzo",
         "cases": [
           {
-            "title": "Caso 4 - Paula Derregibus",
-            "description": "In-situ. Imagenólogo: Gustavo Febles. Mastólogo: Carlitos Arévalo. Oncólogo médico: Estela Corrazo. Radiooncólogo: Heloísa Carvalho. Físico Médico: KOL Brainlab Esteban Herrera (Tracking con Exactrack Dynamic Surface)."
+            "title": "Caso 4",
+            "description": "Cáncer de mama in situ."
           }
         ]
       },
@@ -403,8 +403,8 @@
         "moderator": "Valentina Ferreira con apoyo de Federico Salles",
         "cases": [
           {
-            "title": "Caso 4 - Caffarena",
-            "description": "Glioblastoma G4. Oncólogo médico: Luis Ubillos. Imagenólogo: Martín Rodríguez. Neurocirujano: Fernando Martínez. Radiooncólogo: Aldo Quarneti / Pablo Castro Peña. Soledad Colombo. Físico Médico: Nicolás Larragueta / Eduardo Larrinaga (Planificación con Elements video grabado, presentado por Eduardo Larrinaga)."
+            "title": "Caso 4",
+            "description": "Glioblastoma grado 4."
           }
         ]
       },
@@ -428,8 +428,8 @@
         "moderator": "Emiliano Rivero",
         "cases": [
           {
-            "title": "Caso 4 - Estado oligometastásico",
-            "description": "CBP NSCLC EIV integración Inmunoterapia tratamiento SBRT. Imagenólogo: Liliana Servente. Oncólogo Médico: Diego Touya / Matías Jeldrés. Cirugía: Pablo Palacio. RT: Verónica Vera / Gustavo Ferraris. Físico Médico: César Della Biancia / Jesica Lell (DIBH / Tracking con Exactrack Dynamic Surface)."
+            "title": "Caso 4",
+            "description": "Estado oligometastásico en NSCLC estadio IV con integración de inmunoterapia y SBRT."
           }
         ]
       },
@@ -450,8 +450,8 @@
         "moderator": "Sergio Aguiar",
         "cases": [
           {
-            "title": "Caso 4 - Thomas McMhon",
-            "description": "SBRT oligometastásico metacrónico. Urólogo: Laura Mouro. Oncólogo médico: Gabriel Krygier. Radiooncólogo: Mabel Sardi. Físico Médico: Nadia Hernández / Karina Ochandorena (Acreditación de próstata del MD Anderson). IA: Agustín Rosich."
+            "title": "Caso 4",
+            "description": "Enfermedad oligometastásica metacrónica manejada con SBRT."
           }
         ]
       },

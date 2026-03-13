@@ -1702,6 +1702,23 @@ if ('serviceWorker' in navigator) {
 // ============================================
 const ADMIN_EMAILS = ['agustinrosich@gmail.com'];
 let pushNotifications = [];
+let pushNotificationsChannel = null;
+let pushNotificationsPollTimer = null;
+
+function toLocalNotifDateTime(value) {
+  const parsed = new Date(value);
+  const dt = Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+  const date = [
+    dt.getFullYear(),
+    String(dt.getMonth() + 1).padStart(2, '0'),
+    String(dt.getDate()).padStart(2, '0')
+  ].join('-');
+  const time = [
+    String(dt.getHours()).padStart(2, '0'),
+    String(dt.getMinutes()).padStart(2, '0')
+  ].join(':');
+  return { date, time };
+}
 
 function isAdmin() {
   return currentUser && ADMIN_EMAILS.includes(currentUser.email.toLowerCase());
@@ -1717,24 +1734,66 @@ function showAdminNavIfAllowed() {
   }
 }
 
+function ensurePushNotificationsLiveUpdates() {
+  if (!supabaseClient || !currentUser) return;
+
+  if (!pushNotificationsChannel) {
+    pushNotificationsChannel = supabaseClient
+      .channel('push-notifications-live')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'push_notifications'
+        },
+        () => {
+          loadPushNotifications();
+        }
+      )
+      .subscribe();
+  }
+
+  if (!pushNotificationsPollTimer) {
+    pushNotificationsPollTimer = setInterval(() => {
+      if (!currentUser || document.visibilityState !== 'visible') return;
+      loadPushNotifications();
+    }, 45000);
+  }
+}
+
+function stopPushNotificationsLiveUpdates() {
+  if (pushNotificationsPollTimer) {
+    clearInterval(pushNotificationsPollTimer);
+    pushNotificationsPollTimer = null;
+  }
+  if (pushNotificationsChannel && supabaseClient) {
+    supabaseClient.removeChannel(pushNotificationsChannel);
+  }
+  pushNotificationsChannel = null;
+}
+
 async function loadPushNotifications() {
-  if (!supabaseClient) return;
+  if (!supabaseClient || !currentUser) return;
+  ensurePushNotificationsLiveUpdates();
   try {
     const { data, error } = await supabaseClient
       .from('push_notifications')
       .select('*')
       .order('created_at', { ascending: false });
     if (error) { console.warn('push_notifications table:', error.message); return; }
-    pushNotifications = (data || []).map(n => ({
-      id: 10000 + n.id,
-      date: n.created_at.split('T')[0],
-      time: n.created_at.split('T')[1]?.substring(0, 5) || '00:00',
-      title: n.title,
-      message: n.message,
-      priority: n.priority || 'normal'
-    }));
+    pushNotifications = (data || []).map(n => {
+      const localDt = toLocalNotifDateTime(n.created_at);
+      return {
+        id: 10000 + n.id,
+        date: localDt.date,
+        time: localDt.time,
+        title: n.title,
+        message: n.message,
+        priority: n.priority || 'normal'
+      };
+    });
     // Merge into notificationsData
-    const staticIds = new Set(notificationsData.filter(n => n.id < 10000).map(n => n.id));
     notificationsData = [
       ...notificationsData.filter(n => n.id < 10000),
       ...pushNotifications
