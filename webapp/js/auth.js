@@ -209,6 +209,15 @@ function findSpeakerIdByAlias(profileNameKey) {
     'pablo castropena': 'speaker-030',
     'pablo castro pena': 'speaker-030',
     'virginia rodriguez': 'speaker-011',
+    'virginia rodriguez sande': 'speaker-011',
+    'gerardo dos santos': 'speaker-067',
+    'gerardo do santos': 'speaker-067',
+    'ana ines gruss': 'speaker-040',
+    'ana gruss': 'speaker-040',
+    'veronica vera merino': 'speaker-078',
+    'veronica vera': 'speaker-078',
+    'rodolfo alfonso laguardia': 'speaker-053',
+    'rodolfo alfonso': 'speaker-053',
   };
   return aliases[profileNameKey] || null;
 }
