@@ -281,7 +281,7 @@
   },
   {
     "id": "speaker-030",
-    "name": "Pablo Castropeña",
+    "name": "Pablo Castro Peña",
     "specialty": "Invitado internacional",
     "institution": "CETAC-Juncal / Varian Medical Systems (Latam)",
     "area": "neuro",
@@ -302,30 +302,30 @@
   {
     "id": "speaker-032",
     "name": "Alejandro Scaramelli",
-    "specialty": "Psiquiatra",
-    "institution": "",
+    "specialty": "Neurólogo",
+    "institution": "Hospital Británico",
     "area": "neuro",
-    "nationality": "",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
   {
     "id": "speaker-033",
     "name": "María Inés Nouzelles",
-    "specialty": "Psiquiatra",
-    "institution": "",
+    "specialty": "Neurólogo",
+    "institution": "Punta del Este",
     "area": "neuro",
-    "nationality": "",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
   {
     "id": "speaker-034",
     "name": "Ignacio Amorín",
-    "specialty": "Psiquiatra",
-    "institution": "",
+    "specialty": "Neurólogo",
+    "institution": "Cátedra",
     "area": "neuro",
-    "nationality": "",
+    "nationality": "Uruguay",
     "photo": "",
     "bio": ""
   },
@@ -471,7 +471,7 @@
   },
   {
     "id": "speaker-049",
-    "name": "José Magiolo",
+    "name": "Pablo Palacio",
     "specialty": "Cirujano de torax",
     "institution": "",
     "area": "pulmon",
@@ -511,7 +511,7 @@
   },
   {
     "id": "speaker-053",
-    "name": "Rodolfo Alonso",
+    "name": "Rodolfo Alfonso",
     "specialty": "Invitado internacional",
     "institution": "Fundacion INTECNUS / City Cancer Challenge",
     "area": "pulmon",
@@ -732,12 +732,12 @@
   {
     "id": "speaker-075",
     "name": "Emiliano Rivero",
-    "specialty": "Moderador",
+    "specialty": "Radioncólogo",
     "institution": "RT International Institute",
     "area": "pulmon",
     "nationality": "Uruguay",
     "photo": "",
-    "bio": ""
+    "bio": "Moderador del Workshop Pulmón en la Primera Convención RT Internacional."
   },
   {
     "id": "speaker-076",
@@ -768,5 +768,45 @@
     "nationality": "Argentina",
     "photo": "img/speakers/veronica-vera.jpg",
     "bio": "Medica cirujana, especialista en Medicina Interna y Radioterapia Oncologica. Master internacional en altas tecnologias de radioterapia. Medica staff del Instituto Zunino y vocal titular de la Asociacion de Oncologos Clinicos de Cordoba."
+  },
+  {
+    "id": "speaker-079",
+    "name": "Esteban Herrera",
+    "specialty": "Fisica medica (KOL Brainlab)",
+    "institution": "Brainlab",
+    "area": "mama",
+    "nationality": "Colombia",
+    "photo": "img/speakers/esteban-herrera.jpg",
+    "bio": "Fisico con Maestria en Fisica Medica de la Universidad Nacional de Colombia. Extensa experiencia en sistemas como Exactrac Dynamics, Hyper Arc, Identify en la plataforma TrueBeam. Ha realizado tratamientos de radiocirugia intra y extra craneal, asi como tratamientos con manejo respiratorio usando DIBH."
+  },
+  {
+    "id": "speaker-080",
+    "name": "Guillermo Potdevin Stein",
+    "specialty": "Invitado internacional",
+    "institution": "Fundacion Valle del Lili (Cali, Colombia)",
+    "area": "evento",
+    "nationality": "Colombia",
+    "photo": "img/speakers/guillermo-potdevin-stein.jpg",
+    "bio": "Medico de la Universidad de la Sabana (Bogota). Especialista en Oncologia Radioterapica del Hospital Universitario HM Sanchinarro (Madrid) y Doctor en Medicina de la Universidad CEU-San Pablo de Madrid. Jefe y lider academico del Servicio de Oncologia Radioterapica de la Fundacion Valle del Lili."
+  },
+  {
+    "id": "speaker-081",
+    "name": "Endoscopista Hospital Maciel",
+    "specialty": "Endoscopista",
+    "institution": "Hospital Maciel",
+    "area": "pulmon",
+    "nationality": "Uruguay",
+    "photo": "",
+    "bio": ""
+  },
+  {
+    "id": "speaker-082",
+    "name": "Equipo Diagnóstico",
+    "specialty": "Patólogo",
+    "institution": "",
+    "area": "prostata",
+    "nationality": "",
+    "photo": "",
+    "bio": ""
   }
 ]
