@@ -274,7 +274,7 @@ def main():
     # BUILD AGENDA
     # ============================================
     area_labels = {"mama": "Mama", "neuro": "Neuro", "pulmon": "Pulmón", "prostata": "Próstata"}
-    rooms = {"mama": "Sala A", "pulmon": "Sala B", "prostata": "Sala C", "neuro": "Sala D"}
+    rooms = {"mama": "Piso 1 - Sala Main 2", "pulmon": "Piso 2 - Sala Indico", "prostata": "Piso 1 - Sala Main 1", "neuro": "Piso 2 - Sala Atlantico"}
 
     def get_case_speakers(area, case_num):
         """Get speaker IDs for a specific area+case."""

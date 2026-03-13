@@ -25,7 +25,7 @@
         "time": "16:00",
         "end": "17:15",
         "area": "mama",
-        "room": "Sala A",
+        "room": "Piso 1 - Sala Main 2",
         "title": "Workshop Mama: Valor de la RT post-neoadyuvancia",
         "speakers": [
           "speaker-001",
@@ -48,7 +48,7 @@
         "time": "16:00",
         "end": "17:15",
         "area": "neuro",
-        "room": "Sala B",
+        "room": "Piso 2 - Sala Atlantico",
         "title": "Workshop Sistema Nervioso: Meningioma grado II y Neurinoma del Acústico",
         "speakers": [
           "speaker-021",
@@ -72,7 +72,7 @@
         "time": "16:00",
         "end": "17:15",
         "area": "pulmon",
-        "room": "Sala C",
+        "room": "Piso 2 - Sala Indico",
         "title": "Workshop Pulmón: Nódulos pulmonares en oligometástasis",
         "speakers": [
           "speaker-022",
@@ -97,7 +97,7 @@
         "time": "16:00",
         "end": "17:15",
         "area": "prostata",
-        "room": "Sala D",
+        "room": "Piso 1 - Sala Main 1",
         "title": "Workshop Próstata: Recidiva bioquímica PET negativo",
         "speakers": [
           "speaker-055",
@@ -129,7 +129,7 @@
         "time": "17:45",
         "end": "19:00",
         "area": "mama",
-        "room": "Sala A",
+        "room": "Piso 1 - Sala Main 2",
         "title": "Workshop Mama: Cáncer de mama locorregionalmente avanzado",
         "speakers": [
           "speaker-002",
@@ -151,7 +151,7 @@
         "time": "17:45",
         "end": "19:00",
         "area": "neuro",
-        "room": "Sala B",
+        "room": "Piso 2 - Sala Atlantico",
         "title": "Workshop Sistema Nervioso: Columna y Glioblastoma",
         "speakers": [
           "speaker-020",
@@ -178,7 +178,7 @@
         "time": "17:45",
         "end": "19:00",
         "area": "pulmon",
-        "room": "Sala C",
+        "room": "Piso 2 - Sala Indico",
         "title": "Workshop Pulmón: Nódulo pulmonar",
         "speakers": [
           "speaker-040",
@@ -205,7 +205,7 @@
         "time": "17:45",
         "end": "19:00",
         "area": "prostata",
-        "room": "Sala D",
+        "room": "Piso 1 - Sala Main 1",
         "title": "Workshop Próstata: Cáncer de próstata localizado",
         "speakers": [
           "speaker-056",
@@ -253,7 +253,7 @@
         "time": "09:00",
         "end": "10:15",
         "area": "mama",
-        "room": "Sala A",
+        "room": "Piso 1 - Sala Main 2",
         "title": "Workshop Mama: Cáncer de mama en estadios iniciales",
         "speakers": [
           "speaker-003",
@@ -276,7 +276,7 @@
         "time": "09:00",
         "end": "10:15",
         "area": "neuro",
-        "room": "Sala B",
+        "room": "Piso 2 - Sala Atlantico",
         "title": "Workshop Sistema Nervioso: Malformación arteriovenosa y funcional",
         "speakers": [
           "speaker-023",
@@ -307,7 +307,7 @@
         "time": "09:00",
         "end": "10:15",
         "area": "pulmon",
-        "room": "Sala C",
+        "room": "Piso 2 - Sala Indico",
         "title": "Workshop Pulmón: Carcinoma mucoepidermoide de tráquea",
         "speakers": [
           "speaker-041",
@@ -333,7 +333,7 @@
         "time": "09:00",
         "end": "10:15",
         "area": "prostata",
-        "room": "Sala D",
+        "room": "Piso 1 - Sala Main 1",
         "title": "Workshop Próstata: Recidiva bioquímica PET positivo",
         "speakers": [
           "speaker-058",
@@ -364,7 +364,7 @@
         "time": "10:30",
         "end": "11:45",
         "area": "mama",
-        "room": "Sala A",
+        "room": "Piso 1 - Sala Main 2",
         "title": "Workshop Mama: Cáncer de mama in situ",
         "speakers": [
           "speaker-001",
@@ -385,7 +385,7 @@
         "time": "10:30",
         "end": "11:45",
         "area": "neuro",
-        "room": "Sala B",
+        "room": "Piso 2 - Sala Atlantico",
         "title": "Workshop Sistema Nervioso: Glioblastoma G4",
         "speakers": [
           "speaker-020",
@@ -412,7 +412,7 @@
         "time": "10:30",
         "end": "11:45",
         "area": "pulmon",
-        "room": "Sala C",
+        "room": "Piso 2 - Sala Indico",
         "title": "Workshop Pulmón: Estado oligometastásico",
         "speakers": [
           "speaker-042",
@@ -437,7 +437,7 @@
         "time": "10:30",
         "end": "11:45",
         "area": "prostata",
-        "room": "Sala D",
+        "room": "Piso 1 - Sala Main 1",
         "title": "Workshop Próstata: Estado metastásico metacrónico",
         "speakers": [
           "speaker-060",
