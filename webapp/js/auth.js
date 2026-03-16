@@ -907,9 +907,10 @@ function updateCertificateSection() {
 
 function handleDownloadCertificate() {
   if (!currentProfile) return;
-  showToast('Preparando certificado...');
-  // Placeholder: replace with actual certificate generation/download URL
-  // Example: window.open('https://rtconvention.lat/api/certificate/' + currentUser.id);
+  const name = encodeURIComponent(currentProfile.name || '');
+  const lastname = encodeURIComponent(currentProfile.lastname || '');
+  const role = currentProfile._resolvedSpeakerId ? 'Speaker' : 'Asistente';
+  window.open('../diploma/index.html?name=' + name + '&lastname=' + lastname + '&role=' + role, '_blank');
 }
 
 function renderProfilePhotoPreview(photoUrl) {

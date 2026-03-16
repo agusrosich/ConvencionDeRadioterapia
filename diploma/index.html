@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificado - Convenci&oacute;n RT Internacional 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #1a1a2e;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+      color: #333;
+    }
+
+    h1.page-title {
+      color: #C9A84C;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .controls {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 24px;
+      max-width: 600px;
+      width: 100%;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.25);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .form-group label {
+      font-size: .8rem;
+      font-weight: 500;
+      color: #555;
+      margin-bottom: 4px;
+    }
+
+    .form-group select,
+    .form-group input {
+      padding: 10px 12px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-family: 'Roboto', sans-serif;
+      background: #fafafa;
+      transition: border-color .2s;
+    }
+
+    .form-group select:focus,
+    .form-group input:focus {
+      outline: none;
+      border-color: #303A7F;
+    }
+
+    .btn-download {
+      width: 100%;
+      margin-top: 16px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #303A7F, #4a54a0);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity .2s;
+    }
+
+    .btn-download:hover { opacity: .9; }
+    .btn-download:disabled { opacity: .5; cursor: not-allowed; }
+
+    .preview-wrap {
+      max-width: 800px;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .preview-wrap canvas {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    }
+
+    .loading-msg {
+      color: #aaa;
+      text-align: center;
+      padding: 40px;
+      font-size: .9rem;
+    }
+
+    @media (max-width: 520px) {
+      .form-row { flex-direction: column; gap: 10px; }
+      .controls { padding: 16px; }
+      body { padding: 16px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="page-title">Certificado de Asistencia</h1>
+
+  <div class="controls">
+    <div class="form-row">
+      <div class="form-group" style="flex: 0 0 120px;">
+        <label for="selectTitle">T&iacute;tulo</label>
+        <select id="selectTitle" onchange="updatePreview()">
+          <option value="">Sin t&iacute;tulo</option>
+          <option value="Dr.">Dr.</option>
+          <option value="Dra.">Dra.</option>
+          <option value="MSc.">MSc.</option>
+          <option value="PhD.">PhD.</option>
+          <option value="Ing.">Ing.</option>
+          <option value="Lic.">Lic.</option>
+          <option value="Sr.">Sr.</option>
+          <option value="Sra.">Sra.</option>
+          <option value="Br.">Br.</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="inputName">Nombre</label>
+        <input type="text" id="inputName" placeholder="Nombre" oninput="updatePreview()">
+      </div>
+      <div class="form-group">
+        <label for="inputLastname">Apellido</label>
+        <input type="text" id="inputLastname" placeholder="Apellido" oninput="updatePreview()">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="selectRole">Participó en calidad de</label>
+      <select id="selectRole" onchange="updatePreview()">
+        <option value="Asistente">Asistente</option>
+        <option value="Speaker">Speaker</option>
+      </select>
+    </div>
+
+    <button class="btn-download" id="btnDownload" onclick="downloadPdf()">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Descargar certificado PDF
+    </button>
+  </div>
+
+  <div class="preview-wrap" id="previewWrap">
+    <p class="loading-msg">Cargando vista previa...</p>
+  </div>
+
+  <script>
+    const { PDFDocument, rgb, StandardFonts } = PDFLib;
+
+    let templateBytes = null;
+    let previewDebounce = null;
+
+    // Load the template PDF once
+    fetch('Diploma.pdf')
+      .then(r => r.arrayBuffer())
+      .then(bytes => {
+        templateBytes = bytes;
+        // Prefill from URL params
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('name')) document.getElementById('inputName').value = params.get('name');
+        if (params.get('lastname')) document.getElementById('inputLastname').value = params.get('lastname');
+        if (params.get('role')) {
+          const sel = document.getElementById('selectRole');
+          for (const opt of sel.options) {
+            if (opt.value.toLowerCase() === params.get('role').toLowerCase()) {
+              sel.value = opt.value;
+              break;
+            }
+          }
+        }
+        updatePreview();
+      })
+      .catch(() => {
+        document.getElementById('previewWrap').innerHTML = '<p class="loading-msg">No se pudo cargar la plantilla del diploma.</p>';
+      });
+
+    function getFormData() {
+      const title = document.getElementById('selectTitle').value;
+      const name = document.getElementById('inputName').value.trim();
+      const lastname = document.getElementById('inputLastname').value.trim();
+      const role = document.getElementById('selectRole').value;
+      const parts = [title, name, lastname].filter(Boolean);
+      return { fullName: parts.join(' '), role };
+    }
+
+    async function buildPdf() {
+      if (!templateBytes) return null;
+      const { fullName, role } = getFormData();
+
+      const pdfDoc = await PDFDocument.load(templateBytes);
+      const page = pdfDoc.getPages()[0];
+      const { width, height } = page.getSize();
+
+      // Embed a standard font (Helvetica-Bold for name, Helvetica for role)
+      const fontBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+      const fontRegular = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+      // --- Draw the name ---
+      // Position: centered, between "Se certifica que" and "participó en calidad de"
+      // The PDF is landscape ~1170x800 approx. We place the name roughly at 57% from bottom
+      const nameY = height * 0.610;
+      let nameFontSize = 32;
+      // Auto-shrink if name is too long
+      while (nameFontSize > 16 && fontBold.widthOfTextAtSize(fullName, nameFontSize) > width * 0.7) {
+        nameFontSize -= 1;
+      }
+      const nameWidth = fontBold.widthOfTextAtSize(fullName, nameFontSize);
+      const nameX = (width - nameWidth) / 2 - 10;
+
+      if (fullName) {
+        page.drawText(fullName, {
+          x: nameX,
+          y: nameY,
+          size: nameFontSize,
+          font: fontBold,
+          color: rgb(0.188, 0.227, 0.498) // #303A7F
+        });
+      }
+
+      // --- Draw the role ---
+      // Position: centered, between "participó en calidad de" and "de la Primera Convención..."
+      const roleY = height * 0.48;
+      const roleFontSize = 29;
+      const roleWidth = fontRegular.widthOfTextAtSize(role, roleFontSize);
+      const roleX = (width - roleWidth) / 2 - 10;
+
+      page.drawText(role, {
+        x: roleX,
+        y: roleY,
+        size: roleFontSize,
+        font: fontRegular,
+        color: rgb(0.188, 0.227, 0.498)
+      });
+
+      return pdfDoc;
+    }
+
+    async function updatePreview() {
+      clearTimeout(previewDebounce);
+      previewDebounce = setTimeout(async () => {
+        try {
+          const pdfDoc = await buildPdf();
+          if (!pdfDoc) return;
+
+          const pdfBytes = await pdfDoc.save();
+          const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+          const url = URL.createObjectURL(blob);
+
+          // Render first page as an image using an embedded PDF -> canvas approach
+          // We'll use an iframe for simplicity as a preview
+          const wrap = document.getElementById('previewWrap');
+          wrap.innerHTML = '<iframe src="' + url + '#toolbar=0&navpanes=0" style="width:100%;aspect-ratio:1.46/1;border:none;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,.3);"></iframe>';
+        } catch (e) {
+          console.error('Preview error:', e);
+        }
+      }, 300);
+    }
+
+    async function downloadPdf() {
+      const btn = document.getElementById('btnDownload');
+      btn.disabled = true;
+      btn.textContent = 'Generando...';
+
+      try {
+        const pdfDoc = await buildPdf();
+        if (!pdfDoc) throw new Error('No template');
+
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+
+        const { fullName } = getFormData();
+        const name = document.getElementById('inputName').value.trim();
+        const lastname = document.getElementById('inputLastname').value.trim();
+        const fileName = (name && lastname)
+          ? 'Certificado_' + name + '_' + lastname + '.pdf'
+          : 'Certificado_RTCC_2026.pdf';
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.click();
+
+        setTimeout(() => URL.revokeObjectURL(url), 5000);
+      } catch (err) {
+        alert('Error al generar el certificado. Intentá de nuevo.');
+        console.error(err);
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Descargar certificado PDF';
+    }
+  </script>
+</body>
+</html>
