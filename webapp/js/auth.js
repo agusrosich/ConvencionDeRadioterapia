@@ -886,7 +886,7 @@ function updateCertificateSection() {
   const arrivalDone = typeof isArrivalValidated === 'function' && isArrivalValidated();
 
   // Convention end date: update this to actual convention end date
-  const conventionEnd = new Date('2026-03-28T23:59:59');
+  const conventionEnd = new Date('2026-03-14T23:59:59');
   const now = new Date();
   const conventionFinished = now >= conventionEnd;
 
